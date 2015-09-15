@@ -1,37 +1,27 @@
 title:            David Bernheisel
 description:      "Thoughts on life and programming"
-logo:             omikron.png
-# Assign a default image for your site's header and footer
-default_bg:       default_bg1.jpg
+logo:             db-light.png
+default_bg:       default_bg.jpg # Assign a default image for your site's header and footer
 search:           true
 share:            true
-# Read Time is a calculator tp provide post read-time based on word count. Usage is recommended.
-readtime:         true
-# Specify the average Words per minute. If not defined, 180 will be used
-wpm:				      180
-# Turn on or off the fin animations in the header and footer
-triangleheader:		true
+readtime:         true # Read Time is a calculator tp provide post read-time based on word count. Usage is recommended.
+wpm:				      180 # Specify the average Words per minute. If not defined, 180 will be used
+triangleheader:		true # Turn on or off the fin animations in the header and footer
 animated_fins:	  true
-# Specify the fin color in RGB value
-fin_color:        "255,255,255"
-# Change url to your domain. Leave localhost server or blank when working locally.
-# or use the hint from http://jekyllrb.com/docs/github-pages/ to keep this the same
-# whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
+fin_color:        "255,255,255" # Specify the fin color in RGB value
 url:
 
 # Owner/author information
 owner:
   name:           David Bernheisel
-  avatar:         hmfaysal.jpg
+  avatar:         david.jpg
   email:          david@bernheisel.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    David Bernheisel is a Ruby on Rails developer and high-achiever.
-  # Social networking links used in footer. Update and remove as you like.
+  description:    David Bernheisel is a Ruby on Rails developer.
   twitter:        bernheisel
   github:         dbernheisel
   stackexchange:  http://stackexchange.com/users/5391900/david-bernheisel
   linkedin:       https://www.linkedin.com/in/bernheisel
-  # For Google Authorship https://plus.google.com/authorship
   google_plus:    https://plus.google.com/+DavidBernheisel
 
 # Analytics and webmaster tools stuff goes here
@@ -52,7 +42,6 @@ links:
   - title: David Bernheisel
     url: /david-bernheisel
 
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/New_York
 future:      true
 highlighter: pygments
@@ -60,7 +49,7 @@ markdown:    kramdown
 paginate:    6
 paginate_path: "page:num"
 
-# https://github.com/mojombo/jekyll/wiki/Permalinks
+# https://github.com/mojombo/jekyll/wiki/Permalink
 permalink:   /:year/:month/:day/:title
 
 kramdown:
