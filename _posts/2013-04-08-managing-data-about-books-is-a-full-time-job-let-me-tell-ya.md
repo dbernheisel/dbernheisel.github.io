@@ -9,6 +9,6 @@ date_gmt: '2013-04-09 03:47:46 -0400'
 categories:
 - Life
 tags:
-- Google+
+- google+
 ---
 Managing metadata about books is a full time job; that stuff shouldn't be expected for free--somebody worked hard on that.﻿

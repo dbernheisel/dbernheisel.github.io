@@ -9,6 +9,6 @@ date_gmt: '2015-04-26 01:10:26 -0400'
 categories:
 - Life
 tags:
-- Google+
+- google+
 ---
 I want my quirk to be that I know and can bust out the full Thriller dance at any point. ﻿
