@@ -309,6 +309,10 @@ pre {
     font-size: 48px;
     text-align: center;
   }
+  .super-status {
+    font-size: 28px;
+    text-align: center;
+  }
   .super small {
     margin-top: 12px;
     display: block;
@@ -326,6 +330,10 @@ pre {
 @media (max-width: 480px) {
   .super {
     font-size: 36px;
+    line-superheight: 1em;
+  }
+  .super-status {
+    font-size: 28px;
     line-superheight: 1em;
   }
   .hyper {
