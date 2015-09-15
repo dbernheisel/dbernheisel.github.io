@@ -245,6 +245,10 @@ pre {
   line-height: 1;
   text-transform: uppercase;
 }
+.super-status {
+  font-size: 28px;
+  text-transform: none;
+}
 .super.text-center small {
   display: block;
   line-height: 1.5em;
