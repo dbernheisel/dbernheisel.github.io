@@ -11,8 +11,6 @@ tags: [bash, backup, mac]
 excerpt_separator: <!--excerpt-->
 ---
 
-## Needs cleanup
-
 I recently bought a MacBook Pro with a limited 256GB SSD. It's great, btw, but it requires me to now store all my music, movies, and archival-type files on an external drive. It scares me a bit to have all that stuff on a single USB-powered drive, so I also set up a network NAS that contains 2 mirrored 1TB drives (I salvaged these from my desktop that I sold to buy my MacBook).
 
 Enter problem: I'm lazy. I don't like manually backing everything up. I just want to manage the stuff I put on the external drive, not the NAS drive. Enter solution: BASH script, and launchd.
@@ -31,7 +29,7 @@ Here's the files I use (you'll need to edit to your systems needs):
 ## Getting the core logic:
 
 Here's the BASH Script in its entirety:
-```shell
+{% highlight bash %}
 #!/bin/bash
 remote="/Volumes/Volume_1"
 local="/Volumes/Storage"
@@ -90,7 +88,7 @@ if mount | grep "on ${local}" > /dev/null; then
 else
   echo "Storage drive is NOT mounted"
 fi
-```
+{% endhighlight %}
 
 There's a good amount of logic in there, so let's go through it.
 

@@ -11,6 +11,7 @@ animated_fins:	  true
 fin_color:        "255,255,255" # Specify the fin color in RGB value
 url:
 
+
 # Owner/author information
 owner:
   name:           David Bernheisel
