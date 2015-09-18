@@ -32,3 +32,7 @@ I quit Facebook. Not useful. Maybe it was my fault, but I felt like it became ju
 Google+ is nice, but it's not curating the feed to interesting things quite yet. I like the communities and browsing experience though. I'm there, but don't contribute much on Google+. If that's your flavor, hit me up at [+DavidBernheisel](https://plus.google.com/+DavidBernheisel)
 
 Twitter is "it" right now and really has the flexibility, ease-of-use, and most importantly: content. Hit me up at [@bernheisel](https://twitter.com/bernheisel).
+
+
+
+Source of image: http://blog.theironyard.com/2015/04/22/patrick-vecchione/
