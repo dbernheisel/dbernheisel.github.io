@@ -9,7 +9,7 @@ wpm:				      180 # Specify the average Words per minute. If not defined, 180 wi
 triangleheader:		true # Turn on or off the fin animations in the header and footer
 animated_fins:	  true
 fin_color:        "255,255,255" # Specify the fin color in RGB value
-url:
+url:              http://bernheisel.com
 
 
 # Owner/author information
