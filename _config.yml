@@ -21,7 +21,7 @@ owner:
   description:    David Bernheisel is a Ruby on Rails developer.
   twitter:        bernheisel
   github:         dbernheisel
-  stackexchange:  http://stackexchange.com/users/5391900/david-bernheisel
+  # stackexchange:  http://stackexchange.com/users/5391900/david-bernheisel
   linkedin:       https://www.linkedin.com/in/bernheisel
   google_plus:    https://plus.google.com/+DavidBernheisel
 
