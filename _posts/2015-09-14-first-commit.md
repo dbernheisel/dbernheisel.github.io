@@ -35,4 +35,4 @@ Twitter is "it" right now and really has the flexibility, ease-of-use, and most 
 
 
 
-Source of image: http://blog.theironyard.com/2015/04/22/patrick-vecchione/
+Image source: [The Iron Yard blog](http://blog.theironyard.com/2015/04/22/patrick-vecchione/)
