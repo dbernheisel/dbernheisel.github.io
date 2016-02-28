@@ -31,7 +31,7 @@ google_verify:
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:
 
-gems: [jekyll-paginate, pygments.rb]
+gems: [jekyll-paginate]
 
 # Links to include in footer navigation
 # For external links add external: true
@@ -47,7 +47,7 @@ links:
 
 timezone:    America/New_York
 future:      true
-highlighter: pygments
+highlighter: rogue
 markdown:    kramdown
 paginate:    10
 paginate_path: "page:num"
