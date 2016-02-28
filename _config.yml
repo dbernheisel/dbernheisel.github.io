@@ -36,13 +36,13 @@ gems: [jekyll-paginate, pygments.rb]
 # Links to include in footer navigation
 # For external links add external: true
 links:
-  - title: Home
+  - title: Blog
     url: /
     external: false
     icon: home
-  - title: Tags
+  - title: Blog Tags
     url: /tags
-  - title: David Bernheisel
+  - title: Portfolio
     url: /david-bernheisel
 
 timezone:    America/New_York
