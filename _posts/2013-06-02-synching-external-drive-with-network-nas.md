@@ -1,13 +1,8 @@
 ---
 layout: post
-status: publish
-published: true
 title: Synching an External USB Drive with a Network NAS
-date: '2013-06-02 18:10:59 -0400'
-date_gmt: '2013-06-02 23:10:59 -0400'
-categories:
-- Shell
-tags: [bash, backup, mac]
+categories: bash development
+date: 2013-06-02
 excerpt_separator: <!--excerpt-->
 ---
 
@@ -29,7 +24,8 @@ Here's the files I use (you'll need to edit to your systems needs):
 ## Getting the core logic:
 
 Here's the BASH Script in its entirety:
-{% highlight bash %}
+
+```bash
 #!/bin/bash
 remote="/Volumes/Volume_1"
 local="/Volumes/Storage"
@@ -88,7 +84,7 @@ if mount | grep "on ${local}" > /dev/null; then
 else
   echo "Storage drive is NOT mounted"
 fi
-{% endhighlight %}
+```
 
 There's a good amount of logic in there, so let's go through it.
 
@@ -103,8 +99,6 @@ I don't like hardcoding stuff I have to say over and over, so I start by naming 
 So now that I have everything named. Now it's time for some real logic.
 
 I start out by checking whether my script is already running. I check by attempting to create a folder. If the folder is already created, it'll fail, and then exit the script. Pretty simple. I can't tell you the specifics, but creating a folder is a great way of setting up a lock without conflicts, from what I've read online. In my script, I also used the folder as a status to inform me when the script is running. I also thought about creating a simple menubar app that'll show a spinning gear, but I don't really feel like overengineering this.
-
-Since my wife also uses my computer, I don't want to confuse her when a folder pops up on the desktop with nothing in it. So, I'm going to disguise it with an icon (more on the later). Sure, she could still double-click it and find nothing, but again, I'm lazy and this should be good enough. There are plenty of other things to spend my time on.
 
 So, I have my safety set so I'm not executing this script over on top of itself. Now I need to determine whether my necessary drives are mounted, I do this by nesting two if statements; one to check if the external drive is mounted, and another to check if the NAS is mounted. Obviously, I don't want anything to happen unless the drives are mounted. If they're not mounted, I exit.
 

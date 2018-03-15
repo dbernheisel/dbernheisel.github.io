@@ -1,7 +1,3 @@
-_site/
-.sass-cache/
-dbernheisel.github.io.sublime-project
-dbernheisel.github.io.sublime-workspace
-celia/
-_samples/
-ruby-lint.yml
+_site
+.sass-cache
+.jekyll-metadata

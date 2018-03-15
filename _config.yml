@@ -1,186 +1,41 @@
-title:            David Bernheisel
-description:      "Thoughts on life and programming"
-logo:             db-light.png
-default_bg:       default_bg.jpg # Assign a default image for your site's header and footer
-search:           true
-share:            true
-readtime:         true # Read Time is a calculator tp provide post read-time based on word count. Usage is recommended.
-wpm:				      180 # Specify the average Words per minute. If not defined, 180 will be used
-triangleheader:		true # Turn on or off the fin animations in the header and footer
-animated_fins:	  true
-fin_color:        "255,255,255" # Specify the fin color in RGB value
-url:              http://bernheisel.com
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: David Bernheisel
+email: david@bernheisel.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Blog about development
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://bernheisel.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: bernheisel
+github_username: dbernheisel
 
-# Owner/author information
-owner:
-  name:           David Bernheisel
-  avatar:         david.jpg
-  email:          david@bernheisel.com
-  # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    David Bernheisel is a Ruby on Rails developer.
-  twitter:        bernheisel
-  github:         dbernheisel
-  # stackexchange:  http://stackexchange.com/users/5391900/david-bernheisel
-  linkedin:       https://www.linkedin.com/in/bernheisel
-  google_plus:    https://plus.google.com/+DavidBernheisel
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
 
-# Analytics and webmaster tools stuff goes here
-google_analytics:   UA-38545084-1
-google_verify:
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:
-
-gems: [jekyll-paginate]
-
-# Links to include in footer navigation
-# For external links add external: true
-links:
-  - title: Blog
-    url: /
-    external: false
-    icon: home
-  - title: Blog Tags
-    url: /tags
-  - title: Portfolio
-    url: /david-bernheisel
-
-timezone:    America/New_York
-future:      true
-highlighter: rouge
-markdown:    kramdown
-paginate:    10
-paginate_path: "page:num"
-
-# https://github.com/mojombo/jekyll/wiki/Permalink
-permalink:   /:year/:month/:day/:title
-
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  enable_coderay: false
-  input: GFM
-
-  coderay:
-    coderay_line_numbers:
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 2
-    coderay_bold_every: 10
-    coderay_css: class
-
-prose:
-  rooturl: '_posts'
-  siteurl: 'http://bernheisel.com/'
-  relativeLinks: 'http://bernheisel.com/links.jsonp'
-  media: 'images'
-  metadata:
-    _posts:
-      - name: "published"
-        field:
-          label: "Published"
-          element: "checkbox"
-          value: "true"
-      - name: "layout"
-        field:
-          element: "hidden"
-          label: "Layout"
-          value: "post"
-      - name: "type"
-        field:
-          element: "select"
-          label: "Select Post Type"
-          placeholder: "Choose your type"
-          options:
-            - name: "Standard"
-              value:
-            - name: "Quote"
-              value: quote
-            - name: "Status"
-              value: status
-            - name: "Photo"
-              value: photo
-            - name: "Video"
-              value: video
-      - name: "title"
-        field:
-          label: "Title"
-          element: "text"
-          value: "An Awesome Headline!"
-      - name: "description"
-        field:
-          element: "text"
-          label: "Description"
-          placeholder: "Enter Post Description"
-      - name: "headline"
-        field:
-          element: "text"
-          label: "beadline"
-          placeholder: "Enter Post Headline"
-      - name: "modified"
-        field:
-          element: "text"
-          label: "Has this page been modified?"
-          placeholder: "YYYY-MM-DD"
-      - name: "categories"
-        field:
-          element: "multiselect"
-          label: "Add categories"
-          placeholder: "Choose categories"
-          value: personal
-          options:
-            - name: "Personal"
-              value: personal
-            - name: "Development"
-              value: development
-            - name: "Interesting"
-              value: interesting
-            - name: "Status"
-              value: status
-            - name: "Quotes"
-              value: quotes
-          alterable: true
-      - name: "tags"
-        field:
-          element: "text"
-          label: "Tags"
-          placeholder: "Enter tags, separated by spaces"
-      - name: "imagefeature"
-        field:
-          element: "text"
-          label: "Featured Image"
-          placeholder: "somefile.jpg"
-      - name: "imagecredit"
-        field:
-          element: "text"
-          label: "Image Credit"
-          placeholder: "some guy"
-      - name: "imagecreditlink"
-        field:
-          element: "text"
-          label: "Credit link for the image"
-          placeholder: "http://somewebsite.com"
-      - name: "video"
-        field:
-          element: "text"
-          label: "Insert Youtube Link"
-          placeholder: "http://youtube.com/somevideo"
-      - name: "mathjax"
-        field:
-          element: "checkbox"
-          label: "MathJax"
-          value: false
-      - name: "featured"
-        field:
-          element: "checkbox"
-          label: "Featured?"
-          value: false
-      - name: "comments"
-        field:
-          element: "checkbox"
-          label: "Comments"
-          value: false
-
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
