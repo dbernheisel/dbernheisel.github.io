@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Synching an External USB Drive with a Network NAS
+title: Syncing an External USB Drive with a Network NAS
 categories: bash development
 date: 2013-06-02
 excerpt_separator: <!--excerpt-->
@@ -9,6 +9,7 @@ excerpt_separator: <!--excerpt-->
 I recently bought a MacBook Pro with a limited 256GB SSD. It's great, btw, but it requires me to now store all my music, movies, and archival-type files on an external drive. It scares me a bit to have all that stuff on a single USB-powered drive, so I also set up a network NAS that contains 2 mirrored 1TB drives (I salvaged these from my desktop that I sold to buy my MacBook).
 
 Enter problem: I'm lazy. I don't like manually backing everything up. I just want to manage the stuff I put on the external drive, not the NAS drive. Enter solution: BASH script, and launchd.
+
 <!--excerpt-->
 
 Here's the files I use (you'll need to edit to your systems needs):
@@ -29,22 +30,22 @@ Here's the BASH Script in its entirety:
 #!/bin/bash
 remote="/Volumes/Volume_1"
 local="/Volumes/Storage"
-LOCK=~/Desktop/Synching
+LOCK=~/Desktop/Syncing
 logging=~/backup-rsync-log.txt
 sleeptime=20
 maxthreads=20
 set -e
 
 function cleanup {
-  echo "Removing Synching folder"
+  echo "Removing Syncing folder"
   rm -rf $LOCK
 }
 
 trap cleanup EXIT
 mkdir $LOCK || { echo "Backup already running" ; exit 1 ; }
-Rez -append ~/backup.rsrc -o ~/Desktop/Synching/$'Icon\r' # set the icon to lock folder
-SetFile -a C ~/Desktop/Synching # initiate the icon
-SetFile -a V ~/Desktop/Synching/$'Icon\r' # hide the icon file
+Rez -append ~/backup.rsrc -o ~/Desktop/Syncing/$'Icon\r' # set the icon to lock folder
+SetFile -a C ~/Desktop/Syncing # initiate the icon
+SetFile -a V ~/Desktop/Syncing/$'Icon\r' # hide the icon file
 sleep 15 # give time for mounting
 
 # Check if external drive is mounted
@@ -156,17 +157,17 @@ Fourth, modify the backup script to apply the icon.
 
 After the line where we make the lock folder, run a Rez command and a couple SetFile commands.
 
-`Rez -append ~/backup.rsrc -o ~/Desktop/Synching/$'Icon\r' # set the icon to lock folder`
+`Rez -append ~/backup.rsrc -o ~/Desktop/Syncing/$'Icon\r' # set the icon to lock folder`
 
-`SetFile -a C ~/Desktop/Synching # initiate the icon`
+`SetFile -a C ~/Desktop/Syncing # initiate the icon`
 
-`SetFile -a V ~/Desktop/Synching/$'Icon\r' # hide the icon file`
+`SetFile -a V ~/Desktop/Syncing/$'Icon\r' # hide the icon file`
 
 The first command adds the icon to the lock directory.
 
 The second command sets the folder attributes, which allows Finder to appreciate your new icon (otherwise, it won't recognize that cool icon you added)
 
-The third command sets the folder to invisible. This is totally optional, but if you ever double-click the "Synching" folder you'll find the icon resource, and that just seems ugly to me--so let's hide it.
+The third command sets the folder to invisible. This is totally optional, but if you ever double-click the "Syncing" folder you'll find the icon resource, and that just seems ugly to me--so let's hide it.
 
 *OK! YOU'RE DONE!*
 
