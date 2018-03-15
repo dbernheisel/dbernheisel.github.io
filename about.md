@@ -13,14 +13,17 @@ permalink: /about/
 </figure>
 [GitHub](https://github.com/wishcastr/wishcastr)
 
+_curently does not work since Amazon API key expired_
+
 Major functions:
-	- Users can set price thresholds on products and get notified when those products hit the threshold.
-	- Built on Rails 5 (API backend) and AngularJS 1.4 (Frontend)
-	- OAuth with Amazon Login
-	- Completely custom; no Ruby gems, CSS frameworks, or third-party Angular libaries.
-	- Background cron job to manage price updates
-	- Email notifications through Mailgun
-	- Consumes and normalizes Amazon Product Advertising API.
+
+- Users can set price thresholds on products and get notified when those products hit the threshold.
+- Built on Rails 5 (API backend) and AngularJS 1.4 (Frontend)
+- OAuth with Amazon Login
+- Completely custom; no Ruby gems, CSS frameworks, or third-party Angular libaries.
+- Background cron job to manage price updates
+- Email notifications through Mailgun
+- Consumes and normalizes Amazon Product Advertising API.
 
 
 ## Command Line Utilities (fun)
