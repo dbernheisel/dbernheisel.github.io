@@ -12,9 +12,6 @@ Enter problem: I'm lazy. I don't like manually backing everything up. I just wan
 
 <!--excerpt-->
 
-Here's the files I use (you'll need to edit to your systems needs):
-- [backup.zip](http://test.bernheisel.com/backup.zip)
-
 ## Overview
 
 1. I write BASH scripts at work, so this was my goto place for automating something I don't want to do.
