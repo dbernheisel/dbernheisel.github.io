@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Ruby, Rails, and CircleCI 2.0 Workflows"
-categories: ruby development, ci
-date: 2018-08-27
+categories: ruby development
+date: 2018-08-26
 excerpt_separator: <!--excerpt-->
 ---
 
@@ -10,7 +10,8 @@ excerpt_separator: <!--excerpt-->
 
 There's a movement lately in the development world that I've really enjoyed:
 
-> Know your tools
+> "Know your tools"
+> -- Tool authors, probably
 
 It's encouraged me to dive deeper into the tools that I use every day and
 understand more how they work.
@@ -132,7 +133,7 @@ can run some of these in parallel instead of serially; that might give us
 a speed boost; more importantly, it communicates better where the failure is
 happening, if it happens 🤞
 
-![GitHub Integration](./images/circleci2-github.png)
+![GitHub Integration](/images/circleci2-github.png)
 
 Also, what if your ruby tests fail-- wouldn't you also like to know if your
 JavaScript tests fail? Most of the CI scripts I've seen will stop on the first
@@ -318,7 +319,7 @@ site.
 
 This feature gives us this:
 
-![Test metadata at the top](./images/circleci2-failures.png)
+![Test metadata at the top](/images/circleci2-failures.png)
 
 One more CircleCI feature: [storing artifacts]. I think this is normally for
 compiled binaries of your app, but I'm going to use it for storing screenshots
@@ -404,7 +405,7 @@ a commit on the `master` branch.
 
 That gives us this shape:
 
-![Workflow Shape](./images/circleci2-workflow.png)
+![Workflow Shape](/images/circleci2-workflow.png)
 
 Remember, if you also linted the code and had JavaScript tests, you could have
 4 jobs running in parallel since they don't depend on each other (only
