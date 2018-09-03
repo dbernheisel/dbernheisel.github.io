@@ -1,2 +1,5 @@
 # dbernheisel.github.io
-My Website at http://bernheisel.com
+My website at https://bernheisel.com
+
+## Running in develop
+`yarn run dev`
