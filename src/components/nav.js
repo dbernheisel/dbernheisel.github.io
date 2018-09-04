@@ -4,7 +4,6 @@ import profilePic from '../assets/profile-picture.jpg'
 import Link from './link'
 import { OutboundLink } from 'gatsby-plugin-google-analytics'
 import cx from 'classnames'
-import config from '../css/tailwind.config.js'
 
 const HeaderLink = ({children}) => {
   return (

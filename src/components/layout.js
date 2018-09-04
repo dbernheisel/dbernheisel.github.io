@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Nav from './nav'
 
 import '../css/tailwind.css';

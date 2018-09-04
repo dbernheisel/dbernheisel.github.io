@@ -252,15 +252,14 @@ module.exports = {
 
   textSizes: {
     'xs': '.75rem',     // 12px
-    'sm': '.875rem',    // 14px
+    //'sm': '.875rem',    // 14px
     'base': '1rem',     // 16px
-    'lg': '1.125rem',   // 18px
-    'xl': '1.25rem',    // 20px
+    //'lg': '1.125rem',   // 18px
+    //'xl': '1.25rem',    // 20px
     '2xl': '1.5rem',    // 24px
     '3xl': '1.875rem',  // 30px
     '4xl': '2.25rem',   // 36px
     '5xl': '3rem',      // 48px
-    '6xl': '4rem',      // 48px
   },
 
 
@@ -281,7 +280,7 @@ module.exports = {
   fontWeights: {
     //'hairline': 100,
     //'thin': 200,
-    'light': 300,
+    //'light': 300,
     'normal': 400,
     'medium': 500,
     //'semibold': 600,
@@ -304,10 +303,10 @@ module.exports = {
   */
 
   leading: {
-    'none': 1,
-    'tight': 1.25,
+    //'none': 1,
+    //'tight': 1.25,
     'normal': 1.5,
-    'loose': 2,
+    //'loose': 2,
   },
 
 
@@ -324,9 +323,9 @@ module.exports = {
   */
 
   tracking: {
-    'tight': '-0.05em',
+    //'tight': '-0.05em',
     'normal': '0',
-    'wide': '0.05em',
+    //'wide': '0.05em',
   },
 
 
@@ -400,7 +399,7 @@ module.exports = {
     '0': '0',
     '2': '2px',
     '4': '4px',
-    '8': '8px',
+    //'8': '8px',
   },
 
 
@@ -442,9 +441,9 @@ module.exports = {
 
   borderRadius: {
     'none': '0',
-    'sm': '.125rem',
+    //'sm': '.125rem',
     default: '.25rem',
-    'lg': '.5rem',
+    //'lg': '.5rem',
     'full': '9999px',
   },
 
@@ -471,32 +470,32 @@ module.exports = {
 
   width: {
     'auto': 'auto',
-    'px': '1px',
+    //'px': '1px',
     '1': '0.25rem',
     '2': '0.5rem',
     '3': '0.75rem',
     '4': '1rem',
-    '5': '1.25rem',
+    //'5': '1.25rem',
     '6': '1.5rem',
-    '8': '2rem',
-    '10': '2.5rem',
-    '12': '3rem',
+    //'8': '2rem',
+    //'10': '2.5rem',
+    //'12': '3rem',
     '16': '4rem',
-    '24': '6rem',
+    //'24': '6rem',
     '32': '8rem',
-    '48': '12rem',
-    '64': '16rem',
+    //'48': '12rem',
+    //'64': '16rem',
     '1/2': '50%',
-    '1/3': '33.33333%',
-    '2/3': '66.66667%',
-    '1/4': '25%',
-    '3/4': '75%',
-    '1/5': '20%',
-    '2/5': '40%',
-    '3/5': '60%',
-    '4/5': '80%',
-    '1/6': '16.66667%',
-    '5/6': '83.33333%',
+    //'1/3': '33.33333%',
+    //'2/3': '66.66667%',
+    //'1/4': '25%',
+    //'3/4': '75%',
+    //'1/5': '20%',
+    //'2/5': '40%',
+    //'3/5': '60%',
+    //'4/5': '80%',
+    //'1/6': '16.66667%',
+    //'5/6': '83.33333%',
     'full': '100%',
     'screen': '100vw'
   },
@@ -519,21 +518,21 @@ module.exports = {
 
   height: {
     'auto': 'auto',
-    'px': '1px',
-    '1': '0.25rem',
-    '2': '0.5rem',
+    //'px': '1px',
+    //'1': '0.25rem',
+    //'2': '0.5rem',
     '3': '0.75rem',
-    '4': '1rem',
-    '5': '1.25rem',
+    //'4': '1rem',
+    //'5': '1.25rem',
     '6': '1.5rem',
-    '8': '2rem',
-    '10': '2.5rem',
-    '12': '3rem',
-    '16': '4rem',
-    '24': '6rem',
+    //'8': '2rem',
+    //'10': '2.5rem',
+    //'12': '3rem',
+    //'16': '4rem',
+    //'24': '6rem',
     '32': '8rem',
-    '48': '12rem',
-    '64': '16rem',
+    //'48': '12rem',
+    //'64': '16rem',
     'full': '100%',
     'screen': '100vh'
   },
@@ -596,16 +595,16 @@ module.exports = {
   */
 
   maxWidth: {
-    'xs': '20rem',
-    'sm': '30rem',
-    'md': '40rem',
+    //'xs': '20rem',
+    //'sm': '30rem',
+    //'md': '40rem',
     'lg': '50rem',
-    'xl': '60rem',
-    '2xl': '70rem',
-    '3xl': '80rem',
-    '4xl': '90rem',
-    '5xl': '100rem',
-    'full': '100%',
+    //'xl': '60rem',
+    //'2xl': '70rem',
+    //'3xl': '80rem',
+    //'4xl': '90rem',
+    //'5xl': '100rem',
+    //'full': '100%',
   },
 
 
@@ -645,21 +644,21 @@ module.exports = {
   */
 
   padding: {
-    'px': '1px',
+    //'px': '1px',
     '0': '0',
     '1': '0.25rem',
     '2': '0.5rem',
     '3': '0.75rem',
     '4': '1rem',
-    '5': '1.25rem',
+    //'5': '1.25rem',
     '6': '1.5rem',
-    '8': '2rem',
-    '10': '2.5rem',
-    '12': '3rem',
-    '16': '4rem',
-    '20': '5rem',
-    '24': '6rem',
-    '32': '8rem',
+    //'8': '2rem',
+    //'10': '2.5rem',
+    //'12': '3rem',
+    //'16': '4rem',
+    //'20': '5rem',
+    //'24': '6rem',
+    //'32': '8rem',
   },
 
 
@@ -680,21 +679,21 @@ module.exports = {
 
   margin: {
     'auto': 'auto',
-    'px': '1px',
+    //'px': '1px',
     '0': '0',
-    '1': '0.25rem',
+    //'1': '0.25rem',
     '2': '0.5rem',
-    '3': '0.75rem',
+    //'3': '0.75rem',
     '4': '1rem',
-    '5': '1.25rem',
-    '6': '1.5rem',
+    //'5': '1.25rem',
+    //'6': '1.5rem',
     '8': '2rem',
-    '10': '2.5rem',
-    '12': '3rem',
-    '16': '4rem',
-    '20': '5rem',
-    '24': '6rem',
-    '32': '8rem',
+    //'10': '2.5rem',
+    //'12': '3rem',
+    //'16': '4rem',
+    //'20': '5rem',
+    //'24': '6rem',
+    //'32': '8rem',
   },
 
 
@@ -714,25 +713,25 @@ module.exports = {
   */
 
   negativeMargin: {
-    'px': '1px',
+    //'px': '1px',
     '0': '0',
-    '1': '0.25rem',
-    '2': '0.5rem',
-    '3': '0.75rem',
-    '4': '1rem',
-    '5': '1.25rem',
-    '6': '1.5rem',
-    '8': '2rem',
+    //'1': '0.25rem',
+    //'2': '0.5rem',
+    //'3': '0.75rem',
+    //'4': '1rem',
+    //'5': '1.25rem',
+    //'6': '1.5rem',
+    //'8': '2rem',
     '9': '2.25rem',
     '10': '2.5rem',
-    '11': '2.75rem',
-    '12': '3rem',
+    //'11': '2.75rem',
+    //'12': '3rem',
     '13': '3.25rem',
     '14': '3.5rem',
-    '16': '4rem',
-    '20': '5rem',
-    '24': '6rem',
-    '32': '8rem',
+    //'16': '4rem',
+    //'20': '5rem',
+    //'24': '6rem',
+    //'32': '8rem',
   },
 
 
@@ -755,9 +754,9 @@ module.exports = {
   shadows: {
     default: '0 2px 4px 0 rgba(0,0,0,0.10)',
     'md': '0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08)',
-    'lg': '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
-    'inner': 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
-    'outline': '0 0 0 3px rgba(52,144,220,0.5)',
+    //'lg': '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
+    //'inner': 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
+    //'outline': '0 0 0 3px rgba(52,144,220,0.5)',
     'none': 'none',
   },
 
@@ -866,54 +865,54 @@ module.exports = {
   */
 
   modules: {
-    appearance: ['responsive'],
-    backgroundAttachment: ['responsive'],
-    backgroundColors: ['responsive', 'hover', 'focus'],
-    backgroundPosition: ['responsive'],
-    backgroundRepeat: ['responsive'],
-    backgroundSize: ['responsive'],
-    borderCollapse: [],
-    borderColors: ['responsive', 'hover', 'focus'],
+    appearance: false,
+    backgroundAttachment: false,
+    backgroundColors: ['hover'],
+    backgroundPosition: false,
+    backgroundRepeat: false,
+    backgroundSize: false,
+    borderCollapse: false,
+    borderColors: ['hover'],
     borderRadius: ['responsive'],
     borderStyle: ['responsive'],
     borderWidths: ['responsive'],
-    cursor: ['responsive'],
+    cursor: false,
     display: ['responsive'],
     flexbox: ['responsive'],
-    float: ['responsive'],
+    float: false,
     fonts: ['responsive'],
     fontWeights: [],
     height: ['responsive'],
-    leading: ['responsive'],
-    lists: ['responsive'],
+    leading: [],
+    lists: [],
     margin: ['responsive'],
-    maxHeight: ['responsive'],
+    maxHeight: false,
     maxWidth: ['responsive'],
     minHeight: ['responsive'],
-    minWidth: ['responsive'],
+    minWidth: false,
     negativeMargin: ['responsive'],
-    opacity: ['responsive'],
-    outline: ['focus'],
+    opacity: false,
+    outline: false,
     overflow: [],
-    padding: ['responsive'],
+    padding: [],
     pointerEvents: [],
-    position: ['responsive'],
-    resize: ['responsive'],
+    position: [],
+    resize: false,
     shadows: [],
     svgFill: [],
-    svgStroke: [],
+    svgStroke: false,
     tableLayout: ['responsive'],
     textAlign: ['responsive'],
     textColors: ['responsive', 'hover', 'focus'],
     textSizes: ['responsive'],
     textStyle: ['responsive', 'hover', 'focus'],
-    tracking: ['responsive'],
+    tracking: [],
     userSelect: ['responsive'],
-    verticalAlign: ['responsive'],
+    verticalAlign: [],
     visibility: ['responsive'],
-    whitespace: ['responsive'],
+    whitespace: [],
     width: ['responsive'],
-    zIndex: ['responsive'],
+    zIndex: false
   },
 
 

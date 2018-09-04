@@ -1,9 +1,7 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import { OutboundLink } from 'gatsby-plugin-google-analytics'
-import { GatsbyImageSharpFluid_tracedSVG } from 'gatsby-transformer-sharp'
 import get from 'lodash/get'
-import some from 'lodash/some'
 import Helmet from 'react-helmet'
 
 import Layout from '../components/layout'

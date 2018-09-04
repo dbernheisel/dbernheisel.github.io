@@ -1,5 +1,4 @@
 import React from 'react'
-import { graphql } from 'gatsby'
 import { OutboundLink } from 'gatsby-plugin-google-analytics'
 import get from 'lodash/get'
 import Helmet from 'react-helmet'
