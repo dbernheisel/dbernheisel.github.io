@@ -1683,6 +1683,10 @@ nav a:hover {
   height: 1.5rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-32 {
   height: 8rem;
 }
@@ -3415,6 +3419,10 @@ nav a:hover {
     height: 1.5rem;
   }
 
+  .sm\:h-7 {
+    height: 1.75rem;
+  }
+
   .sm\:h-32 {
     height: 8rem;
   }
@@ -4759,6 +4767,10 @@ nav a:hover {
 
   .md\:h-6 {
     height: 1.5rem;
+  }
+
+  .md\:h-7 {
+    height: 1.75rem;
   }
 
   .md\:h-32 {
@@ -6107,6 +6119,10 @@ nav a:hover {
     height: 1.5rem;
   }
 
+  .lg\:h-7 {
+    height: 1.75rem;
+  }
+
   .lg\:h-32 {
     height: 8rem;
   }
@@ -7041,4 +7057,4 @@ nav a:hover {
 }
 
 
-/*# sourceMappingURL=1.d1e1ba9df8a6832ff1ed.css.map*/
+/*# sourceMappingURL=1.bbd6edfcf944b79adbf8.css.map*/
