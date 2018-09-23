@@ -1525,6 +1525,10 @@ table {
   height: 1.5rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-32 {
   height: 8rem;
 }
@@ -3250,6 +3254,10 @@ table {
     height: 1.5rem;
   }
 
+  .sm\:h-7 {
+    height: 1.75rem;
+  }
+
   .sm\:h-32 {
     height: 8rem;
   }
@@ -4590,6 +4598,10 @@ table {
     height: 1.5rem;
   }
 
+  .md\:h-7 {
+    height: 1.75rem;
+  }
+
   .md\:h-32 {
     height: 8rem;
   }
@@ -5928,6 +5940,10 @@ table {
 
   .lg\:h-6 {
     height: 1.5rem;
+  }
+
+  .lg\:h-7 {
+    height: 1.75rem;
   }
 
   .lg\:h-32 {

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import profilePic from '../assets/profile-picture.jpg'
+import rssIcon from '../assets/rss-feed.svg'
 import Link from './link'
 import { OutboundLink } from 'gatsby-plugin-google-analytics'
 import cx from 'classnames'
@@ -72,7 +73,7 @@ export default class Nav extends React.Component {
     )
 
     return (
-      <nav className='shadow-md flex items-center justify-between flex-wrap bg-teal p-6'>
+      <nav className='shadow-md flex items-center justify-between flex-wrap bg-teal p-4'>
         <HeaderLink />
         <div className='block lg:hidden'>
           <button
@@ -89,6 +90,11 @@ export default class Nav extends React.Component {
           <NavLink {...this.props} to='/projects/'>Projects</NavLink>
           <OutboundNavLink href="https://twitter.com/bernheisel">Twitter</OutboundNavLink>
           <OutboundNavLink href="https://linkedin.com/in/bernheisel">LinkedIn</OutboundNavLink>
+          <div className="lg:mt-0 mt-4 py-1">
+            <a href='/rss.xml'>
+              <img className="h-7 align-middle" src={rssIcon} alt="RSS"/>
+            </a>
+          </div>
         </div>
       </nav>
     )
