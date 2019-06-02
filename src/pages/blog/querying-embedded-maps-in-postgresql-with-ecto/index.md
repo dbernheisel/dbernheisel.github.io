@@ -29,7 +29,7 @@ but it doesn't really assist you with querying those fields in SQL. This
 is where I became extremely greatful for [Ecto's escape
 hatch][fragment_link]: `fragment()`.
 
-# Define the Struct or Map in Ecto
+## Define the Struct or Map in Ecto
 
 Let's dive into some code as an example:
 
@@ -104,7 +104,7 @@ schema "vehicle_photos" do
 end
 ```
 
-# Query the JSON
+## Query the JSON
 
 Continuing with the struct example schema, we found out that some of our
 URLs weren't being populated like we expected, so I had to find those
@@ -151,7 +151,7 @@ def where_photo_url_wrong(query) do
 end
 ```
 
-# Make the Query Composable
+## Make the Query Composable
 
 Above is all I needed for my use case, but I wondered how I could continue
 querying those fields in a reusable way. For example, how do I chain these
