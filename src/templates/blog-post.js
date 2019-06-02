@@ -47,8 +47,8 @@ class BlogPostTemplate extends React.Component {
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
 
-        <article>
-          <h1 className="mb-0 text-red">{post.frontmatter.title}</h1>
+        <article class="blog-post">
+          <h1 className="text-3xl mb-0">{post.frontmatter.title}</h1>
           <p className="frontmatter mt-0 mb-8 text-sm">
             <span>
               Published on {post.frontmatter.date}

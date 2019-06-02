@@ -1,7 +1,7 @@
 body {
-  background: config('colors.black');
-  color: config('colors.white');
-  font-size: config('textSizes.lg');
+  background: theme('colors.black');
+  color: theme('colors.white');
+  font-size: theme('textSizes.lg');
   font-weight: 300;
   margin: 0;
   @apply .leading-normal;
@@ -21,25 +21,31 @@ h4, h5, h6 {
   @apply .text-red;
 }
 
+h1 { @apply .text-3xl }
+h2 { @apply .text-2xl }
+h3 { @apply .text-xl }
+h4, h5, h6 { @apply .text-lg }
+
 h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
   @apply .text-red-lighter;
   @apply .mr-4;
-  content: "####";
 }
 
 h1::before {
   content: "#";
-  @apply .-ml-10;
+  @apply .-ml-9;
 }
 
 h2::before {
   content: "##";
-  @apply .-ml-13;
 }
 
 h3::before {
   content: "###";
-  @apply .-ml-14;
+}
+
+h4::before, h5::before, h6::before {
+  content: "####";
 }
 
 blockquote {
@@ -52,7 +58,7 @@ p {
 }
 
 strong {
-  @apply .font-bold;
+  @apply .font-semibold;
 }
 
 article a {
@@ -97,6 +103,7 @@ nav a:hover {
 
 .post-header {
   @apply .text-3xl;
+  @apply .font-semibold;
 }
 
 .post-header a {
@@ -104,12 +111,8 @@ nav a:hover {
   @apply .no-underline;
 }
 
-.post-header::before {
-  @apply .-ml-9;
-}
-
 .frontmatter {
-  @apply .text-grey;
+  @apply .text-gray;
   @apply .text-xs;
 }
 
