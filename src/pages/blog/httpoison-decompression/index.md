@@ -63,7 +63,7 @@ Here are some of the options for `Content-Encoding`:
 | value      |  meaning                                                            |
 |------------|----------------------------------------------------------------------|
 | `gzip`     | Compressed with Lempel-Ziv (LZ77). On desktops, this is a `.gz` file |
-| `x-gzip`   | Same as above, just an order expression                              |
+| `x-gzip`   | Same as above, just an older expression                              |
 | `compress` | Compressed with Lempel-Ziv-Welch (LZW)                               |
 | `deflate`  | Compressed with zlib. On desktops, this is a normal `.zip` file      |
 | `br`       | Compressed with brotli.                                              |
