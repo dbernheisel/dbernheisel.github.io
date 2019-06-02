@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 02 Jun 2019 00:19:00 GMT</lastBuildDate><item><title><![CDATA[HTTPoison and Decompression]]></title><description><![CDATA[Did you know that Ruby’s
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 02 Jun 2019 00:27:42 GMT</lastBuildDate><item><title><![CDATA[HTTPoison and Decompression]]></title><description><![CDATA[Did you know that Ruby’s
 Net::HTTP
 class automatically decompresses responses? It handles a lot of use cases that
 we don’t have to remember…]]></description><link>https://bernheisel.com/blog/httpoison-decompression/</link><guid isPermaLink="false">https://bernheisel.com/blog/httpoison-decompression/</guid><pubDate>Sat, 01 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Did you know that Ruby’s
@@ -447,7 +447,7 @@ missed anything or you have another cool idea.&lt;/p&gt;
 what we don’t need: yet another HTTP client. But, if you found yourself needing
 to decompress responses with HTTPoison, then this will be a good start.&lt;/p&gt;
 &lt;p&gt;You’ll notice that this doesn’t implement all the calls (we’re missing the ones
-like &lt;code class=&quot;language-text&quot;&gt;delete&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;head&lt;/code&gt;; nor is it the smartest way to solve the problem. I’ll
+like &lt;code class=&quot;language-text&quot;&gt;delete&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;head&lt;/code&gt;), nor is it the smartest way to solve the problem. I’ll
 leave the gaps to inspire you.&lt;/p&gt;
 &lt;h2&gt;Or use &lt;a href=&quot;https://github.com/teamon/tesla&quot;&gt;Tesla&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Tesla supports decompression out of the box; so if you started on that HTTP
