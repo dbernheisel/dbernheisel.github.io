@@ -1,4 +1,164 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 16 Jun 2019 00:07:14 GMT</lastBuildDate><item><title><![CDATA[HTTPoison and Decompression]]></title><description><![CDATA[Did you know that Ruby’s
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Sep 2019 13:59:12 GMT</lastBuildDate><item><title><![CDATA[VIM Testing and Workflow]]></title><description><![CDATA[I love my VIM workflow, so I want to share that with you. I am by-no-means a VIM
+expert or purist — my neovim files are not slim and are a…]]></description><link>https://bernheisel.com/blog/vim-workflow/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-workflow/</guid><pubDate>Wed, 28 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I love my VIM workflow, so I want to share that with you. I am by-no-means a VIM
+expert or purist — my &lt;a href=&quot;https://neovim.io&quot;&gt;neovim&lt;/a&gt; files are not slim and are a melting pot of
+stolen code from others, sometimes modified or not; sometimes found in GitHub
+comments, sometimes found in others’ dotfiles, or Reddit comments.&lt;/p&gt;
+&lt;p&gt;If you develop in Ruby or Elixir or write Markdown, you might find this helpful.&lt;/p&gt;
+&lt;p&gt;Let’s start with some basics:&lt;/p&gt;
+&lt;h2&gt;Environment&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://neovim.io&quot;&gt;neovim&lt;/a&gt; - right now I’m using 0.4.0 so I can use floating windows.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://sw.kovidgoyal.net/kitty/&quot;&gt;kitty&lt;/a&gt; Terminal Emulator&lt;/li&gt;
+&lt;li&gt;built-in terminal in neovim&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.archlinux.org&quot;&gt;ArchLinux&lt;/a&gt; - My distro of choice. Shouldn’t matter for this article.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Airblader/i3&quot;&gt;i3&lt;/a&gt; - My window manager. Shouldn’t matter for this article.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/junegunn/vim-plug&quot;&gt;Plug&lt;/a&gt; - for managing neovim plugins.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are three ways that I can split my workspace: (1) via my window manager
+&lt;a href=&quot;https://github.com/Airblader/i3&quot;&gt;i3&lt;/a&gt;, (2) via my terminal emulator &lt;a href=&quot;https://sw.kovidgoyal.net/kitty/&quot;&gt;kitty&lt;/a&gt;, (3) via &lt;a href=&quot;https://neovim.io&quot;&gt;neovim&lt;/a&gt; with
+splits/buffers. Generally I adhere to this practice:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Split with i3 if it’s an application, especially a GUI app. This gives me
+the ability to move the window to another desktop if I want.&lt;/li&gt;
+&lt;li&gt;Split with built-in neovim terminal for tests.&lt;/li&gt;
+&lt;li&gt;Don’t split with kitty ever. It’d be too confusing for me to have 3 sets of
+keyboard shortcuts to keep track of for switching windows/panes/splits.
+Maybe one day I’ll replace the built-in neovim terminal with a kitty split
+or an i3 split.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Testing&lt;/h2&gt;
+&lt;p&gt;I use &lt;a href=&quot;https://github.com/janko/vim-test&quot;&gt;vim-test&lt;/a&gt; and it’s pretty incredible. I picked this workflow up while
+working at thoughtbot from some good friends and the &lt;a href=&quot;https://github.com/thoughtbot/dotfiles&quot;&gt;thoughtbot dotfiles&lt;/a&gt;,
+and it changed the way I code. The whole TDD workflow is great despite that I
+still have trouble actually writing tests first - I tend to spike, iterate,
+iterate, THEN write tests, then open a PR. Yea— this probably means I’m not a
+10x developer 😛&lt;/p&gt;
+&lt;p&gt;I use &lt;a href=&quot;https://github.com/kassio/neoterm&quot;&gt;neoterm&lt;/a&gt; to help open up terminal splits while coding. When I’m at home,
+I have an ultrawide that I use so splitting windows vertically is the way to go;
+but when I’m mobile with my laptop then I typically split horizontally. I want
+tests to be visible either way, so I want this to be flexible.&lt;/p&gt;
+&lt;p&gt;The vim-test neoterm strategy defaults to sending tests to the last-used neoterm
+buffer; I can have more terminal buffers, but the first one I open is what
+vim-test will use going forward.&lt;/p&gt;
+&lt;p&gt;Here’s how I configure vim-test with neoterm.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; `/.config/nvim/init.vim&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;&quot; Test&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#strategy &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;neoterm&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_shell &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;$SHELL -l&apos;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;&quot; use the login shell&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_default_mod &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;vert&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_autoscroll &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;      &lt;span class=&quot;token comment&quot;&gt;&quot; autoscroll to the bottom when entering insert mode&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_size &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;80&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_fixedsize &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;       &lt;span class=&quot;token comment&quot;&gt;&quot; fixed size. The autosizing was wonky for me&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_keep_term_open &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;&quot; when buffer closes, exit the terminal too.&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;&quot; Create some commands that makes the splits easy&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;OpenTermV&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_size &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;80&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;pwd&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+  execute &lt;span class=&quot;token string&quot;&gt;&apos;vert T &apos;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;OpenTermH&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;neoterm_size &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;pwd&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+  execute &lt;span class=&quot;token string&quot;&gt;&apos;belowright T &apos;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+command&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;nargs&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; VT &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;OpenTermV&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+command&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;nargs&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;?&lt;/span&gt; HT &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;OpenTermH&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;RunTestSuite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  Tclear
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;filereadable&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;bin/test_suite&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    T echo &lt;span class=&quot;token string&quot;&gt;&apos;bin/test_suite&apos;&lt;/span&gt;
+    T &lt;span class=&quot;token builtin&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;test_suite
+  &lt;span class=&quot;token keyword&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;filereadable&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;bin/test&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    T echo &lt;span class=&quot;token string&quot;&gt;&apos;bin/test&apos;&lt;/span&gt;
+    T &lt;span class=&quot;token builtin&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;test
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    TestSuite
+  &lt;span class=&quot;token keyword&quot;&gt;endif&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; TestNearest&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;T &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; TestFile&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;a &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;RunTestSuite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; TestLast&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;g &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; TestVisit&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;I’ve found it conventional to have a &lt;code class=&quot;language-text&quot;&gt;bin/test_suite&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;bin/test&lt;/code&gt; script in
+the project that takes care of a lot of details like environment exports,
+cleanup, or making sure the test environment’s database is setup as well as
+running all the tests. Even if the test suite isn’t complicated, it’s still
+helpful for new developers on the project.&lt;/p&gt;
+&lt;p&gt;If that script is present and when I want to run all tests, I should execute
+that file; otherwise use the default vim-test suite command. For non-suite
+tests, I use the default vim-test commands.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;a&lt;/code&gt; triggers the &lt;strong&gt;a&lt;/strong&gt;ll tests. If a neoterm split isn’t open,
+then it’ll automatically open on with the default settings— in my case, a
+vertical split at 80 columns wide. If a neoterm split is already open, then
+it’ll send the test to that split. In situations where my vertical space is
+lacking, I prep by opening up a split, and then hit my test shortcut. &lt;code class=&quot;language-text&quot;&gt;:HT&lt;/code&gt; to
+open the terminal up.&lt;/p&gt;
+&lt;p&gt;If I’m testing a method or function, then &lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;t&lt;/code&gt; to send the nearest
+&lt;strong&gt;t&lt;/strong&gt;est to it. If I’m trying to make a test pass, I’ll modify the code and then
+&lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;l&lt;/code&gt; to run the &lt;strong&gt;l&lt;/strong&gt;ast test. If I’m refactoring a class or module, I’ll
+run all the &lt;strong&gt;T&lt;/strong&gt;ests for it. I haven’t found myself using vim-test’s TestVisit.
+If you have some examples on where that command helps, I’d love to hear it!&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/dHzLsMxDHB6sDNQXN2OqBZYPf&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/dHzLsMxDHB6sDNQXN2OqBZYPf.svg&quot; alt=&quot;asciicast&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There might be a pesky app where I need to opt-into an environment variable but
+only when I’m running a small amount of tests. vim-test let’s me define my own
+transformations to the commands. I can check for a certain file and string in it
+to determine what project I’m in. If I’m in that project, then modify the
+command where I can.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; `/.config/nvim/after/ftplugin/ruby.vim&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;MyAppRspec&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; abort
+  &lt;span class=&quot;token comment&quot;&gt;&quot; If I&apos;m in the pesky app and&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;&quot; not running the entire test suite indicated by the --profile flag&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;&quot; Add the SKIP_FIXTURES env var.&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;--profile&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;cat README.md | grep &apos;MyApp&apos;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;substitute&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;bundle exec&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;SKIP_FIXTURES=true bundle exec&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd
+  &lt;span class=&quot;token keyword&quot;&gt;endif&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#custom_transformations &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      \ &lt;span class=&quot;token string&quot;&gt;&apos;myapp_ruby&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;MyAppRspec&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      \ &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#transformation &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;myapp_ruby&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;On the Elixir side, umbrella apps can be a little tricky. vim-test will send the
+path of the test to &lt;code class=&quot;language-text&quot;&gt;mix test {file}&lt;/code&gt;, but &lt;code class=&quot;language-text&quot;&gt;mix&lt;/code&gt; will run that command for each
+of the apps in the umbrella. That’s probably not what we want to do since that
+test exists for only one for apps. Again, we can solve it with a transformation.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; `/.config/nvim/after/ftplugin/elixir.vim&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ElixirUmbrellaTransform&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; abort
+  &lt;span class=&quot;token comment&quot;&gt;&quot; if in an umbrella project indicated by the existence of an ./apps folder&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;&quot; limit the mix command to the app to which the test belongs&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;apps/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;&quot; capture the app from the file path, and send it to the --app flag instead&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;substitute&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mix test apps/\([^/]*\)/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;mix cmd --app \1 mix test --color &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cmd
+  end
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#custom_transformations &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+       \ &lt;span class=&quot;token string&quot;&gt;&apos;elixir_umbrella&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;ElixirUmbrellaTransform&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+       \ &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#transformation &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;elixir_umbrella&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;That’s it for tests!&lt;/p&gt;
+&lt;p&gt;Hope you picked up something nifty. If you have any tips for me, send them my
+way &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[HTTPoison and Decompression]]></title><description><![CDATA[Did you know that Ruby’s
 Net::HTTP
 class automatically decompresses responses? It handles a lot of use cases that
 we don’t have to remember…]]></description><link>https://bernheisel.com/blog/httpoison-decompression/</link><guid isPermaLink="false">https://bernheisel.com/blog/httpoison-decompression/</guid><pubDate>Sat, 01 Jun 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Did you know that Ruby’s
@@ -56,7 +216,7 @@ don’t automatically decompress data for you.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;x-gzip&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Same as above, just an older expression&lt;/td&gt;
+&lt;td&gt;Same as above, just an order expression&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;compress&lt;/code&gt;&lt;/td&gt;
