@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Sep 2019 14:02:38 GMT</lastBuildDate><item><title><![CDATA[VIM Testing and Workflow]]></title><description><![CDATA[I love my VIM workflow, so I want to share that with you. I am by-no-means a VIM
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 10 Sep 2019 14:05:42 GMT</lastBuildDate><item><title><![CDATA[VIM Testing and Workflow]]></title><description><![CDATA[I love my VIM workflow, so I want to share that with you. I am by-no-means a VIM
 expert or purist — my neovim files are not slim and are a…]]></description><link>https://bernheisel.com/blog/vim-workflow/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-workflow/</guid><pubDate>Wed, 28 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I love my VIM workflow, so I want to share that with you. I am by-no-means a VIM
 expert or purist — my &lt;a href=&quot;https://neovim.io&quot;&gt;neovim&lt;/a&gt; files are not slim and are a melting pot of
 stolen code from others, sometimes modified or not; sometimes found in GitHub
@@ -40,9 +40,9 @@ tests to be visible either way, so I want this to be flexible.&lt;/p&gt;
 &lt;p&gt;The vim-test neoterm strategy defaults to sending tests to the last-used neoterm
 buffer; I can have more terminal buffers, but the first one I open is what
 vim-test will use going forward.&lt;/p&gt;
-&lt;p&gt;Here’s how I configure vim-test with neoterm.&lt;/p&gt;
+&lt;p&gt;Here’s how I configure vim-test with neoterm. (my &lt;a href=&quot;https://github.com/dbernheisel/dotfiles&quot;&gt;dotfiles&lt;/a&gt; for reference)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
-      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; `/.config/nvim/init.vim&lt;/span&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; ~/.config/nvim/init.vim&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;&quot; Test&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#strategy &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;neoterm&quot;&lt;/span&gt;
@@ -115,7 +115,7 @@ transformations to the commands. I can check for a certain file and string in it
 to determine what project I’m in. If I’m in that project, then modify the
 command where I can.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
-      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; `/.config/nvim/after/ftplugin/ruby.vim&lt;/span&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; ~/.config/nvim/after/ftplugin/ruby.vim&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;MyAppRspec&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; abort
   &lt;span class=&quot;token comment&quot;&gt;&quot; If I&apos;m in the pesky app and&lt;/span&gt;
@@ -138,7 +138,7 @@ path of the test to &lt;code class=&quot;language-text&quot;&gt;mix test {file}&
 of the apps in the umbrella. That’s probably not what we want to do since that
 test exists for only one for apps. Again, we can solve it with a transformation.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
-      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; `/.config/nvim/after/ftplugin/elixir.vim&lt;/span&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; ~/.config/nvim/after/ftplugin/elixir.vim&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ElixirUmbrellaTransform&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; abort
   &lt;span class=&quot;token comment&quot;&gt;&quot; if in an umbrella project indicated by the existence of an ./apps folder&lt;/span&gt;
