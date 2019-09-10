@@ -4,12 +4,13 @@ tags: ["elixir", "ruby", "vim"]
 date: 2019-08-28
 ---
 
-I love my VIM workflow, so I want to share that with you. I am by-no-means a VIM
-expert or purist -- my [neovim] files are not slim and are a melting pot of
-stolen code from others, sometimes modified or not; sometimes found in GitHub
-comments, sometimes found in others' dotfiles, or Reddit comments.
+I realized that I love my VIM workflow, so I want to share that with you.
+I am by-no-means a VIM expert or purist -- my [neovim] files are not slim and
+are a melting pot of stolen code from others, sometimes modified or not,
+sometimes found in GitHub comments, sometimes found in others' dotfiles, or
+Reddit comments.
 
-If you develop in Ruby or Elixir or write Markdown, you might find this helpful.
+If you develop in Ruby or Elixir or write Markdown, you might find this helpful!
 
 Let's start with some basics:
 
@@ -21,6 +22,8 @@ Let's start with some basics:
 * [ArchLinux] - My distro of choice. Shouldn't matter for this article.
 * [i3] - My window manager. Shouldn't matter for this article.
 * [Plug] - for managing neovim plugins.
+* [nvim-coc] for languageserver integration.
+* [dotfiles] - My dotfiles if you want the complete picture
 
 There are three ways that I can split my workspace: (1) via my window manager
 [i3], (2) via my terminal emulator [kitty], (3) via [neovim] with
@@ -39,6 +42,8 @@ splits/buffers. Generally I adhere to this practice:
 [i3]: https://github.com/Airblader/i3
 [kitty]: https://sw.kovidgoyal.net/kitty/
 [Plug]: https://github.com/junegunn/vim-plug
+[nvim-coc]: https://github.com/neoclide/coc.nvim
+[dotfiles]: https://github.com/dbernheisel/dotfiles
 
 ## Testing
 
@@ -49,16 +54,15 @@ still have trouble actually writing tests first - I tend to spike, iterate,
 iterate, THEN write tests, then open a PR. Yea-- this probably means I'm not a
 10x developer 😛
 
-I use [neoterm] to help open up terminal splits while coding. When I'm at home,
-I have an ultrawide that I use so splitting windows vertically is the way to go;
-but when I'm mobile with my laptop then I typically split horizontally. I want
-tests to be visible either way, so I want this to be flexible.
+I also use neoterm to help open up terminal splits. When I'm at home, I have an
+ultrawide that I use so splitting windows vertically is the way to go; but when
+I'm mobile with my laptop then I typically split horizontally. I want tests to
+be visible either way, so I need this to be flexible.
 
 The vim-test neoterm strategy defaults to sending tests to the last-used neoterm
 buffer; I can have more terminal buffers, but the first one I open is what
 vim-test will use going forward.
 
-[dotfiles]: https://github.com/dbernheisel/dotfiles
 [thoughtbot dotfiles]: https://github.com/thoughtbot/dotfiles
 [vim-test]: https://github.com/janko/vim-test
 [neoterm]: https://github.com/kassio/neoterm
@@ -76,6 +80,7 @@ let g:neoterm_autoscroll = 1      " autoscroll to the bottom when entering inser
 let g:neoterm_size = 80
 let g:neoterm_fixedsize = 1       " fixed size. The autosizing was wonky for me
 let g:neoterm_keep_term_open = 0  " when buffer closes, exit the terminal too.
+let test#ruby#rspec#options = { 'suite': '--profile 5' }
 
 " Create some commands that makes the splits easy
 
@@ -94,6 +99,8 @@ endfunction
 command! -nargs=? VT call OpenTermV(<q-args>)
 command! -nargs=? HT call OpenTermH(<q-args>)
 
+" Use the project's test suite script if it exists
+
 function! RunTestSuite()
   Tclear
   if filereadable('bin/test_suite')
@@ -111,7 +118,6 @@ nmap <silent> <leader>t :call TestNearest<CR>
 nmap <silent> <leader>T :call TestFile<CR>
 nmap <silent> <leader>a :call RunTestSuite()<CR>
 nmap <silent> <leader>l :call TestLast<CR>
-nmap <silent> <leader>g :call TestVisit<CR>
 ```
 
 I've found it conventional to have a `bin/test_suite` or `bin/test` script in
@@ -124,7 +130,7 @@ If that script is present and when I want to run all tests, I should execute
 that file; otherwise use the default vim-test suite command. For non-suite
 tests, I use the default vim-test commands.
 
-`<space>a` triggers the **a**ll tests. If a neoterm split isn't open,
+`<space>a` triggers **a**ll tests. If a neoterm split isn't open,
 then it'll automatically open on with the default settings-- in my case, a
 vertical split at 80 columns wide. If a neoterm split is already open, then
 it'll send the test to that split. In situations where my vertical space is
@@ -139,11 +145,13 @@ If you have some examples on where that command helps, I'd love to hear it!
 
 [![asciicast](https://asciinema.org/a/gs6r5QlC8oR8HPNYhRPDypY6n.svg)](https://asciinema.org/a/gs6r5QlC8oR8HPNYhRPDypY6n)
 
-There might be a pesky app where I need to opt-into an environment variable but
-only when I'm running a small amount of tests. vim-test let's me define my own
-transformations to the commands. I can check for a certain file and string in it
-to determine what project I'm in. If I'm in that project, then modify the
-command where I can.
+## Transformations
+
+This is a great start! But eventually there might be a pesky app where I need to
+opt-into an environment variable, but only when I'm running a small number of
+tests. vim-test let's me define my own transformations to the commands. I can
+check for a certain file and string in it to determine what project I'm in. If
+I'm in that project, then change the command where I can.
 
 ```vim
 " ~/.config/nvim/after/ftplugin/ruby.vim
