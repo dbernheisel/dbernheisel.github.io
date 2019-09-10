@@ -149,7 +149,7 @@ If you have some examples on where that command helps, I'd love to hear it!
 
 This is a great start! But eventually there might be a pesky app where I need to
 opt-into an environment variable, but only when I'm running a small number of
-tests. vim-test let's me define my own transformations to the commands. I can
+tests. vim-test lets me define my own transformations to the commands. I can
 check for a certain file and string in it to determine what project I'm in. If
 I'm in that project, then change the command where I can.
 
