@@ -58,14 +58,15 @@ The vim-test neoterm strategy defaults to sending tests to the last-used neoterm
 buffer; I can have more terminal buffers, but the first one I open is what
 vim-test will use going forward.
 
+[dotfiles]: https://github.com/dbernheisel/dotfiles
 [thoughtbot dotfiles]: https://github.com/thoughtbot/dotfiles
 [vim-test]: https://github.com/janko/vim-test
 [neoterm]: https://github.com/kassio/neoterm
 
-Here's how I configure vim-test with neoterm.
+Here's how I configure vim-test with neoterm. (my [dotfiles] for reference)
 
 ```vim
-" `/.config/nvim/init.vim
+" ~/.config/nvim/init.vim
 
 " Test
 let g:test#strategy = "neoterm"
@@ -136,7 +137,7 @@ If I'm testing a method or function, then `<space>t` to send the nearest
 run all the **T**ests for it. I haven't found myself using vim-test's TestVisit.
 If you have some examples on where that command helps, I'd love to hear it!
 
-[![asciicast](https://asciinema.org/a/dHzLsMxDHB6sDNQXN2OqBZYPf.svg)](https://asciinema.org/a/dHzLsMxDHB6sDNQXN2OqBZYPf)
+[![asciicast](https://asciinema.org/a/gs6r5QlC8oR8HPNYhRPDypY6n.svg)](https://asciinema.org/a/gs6r5QlC8oR8HPNYhRPDypY6n)
 
 There might be a pesky app where I need to opt-into an environment variable but
 only when I'm running a small amount of tests. vim-test let's me define my own
@@ -145,7 +146,7 @@ to determine what project I'm in. If I'm in that project, then modify the
 command where I can.
 
 ```vim
-" `/.config/nvim/after/ftplugin/ruby.vim
+" ~/.config/nvim/after/ftplugin/ruby.vim
 
 function! MyAppRspec(cmd) abort
   " If I'm in the pesky app and
@@ -170,7 +171,7 @@ of the apps in the umbrella. That's probably not what we want to do since that
 test exists for only one for apps. Again, we can solve it with a transformation.
 
 ```vim
-" `/.config/nvim/after/ftplugin/elixir.vim
+" ~/.config/nvim/after/ftplugin/elixir.vim
 
 function! ElixirUmbrellaTransform(cmd) abort
   " if in an umbrella project indicated by the existence of an ./apps folder
