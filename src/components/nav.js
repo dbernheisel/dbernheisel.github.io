@@ -89,7 +89,6 @@ export default class Nav extends React.Component {
           <NavLink {...this.props} to='/'>Blog</NavLink>
           <NavLink {...this.props} to='/projects/'>Projects</NavLink>
           <OutboundNavLink href="https://twitter.com/bernheisel">Twitter</OutboundNavLink>
-          <OutboundNavLink href="https://linkedin.com/in/bernheisel">LinkedIn</OutboundNavLink>
           <div className="lg:mt-0 mt-4 py-1">
             <a href='/rss.xml'>
               <img className="h-7 align-middle" src={rssIcon} alt="RSS"/>
