@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 19 Jan 2020 21:31:10 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 19 Jan 2020 21:50:21 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I…]]></description><link>https://bernheisel.com/blog/ecto_changeset_tips/</link><guid isPermaLink="false">https://bernheisel.com/blog/ecto_changeset_tips/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I use &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html&quot;&gt;Ecto Changesets&lt;/a&gt; a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I
 have a couple tips to share.&lt;/p&gt;
@@ -351,6 +351,14 @@ You don’t have to duplicate that code!&lt;/p&gt;
   &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; more_validations&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
 
+&lt;span class=&quot;token attribute variable&quot;&gt;@spec&lt;/span&gt; user_changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; Ecto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Changeset&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;t&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; map&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;::&lt;/span&gt;
+  Ecto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Changeset&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;t&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; user_changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;changeset&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; attrs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  changeset
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; cast&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;attrs&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:some_more_fields&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; even_more_validations&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
 &lt;span class=&quot;token comment&quot;&gt;## ... In some other app code&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; create&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -359,10 +367,17 @@ You don’t have to duplicate that code!&lt;/p&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; restricted_create&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   MySchema&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;additional_restrictions_changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;MySchema&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; user_create&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;MySchema&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; user_changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;This way, you can use &lt;code class=&quot;language-text&quot;&gt;additional_restrictions_changeset/2&lt;/code&gt; by itself and get
-all the same logic within &lt;code class=&quot;language-text&quot;&gt;changeset/2&lt;/code&gt;.&lt;/p&gt;
+all the same logic within &lt;code class=&quot;language-text&quot;&gt;changeset/2&lt;/code&gt;. Or alternatively, compose them together
+from the outside like in &lt;code class=&quot;language-text&quot;&gt;user_create/1&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;A common mistake that prevents changesets from being composable is that we’ll
 write our function signatures to require the struct as the first param:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;
