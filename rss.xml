@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 19 Jan 2020 22:28:49 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Fri, 24 Jan 2020 03:26:34 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I…]]></description><link>https://bernheisel.com/blog/ecto_changeset_tips/</link><guid isPermaLink="false">https://bernheisel.com/blog/ecto_changeset_tips/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I use &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html&quot;&gt;Ecto Changesets&lt;/a&gt; a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I
 have a couple tips to share.&lt;/p&gt;
@@ -67,7 +67,7 @@ Instead, we’ll supply our own primary key column called &lt;code class=&quot;l
 
   &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; change &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
     create table&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:users&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;primary_key:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
-      add &lt;span class=&quot;token atom symbol&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:uuid&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;primary_key:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+      add &lt;span class=&quot;token atom symbol&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:binary_id&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;primary_key:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 
       timestamps&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
@@ -192,8 +192,8 @@ migration, let’s modify it.&lt;/p&gt;
 
   def change do
     create table(:users, primary_key: false) do
-&lt;span class=&quot;token deleted&quot;&gt;-      add :id, :uuid, primary_key: true&lt;/span&gt;
-&lt;span class=&quot;token inserted&quot;&gt;+      add :id, :uuid, primary_key: true, default: fragment(&quot;gen_random_uuid()&quot;)&lt;/span&gt;
+&lt;span class=&quot;token deleted&quot;&gt;-      add :id, :binary_id, primary_key: true&lt;/span&gt;
+&lt;span class=&quot;token inserted&quot;&gt;+      add :id, :binary_id, primary_key: true, default: fragment(&quot;gen_random_uuid()&quot;)&lt;/span&gt;
 
       timestamps()
     end
