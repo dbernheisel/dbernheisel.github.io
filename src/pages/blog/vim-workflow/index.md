@@ -131,7 +131,7 @@ that file; otherwise use the default vim-test suite command. For non-suite
 tests, I use the default vim-test commands.
 
 `<space>a` triggers **a**ll tests. If a neoterm split isn't open,
-then it'll automatically open on with the default settings-- in my case, a
+then it'll automatically open one with the default settings-- in my case, a
 vertical split at 80 columns wide. If a neoterm split is already open, then
 it'll send the test to that split. In situations where my vertical space is
 lacking, I prep by opening up a split, and then hit my test shortcut. `:HT` to
