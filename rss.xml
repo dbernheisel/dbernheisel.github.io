@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sun, 02 Feb 2020 08:06:27 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 22 Feb 2020 03:07:16 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I…]]></description><link>https://bernheisel.com/blog/ecto_changeset_tips/</link><guid isPermaLink="false">https://bernheisel.com/blog/ecto_changeset_tips/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I use &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html&quot;&gt;Ecto Changesets&lt;/a&gt; a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I
 have a couple tips to share.&lt;/p&gt;
@@ -395,9 +395,9 @@ write our function signatures to require the struct as the first param:&lt;/p&gt
 how we’ve contributed. The big contribution in here is the &lt;a href=&quot;https://github.com/taxjar/date_time_parser&quot;&gt;DateTimeParser&lt;/a&gt; that
 we built.&lt;/p&gt;
 &lt;audio controls&gt;
-  &lt;source src=&quot;/EMx_068_David_Bernheisel-55b0425f25e44042f5892e31002a1229.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+  &lt;source src=&quot;/EMx_068_David_Bernheisel-cd2db49e8cc4b092ae3e39860b41af16.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
   &lt;p&gt;Your browser doesn&apos;t support HTML5 audio. Here is
-     a &lt;a href=&quot;/EMx_068_David_Bernheisel-55b0425f25e44042f5892e31002a1229.mp3&quot;&gt;link to the audio&lt;/a&gt; instead.&lt;/p&gt;
+     a &lt;a href=&quot;/EMx_068_David_Bernheisel-cd2db49e8cc4b092ae3e39860b41af16.mp3&quot;&gt;link to the audio&lt;/a&gt; instead.&lt;/p&gt;
 &lt;/audio&gt;</content:encoded></item><item><title><![CDATA[VIM Testing and Workflow]]></title><description><![CDATA[I realized that I love my VIM workflow, so I want to share that with you.
 I am by-no-means a VIM expert or purist — my neovim files are not…]]></description><link>https://bernheisel.com/blog/vim-workflow/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-workflow/</guid><pubDate>Wed, 28 Aug 2019 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I realized that I love my VIM workflow, so I want to share that with you.
 I am by-no-means a VIM expert or purist — my &lt;a href=&quot;https://neovim.io&quot;&gt;neovim&lt;/a&gt; files are not slim and
@@ -503,7 +503,7 @@ helpful for new developers on the project.&lt;/p&gt;
 that file; otherwise use the default vim-test suite command. For non-suite
 tests, I use the default vim-test commands.&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;a&lt;/code&gt; triggers &lt;strong&gt;a&lt;/strong&gt;ll tests. If a neoterm split isn’t open,
-then it’ll automatically open on with the default settings— in my case, a
+then it’ll automatically open one with the default settings— in my case, a
 vertical split at 80 columns wide. If a neoterm split is already open, then
 it’ll send the test to that split. In situations where my vertical space is
 lacking, I prep by opening up a split, and then hit my test shortcut. &lt;code class=&quot;language-text&quot;&gt;:HT&lt;/code&gt; to
