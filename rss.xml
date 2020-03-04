@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Mar 2020 04:26:30 GMT</lastBuildDate><item><title><![CDATA[VIM ElixirLS and Updates]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Mar 2020 04:39:41 GMT</lastBuildDate><item><title><![CDATA[VIM ElixirLS and Updates]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
 little different from his:I use asdf to manage my installed…]]></description><link>https://bernheisel.com/blog/vim-elixir-ls-plug/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-elixir-ls-plug/</guid><pubDate>Tue, 03 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://kassio.github.io/2019/03/21/elixir-ls-on-coc.nvim.html&quot;&gt;Kassio’s Post&lt;/a&gt; was inspirational, and I adapted from his setup. My setup is a
 little different from his:&lt;/p&gt;
 &lt;ul&gt;
@@ -15,7 +15,7 @@ compilation to lock up the UI.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;The Proof&lt;/h2&gt;
 &lt;p&gt;Here’s &lt;a href=&quot;https://github.com/elixir-lsp/elixir-ls&quot;&gt;ElixirLS&lt;/a&gt; in action inside vim with &lt;a href=&quot;https://github.com/neoclide/coc.nvim&quot;&gt;nvim.coc&lt;/a&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/elixir-ls-in-action-15e5b60e71e3cb72ffcbbc60de96791e.gif&quot; alt=&quot;Elixir LS in action&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/elixir-ls-in-action-15e5b60e71e3cb72ffcbbc60de96791e.gif&quot; alt=&quot;ElixirLS in action&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Here’s me manually calling to update ElixirLS. I have a terminal on the right
 that is watching the filesystem so we can see it’s actually doing something:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/ManuallyCalling-2dc5c9710c16b2cc959adb3103a58caa.gif&quot; alt=&quot;Elixir Manual Update&quot;&gt;&lt;/p&gt;
@@ -155,10 +155,12 @@ result of this join is:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;
       &lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;asdf install &amp;amp;&amp;amp; mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;Since I’m using &lt;a href=&quot;https://asdf-vm.com&quot;&gt;asdf&lt;/a&gt; I want to make sure I’m using the ElixirLS developers’
-tools so I know for sure I won’t run into trouble while developing. I want my
-ElixirLS to be stable since it’s such an important tool for me.&lt;/p&gt;
-&lt;p&gt;We’re going to leverage &lt;a href=&quot;https://hexdocs.pm/mix/Mix.Tasks.Do.html&quot;&gt;mix do&lt;/a&gt; so we’re not starting Erlang multiple for each
+&lt;p&gt;Since I’m using &lt;a href=&quot;https://asdf-vm.com&quot;&gt;asdf&lt;/a&gt; and &lt;a href=&quot;https://github.com/elixir-lsp/elixir-ls/blob/master/.tool-versions&quot;&gt;so are the ElixirLS
+developers&lt;/a&gt;
+I want to make sure I’m using the ElixirLS developers’ tools so I know for sure
+I won’t run into trouble while developing; I want my ElixirLS to be stable since
+it’s such an important tool for me.&lt;/p&gt;
+&lt;p&gt;We’re going to leverage &lt;a href=&quot;https://hexdocs.pm/mix/Mix.Tasks.Do.html&quot;&gt;mix do&lt;/a&gt; so we’re not starting Elixir fresh for each
 command. This should speed some things up.&lt;/p&gt;
 &lt;h2&gt;Run it in the background&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
@@ -226,7 +228,7 @@ it.&lt;/p&gt;
 &lt;code class=&quot;language-text&quot;&gt;cd {the-path} &amp;amp;&amp;amp; git pull&lt;/code&gt; on its own, so we don’t need to include that.
 Totally skip it and only include &lt;code class=&quot;language-text&quot;&gt;me.cmd&lt;/code&gt;. In my case, I wanted to be able to
 run &lt;code class=&quot;language-text&quot;&gt;:call ElixirLS.compile()&lt;/code&gt; myself as well which will need to perform those
-tasks. It doesn’t hurt to keep it those commands but they’re redundant.&lt;/p&gt;
+tasks. It doesn’t hurt to keep those commands but they’re redundant.&lt;/p&gt;
 &lt;p&gt;The last argument &lt;code class=&quot;language-text&quot;&gt;me&lt;/code&gt; is a dictionary that contains the keys that point to
 functions that will accept a certain signature; the three functions it cares
 about are:&lt;/p&gt;
@@ -253,11 +255,10 @@ going to use this list and append all the incoming output into it. At the very
 end, &lt;code class=&quot;language-text&quot;&gt;self.output&lt;/code&gt; have something like &lt;code class=&quot;language-text&quot;&gt;[&amp;#39;hey&amp;#39;, &amp;#39;hi\nthere&amp;#39;, &amp;quot;I&amp;#39;m d&amp;#39;, &amp;#39;one
 now&amp;#39;]&lt;/code&gt;. Since the data isn’t necessarily split at newlines, we’re going to
 combine the last stored output’s with the first incoming element, and then add
-the rest of the incoming data to the data.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;let self.output[-1] .= a:data[0]&lt;/code&gt;. Take the last stored element and concat,
-concat the first incoming data’s elemennt, and then assign it back to
-&lt;code class=&quot;language-text&quot;&gt;self.output[-1]&lt;/code&gt;. Then add the two lists together. &lt;code class=&quot;language-text&quot;&gt;extend()&lt;/code&gt; will mutate the
-first element.&lt;/p&gt;
+the rest of the incoming data to the stored output.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;let self.output[-1] .= a:data[0]&lt;/code&gt;. Take the last stored element and concat the
+first incoming data’s element, and then assign it back to &lt;code class=&quot;language-text&quot;&gt;self.output[-1]&lt;/code&gt;.
+Then add the two lists together. &lt;code class=&quot;language-text&quot;&gt;extend()&lt;/code&gt; will mutate the first element.&lt;/p&gt;
 &lt;p&gt;Since we want to treat &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt; as the same kind of output, we’re
 going to have the &lt;code class=&quot;language-text&quot;&gt;on_stderr&lt;/code&gt; callback forward the call to the &lt;code class=&quot;language-text&quot;&gt;on_stdout&lt;/code&gt;
 function. This avoids duplicating the code.&lt;/p&gt;
@@ -298,11 +299,10 @@ path could be &lt;code class=&quot;language-text&quot;&gt;/Users/me/.config/...&
 &lt;code class=&quot;language-text&quot;&gt;/home/me/.config/...&lt;/code&gt;. CocConfig is a JSON file that can’t evaluate any
 environment variables, so I need to resort to calling it from within vim. This
 really works out though.&lt;/p&gt;
-&lt;p&gt;The first &lt;code class=&quot;language-text&quot;&gt;coc#config&lt;/code&gt; is telling coc.nvim in general that there is an avaiable
-language server for elixir for the &lt;code class=&quot;language-text&quot;&gt;elixir&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;eexlixir&lt;/code&gt; filetypes. Lastly,
-we’re going to tell &lt;code class=&quot;language-text&quot;&gt;coc-elixir&lt;/code&gt; to use our own compiled Elixir LS so it doesn’t
-need to go off on its own and try to manage the installationand compilation of
-ElixirLS.&lt;/p&gt;
+&lt;p&gt;The first &lt;code class=&quot;language-text&quot;&gt;coc#config&lt;/code&gt; is telling coc.nvim in general that there is an available
+language server for the &lt;code class=&quot;language-text&quot;&gt;elixir&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;eexlixir&lt;/code&gt; filetypes. Lastly, we’re going
+to tell &lt;code class=&quot;language-text&quot;&gt;coc-elixir&lt;/code&gt; to use our own compiled ElixirLS so it doesn’t need to go
+off on its own and try to manage the installation and compilation of ElixirLS.&lt;/p&gt;
 &lt;p&gt;======&lt;/p&gt;
 &lt;p&gt;Have any vim and Elixir tips of your own? TWEEEEEEEET at me &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I…]]></description><link>https://bernheisel.com/blog/ecto_changeset_tips/</link><guid isPermaLink="false">https://bernheisel.com/blog/ecto_changeset_tips/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I use &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html&quot;&gt;Ecto Changesets&lt;/a&gt; a lot— a TON! and I love them. Since I’ve
