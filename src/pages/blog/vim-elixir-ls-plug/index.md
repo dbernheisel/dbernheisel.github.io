@@ -2,7 +2,7 @@
 title: "VIM ElixirLS and Updates"
 tags: ["elixir", "vim"]
 date: 2020-03-03
-excerpt: "How I manage Elixir LS, vim, and coc.nvim with vim-plug."
+excerpt: "How I manage ElixirLS, vim, and coc.nvim with vim-plug."
 ---
 
 [Kassio's Post] was inspirational, and I adapted from his setup. My setup is a
@@ -23,7 +23,7 @@ little different from his:
 
 Here's [ElixirLS] in action inside vim with [nvim.coc]:
 
-![Elixir LS in action](./elixir-ls-in-action.gif)
+![ElixirLS in action](./elixir-ls-in-action.gif)
 
 Here's me manually calling to update ElixirLS. I have a terminal on the right
 that is watching the filesystem so we can see it's actually doing something:
@@ -187,11 +187,13 @@ result of this join is:
 asdf install && mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release
 ```
 
-Since I'm using [asdf] I want to make sure I'm using the ElixirLS developers'
-tools so I know for sure I won't run into trouble while developing. I want my
-ElixirLS to be stable since it's such an important tool for me.
+Since I'm using [asdf] and [so are the ElixirLS
+developers](https://github.com/elixir-lsp/elixir-ls/blob/master/.tool-versions)
+I want to make sure I'm using the ElixirLS developers' tools so I know for sure
+I won't run into trouble while developing; I want my ElixirLS to be stable since
+it's such an important tool for me.
 
-We're going to leverage [mix do] so we're not starting Erlang multiple for each
+We're going to leverage [mix do] so we're not starting Elixir fresh for each
 command. This should speed some things up.
 
 ## Run it in the background
@@ -269,7 +271,7 @@ cd {the-path} && \
 `cd {the-path} && git pull` on its own, so we don't need to include that.
 Totally skip it and only include `me.cmd`. In my case, I wanted to be able to
 run `:call ElixirLS.compile()` myself as well which will need to perform those
-tasks. It doesn't hurt to keep it those commands but they're redundant.
+tasks. It doesn't hurt to keep those commands but they're redundant.
 
 The last argument `me` is a dictionary that contains the keys that point to
 functions that will accept a certain signature; the three functions it cares
@@ -300,12 +302,11 @@ going to use this list and append all the incoming output into it. At the very
 end, `self.output` have something like `['hey', 'hi\nthere', "I'm d', 'one
 now']`. Since the data isn't necessarily split at newlines, we're going to
 combine the last stored output's with the first incoming element, and then add
-the rest of the incoming data to the data.
+the rest of the incoming data to the stored output.
 
-`let self.output[-1] .= a:data[0]`. Take the last stored element and concat,
-concat the first incoming data's elemennt, and then assign it back to
-`self.output[-1]`. Then add the two lists together. `extend()` will mutate the
-first element.
+`let self.output[-1] .= a:data[0]`. Take the last stored element and concat the
+first incoming data's element, and then assign it back to `self.output[-1]`.
+Then add the two lists together. `extend()` will mutate the first element.
 
 Since we want to treat `stderr` and `stdout` as the same kind of output, we're
 going to have the `on_stderr` callback forward the call to the `on_stdout`
@@ -358,11 +359,10 @@ path could be `/Users/me/.config/...`, but on my Linux computer it would be
 environment variables, so I need to resort to calling it from within vim. This
 really works out though.
 
-The first `coc#config` is telling coc.nvim in general that there is an avaiable
-language server for elixir for the `elixir` and `eexlixir` filetypes. Lastly,
-we're going to tell `coc-elixir` to use our own compiled Elixir LS so it doesn't
-need to go off on its own and try to manage the installationand compilation of
-ElixirLS.
+The first `coc#config` is telling coc.nvim in general that there is an available
+language server for the `elixir` and `eexlixir` filetypes. Lastly, we're going
+to tell `coc-elixir` to use our own compiled ElixirLS so it doesn't need to go
+off on its own and try to manage the installation and compilation of ElixirLS.
 
 ======
 
