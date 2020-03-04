@@ -1,4 +1,310 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 22 Feb 2020 03:07:16 GMT</lastBuildDate><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 04 Mar 2020 04:20:01 GMT</lastBuildDate><item><title><![CDATA[VIM ElixirLS and Updates]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
+little different from his:I use asdf to manage my installed…]]></description><link>https://bernheisel.com/blog/vim-elixir-ls-plug/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-elixir-ls-plug/</guid><pubDate>Tue, 03 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://kassio.github.io/2019/03/21/elixir-ls-on-coc.nvim.html&quot;&gt;Kassio’s Post&lt;/a&gt; was inspirational, and I adapted from his setup. My setup is a
+little different from his:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I use &lt;a href=&quot;https://asdf-vm.com&quot;&gt;asdf&lt;/a&gt; to manage my installed Elixir and Erlang versions. The ElixirLS
+project has a tested Elixir version it was developed with; and I’d like to
+use that same version. I also don’t want to have to worry about not having
+the same installed versions as them.&lt;/li&gt;
+&lt;li&gt;I use &lt;a href=&quot;https://github.com/junegunn/vim-plug&quot;&gt;vim-plug&lt;/a&gt;. It has a neat feature where you can clone any repository
+whether or not it’s built for vim or not. In this case, I’m going to use it
+to grab a copy of ElixirLS, and have it run a post-update hook. ElixirLS
+doesn’t have any vim code that gets loaded, so it’s benign.&lt;/li&gt;
+&lt;li&gt;I wanted to let the compilation happen asynchronously. I don’t want
+compilation to lock up the UI.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;The Proof&lt;/h2&gt;
+&lt;p&gt;Here’s &lt;a href=&quot;https://github.com/elixir-lsp/elixir-ls&quot;&gt;ElixirLS&lt;/a&gt; in action inside vim with &lt;a href=&quot;https://github.com/neoclide/coc.nvim&quot;&gt;nvim.coc&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/elixir-ls-in-action-15e5b60e71e3cb72ffcbbc60de96791e.gif&quot; alt=&quot;Elixir LS in action&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Here’s me manually calling to update ElixirLS. I have a terminal on the right
+that is watching the filesystem so we can see it’s actually doing something:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/ManuallyCalling-2dc5c9710c16b2cc959adb3103a58caa.gif&quot; alt=&quot;Elixir Manual Update&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Here’s me using vim-plug to update ElixirLS. I have a terminal on the right
+that is watching the filesystem so we can see it’s actually doing something:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/PlugUpdate-4ffe506c18effd46392cef0a61e55a4b.gif&quot; alt=&quot;Elixir Manual Update&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;The Vimscript&lt;/h2&gt;
+&lt;p&gt;Here’s the vim setup:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; plug#&lt;span class=&quot;token function&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;~/.config/nvim/plugged&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  Plug &lt;span class=&quot;token string&quot;&gt;&apos;elixir-lsp/elixir-ls&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;do&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  Plug &lt;span class=&quot;token string&quot;&gt;&apos;neoclide/coc.nvim&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;branch&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;release&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; plug#&lt;span class=&quot;token function&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;coc_global_extensions &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;coc-elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;coc-diagnostic&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;stdpath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;config&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/plugged/elixir-ls&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/release/language_server.sh&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;cmd &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;asdf install &amp;amp;&amp;amp;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;mix do&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;local.hex --force --if-missing,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;local.rebar --force,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;deps.get,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;compile,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;elixir_ls.release&apos;&lt;/span&gt;
+        \ &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_stdout&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.=&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;on_stderr &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;on_stdout&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_exit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; exitcode&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;exitcode&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compiled&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echoerr&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echoerr&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compilation failed&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;endif&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; compiling ElixirLS&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;jobstart&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;cd &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &amp;amp;&amp;amp; git pull &amp;amp;&amp;amp; &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; me&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;&quot; If you want to wait on the compilation only when running :PlugUpdate&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&quot; then have the post-update hook use this function instead:&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;&quot; function ElixirLS.compile_sync()&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&quot;   echom &lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; compiling ElixirLS&apos;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&quot;   silent call system(g:ElixirLS.cmd)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&quot;   echom &lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compiled&apos;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&quot; endfunction&lt;/span&gt;
+
+
+&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; Then&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;update&lt;/span&gt; the Elixir &lt;span class=&quot;token keyword&quot;&gt;language&lt;/span&gt; server
+&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  \ &lt;span class=&quot;token string&quot;&gt;&apos;command&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  \ &lt;span class=&quot;token string&quot;&gt;&apos;filetypes&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;eelixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  \&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir.pathToElixirLS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;And this is in my &lt;code class=&quot;language-text&quot;&gt;:CocConfig&lt;/code&gt; (&lt;code class=&quot;language-text&quot;&gt;~/.config/nvim/coc-settings.json&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;
+      &lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;codeLens.enable&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;diagnostic-languageserver.filetypes&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;elixir&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;mix_credo&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mix_credo_compile&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;eelixir&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;mix_credo&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mix_credo_compile&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Include coc.nvim, ElixirLS in plug&lt;/h2&gt;
+&lt;p&gt;Starting from the top:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; plug#&lt;span class=&quot;token function&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;~/.config/nvim/plugged&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  Plug &lt;span class=&quot;token string&quot;&gt;&apos;elixir-lsp/elixir-ls&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;do&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  Plug &lt;span class=&quot;token string&quot;&gt;&apos;neoclide/coc.nvim&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;branch&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;release&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; plug#&lt;span class=&quot;token function&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;coc_global_extensions &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;coc-elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;coc-diagnostic&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;I’m using vim-plug to grab some plugins. All we care about for now is coc.nvim
+and elixir-ls. I’m providing options for elixir-ls to perform an after-update
+action. In this case, a lambda which immediately evaluates &lt;code class=&quot;language-text&quot;&gt;{ &amp;#39;do&amp;#39;: { -&amp;gt; g:ElixirLS.compile() } }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To learn more about the vim lambda, check out &lt;code class=&quot;language-text&quot;&gt;:h expr-lambda&lt;/code&gt;. We’re going to
+look at the &lt;code class=&quot;language-text&quot;&gt;ElixirLS.compile()&lt;/code&gt; function later.&lt;/p&gt;
+&lt;p&gt;The coc.nvim setup is straight from their readme. I’m also adding some
+extensions that nvim.coc will install on its own after startup. In this case I
+want &lt;a href=&quot;https://github.com/amiralies/coc-elixir&quot;&gt;coc-elixir&lt;/a&gt; and &lt;a href=&quot;https://github.com/iamcco/coc-diagnostic&quot;&gt;coc-diagnostic&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;coc-elixir provides coc.nvim the settings to know how to work with Elixir
+projects and the language server. It also will build ElixirLS on its own, but
+we’re going to circumvent that in a moment.&lt;/p&gt;
+&lt;p&gt;coc-diagnostic is a generic bridge for many non-Language-Server tools like
+shellcheck and credo. In this case, I’m adding it for credo. I don’t need
+coc-diagnostic to provide a formatter, since the main Elixir language server
+will provide that already.&lt;/p&gt;
+&lt;h2&gt;Define your vim ElixirLS dictionary&lt;/h2&gt;
+&lt;p&gt;Next we’re going to create a dictionary with a couple of functions. This dict is
+going to manage several things for us:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The path to the language server executable and directory.&lt;/li&gt;
+&lt;li&gt;The commands to run when needing to compile&lt;/li&gt;
+&lt;li&gt;Job hook functions so Neovim can run this task asynchronously&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Check out &lt;code class=&quot;language-text&quot;&gt;:h dictionary-function&lt;/code&gt; in vim for more info on how to be a bit more
+object-oriented in your vim scripts. If you go down this rabbit hole, I really
+encourage you to look into &lt;code class=&quot;language-text&quot;&gt;:h lua&lt;/code&gt; as well which is better-suited for serious
+vim programming.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;stdpath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;config&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/plugged/elixir-ls&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/release/language_server.sh&apos;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;cmd &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;asdf install &amp;amp;&amp;amp;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \ &lt;span class=&quot;token string&quot;&gt;&apos;mix do&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \   &lt;span class=&quot;token string&quot;&gt;&apos;local.hex --force --if-missing,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \   &lt;span class=&quot;token string&quot;&gt;&apos;local.rebar --force,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \   &lt;span class=&quot;token string&quot;&gt;&apos;deps.get,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \   &lt;span class=&quot;token string&quot;&gt;&apos;compile,&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        \   &lt;span class=&quot;token string&quot;&gt;&apos;elixir_ls.release&apos;&lt;/span&gt;
+        \ &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;So far it’s pretty standard stuff. We initialize an empty global dictionary
+first, then start stuffing some values in there. We’re using the function
+&lt;code class=&quot;language-text&quot;&gt;stdpath&lt;/code&gt; so we avoid hard-coding any paths.&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;language-text&quot;&gt;join([...], &amp;#39; &amp;#39;)&lt;/code&gt; is only a way to organize the commands in a visual way.
+It’s not necessary; you can totally just concat some strings together. The end
+result of this join is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;
+      &lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;asdf install &amp;amp;&amp;amp; mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Since I’m using &lt;a href=&quot;https://asdf-vm.com&quot;&gt;asdf&lt;/a&gt; I want to make sure I’m using the ElixirLS developers’
+tools so I know for sure I won’t run into trouble while developing. I want my
+ElixirLS to be stable since it’s such an important tool for me.&lt;/p&gt;
+&lt;p&gt;We’re going to leverage &lt;a href=&quot;https://hexdocs.pm/mix/Mix.Tasks.Do.html&quot;&gt;mix do&lt;/a&gt; so we’re not starting Erlang multiple for each
+command. This should speed some things up.&lt;/p&gt;
+&lt;h2&gt;Run it in the background&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_stdout&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.=&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;on_stderr &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;on_stdout&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_exit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; exitcode&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;exitcode&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compiled&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echoerr&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echoerr&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compilation failed&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;endif&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; compiling ElixirLS&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;jobstart&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;cd &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &amp;amp;&amp;amp; git pull &amp;amp;&amp;amp; &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; me&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;These functions are adding keys to the ElixirLS dictionary. If I echo out the
+dictionary, you’ll see a normal dictionary with some funcrefs.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;echo ElixirLS
+&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;cmd&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;asdf install &amp;amp;&amp;amp; mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;path&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/home/me/.config/nvim/plugged/elixir-ls&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;on_exit&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;2&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;on_stdout&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;1&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;lsp&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;/home/me/.config/nvim/plugged/elixir-ls/release/language_server.sh&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;on_stderr&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;1&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;@&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;compile&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;3&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;One of the great things about Neovim (and Vim8+) is that it really pushed
+asynchronous work forward. Neovim introduced some functions to manage background
+jobs. The one we end up using is &lt;code class=&quot;language-text&quot;&gt;jobstart({cmd}[, {opts}])&lt;/code&gt; (check out &lt;code class=&quot;language-text&quot;&gt;:h jobstart&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; compiling ElixirLS&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;jobstart&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;cd &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &amp;amp;&amp;amp; git pull &amp;amp;&amp;amp; &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; me&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;First we’re going to make a copy of the dictionary since this can be
+asynchronous; we’ll call it &lt;code class=&quot;language-text&quot;&gt;me&lt;/code&gt;. Then we’ll initialize a new key &lt;code class=&quot;language-text&quot;&gt;output&lt;/code&gt; so we
+can store all the background job’s output into it. Lastly, we’ll start the job.
+The first argument (if a string) will shell out and execute the command you fed
+it.&lt;/p&gt;
+&lt;p&gt;Here’s the complete command that ends up being sent:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;
+      &lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;cd {the-path} &amp;amp;&amp;amp; \
+  git pull &amp;amp;&amp;amp; \
+  asdf install &amp;amp;&amp;amp; \
+  mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;If you’re only using this via vim-plug&lt;/strong&gt;, then vim-plug will take care of the
+&lt;code class=&quot;language-text&quot;&gt;cd {the-path} &amp;amp;&amp;amp; git pull&lt;/code&gt; on its own, so we don’t need to include that.
+Totally skip it and only include &lt;code class=&quot;language-text&quot;&gt;me.cmd&lt;/code&gt;. In my case, I wanted to be able to
+run &lt;code class=&quot;language-text&quot;&gt;:call ElixirLS.compile()&lt;/code&gt; myself as well which will need to perform those
+tasks. It doesn’t hurt to keep it those commands but they’re redundant.&lt;/p&gt;
+&lt;p&gt;The last argument &lt;code class=&quot;language-text&quot;&gt;me&lt;/code&gt; is a dictionary that contains the keys that point to
+functions that will accept a certain signature; the three functions it cares
+about are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;on_stdout(job_id, data, event)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;on_stderr(job_id, data, event)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;on_exit(job_id, exitcode, _event)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The values that are passed into these functions are a bit odd, but remember it’s
+focused on a stream of data, and not all the data at once. This means that the
+data you get will be an array of values from the background job’s output (either
+stdout or stderr).&lt;/p&gt;
+&lt;p&gt;Let’s look at one of the functions that receives the hook:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_stdout&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.=&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;self&lt;/code&gt; refers to the copy of the ElixirLS dictionary that started this job.
+(check out &lt;code class=&quot;language-text&quot;&gt;:h self&lt;/code&gt;). Before we started the job, we initialized the dictionary
+to have an &lt;code class=&quot;language-text&quot;&gt;output&lt;/code&gt; key that had a list with one empty string &lt;code class=&quot;language-text&quot;&gt;[&amp;#39;&amp;#39;]&lt;/code&gt;. We’re
+going to use this list and append all the incoming output into it. At the very
+end, &lt;code class=&quot;language-text&quot;&gt;self.output&lt;/code&gt; have something like &lt;code class=&quot;language-text&quot;&gt;[&amp;#39;hey&amp;#39;, &amp;#39;hi\nthere&amp;#39;, &amp;quot;I&amp;#39;m d&amp;#39;, &amp;#39;one
+now&amp;#39;]&lt;/code&gt;. Since the data isn’t necessarily split at newlines, we’re going to
+combine the last stored output’s with the first incoming element, and then add
+the rest of the incoming data to the data.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;let self.output[-1] .= a:data[0]&lt;/code&gt;. Take the last stored element and concat,
+concat the first incoming data’s elemennt, and then assign it back to
+&lt;code class=&quot;language-text&quot;&gt;self.output[-1]&lt;/code&gt;. Then add the two lists together. &lt;code class=&quot;language-text&quot;&gt;extend()&lt;/code&gt; will mutate the
+first element.&lt;/p&gt;
+&lt;p&gt;Since we want to treat &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt; as the same kind of output, we’re
+going to have the &lt;code class=&quot;language-text&quot;&gt;on_stderr&lt;/code&gt; callback forward the call to the &lt;code class=&quot;language-text&quot;&gt;on_stdout&lt;/code&gt;
+function. This avoids duplicating the code.&lt;/p&gt;
+&lt;p&gt;Finally, let’s look at the &lt;code class=&quot;language-text&quot;&gt;on_exit&lt;/code&gt; callback:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_exit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; exitcode&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;exitcode&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compiled&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echoerr&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echoerr&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compilation failed&apos;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;endif&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The exitcode is passed into this function, but it’s still the funky buffer-like
+array but it should always just be the one element with the exit code. If it’s
+0, then it exited ok without error so let’s echo a message indicating we’re
+done.&lt;/p&gt;
+&lt;p&gt;Otherwise, let’s echo out the entire output as an error that I can find with
+&lt;code class=&quot;language-text&quot;&gt;:messages&lt;/code&gt; and investigate what went wrong.&lt;/p&gt;
+&lt;p&gt;All this means now is that we can run &lt;code class=&quot;language-text&quot;&gt;:PlugUpdate&lt;/code&gt; and ElixirLS will now update
+itself, ensuring it’s running on the best version of Elixir for itself,
+everything’s updated, downloaded, and recompiled without issue. I can also run
+&lt;code class=&quot;language-text&quot;&gt;ElixirLS.compile()&lt;/code&gt; at any time if I suspect I need to update ElixirLS.&lt;/p&gt;
+&lt;p&gt;With nvim.coc I can also check &lt;code class=&quot;language-text&quot;&gt;:CocInfo&lt;/code&gt; to see if the language servers are
+running ok.&lt;/p&gt;
+&lt;h2&gt;Use the fruits of the labor&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;
+      &lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  \ &lt;span class=&quot;token string&quot;&gt;&apos;command&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  \ &lt;span class=&quot;token string&quot;&gt;&apos;filetypes&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;eelixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  \&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir.pathToElixirLS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Almost done!!&lt;/p&gt;
+&lt;p&gt;We have a somewhat dynamic path for the newly-compiled ElixirLS. On my Mac, the
+path could be &lt;code class=&quot;language-text&quot;&gt;/Users/me/.config/...&lt;/code&gt;, but on my Linux computer it would be
+&lt;code class=&quot;language-text&quot;&gt;/home/me/.config/...&lt;/code&gt;. CocConfig is a JSON file that can’t evaluate any
+environment variables, so I need to resort to calling it from within vim. This
+really works out though.&lt;/p&gt;
+&lt;p&gt;The first &lt;code class=&quot;language-text&quot;&gt;coc#config&lt;/code&gt; is telling coc.nvim in general that there is an avaiable
+language server for elixir for the &lt;code class=&quot;language-text&quot;&gt;elixir&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;eexlixir&lt;/code&gt; filetypes. Lastly,
+we’re going to tell &lt;code class=&quot;language-text&quot;&gt;coc-elixir&lt;/code&gt; to use our own compiled Elixir LS so it doesn’t
+need to go off on its own and try to manage the installationand compilation of
+ElixirLS.&lt;/p&gt;
+&lt;p&gt;======&lt;/p&gt;
+&lt;p&gt;Have any vim and Elixir tips of your own? TWEEEEEEEET at me &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I…]]></description><link>https://bernheisel.com/blog/ecto_changeset_tips/</link><guid isPermaLink="false">https://bernheisel.com/blog/ecto_changeset_tips/</guid><pubDate>Sun, 19 Jan 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I use &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html&quot;&gt;Ecto Changesets&lt;/a&gt; a lot— a TON! and I love them. Since I’ve
 been using them for a couple years now, I’ve noticed some patterns and now I
 have a couple tips to share.&lt;/p&gt;
@@ -2608,7 +2914,7 @@ Refactoring is scary. I've seen some comments on Twitter indicating that it's ge
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 65.17006802721087%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMFBP/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/9oADAMBAAIQAxAAAAHAyYy1ElEv/8QAGxAAAQQDAAAAAAAAAAAAAAAAAQACAxEEECH/2gAIAQEAAQUCZIKEvDktGi4lWv/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABYRAAMAAAAAAAAAAAAAAAAAAAEQEv/aAAgBAgEBPwGyv//EABsQAAEEAwAAAAAAAAAAAAAAAAEAAhARITOR/9oACAEBAAY/ArQtptaj2Mx//8QAGxAAAgMAAwAAAAAAAAAAAAAAABEBIUExUZH/2gAIAQEAAT8hu1ISzS3BIuC2hEk25eUN2f/aAAwDAQACAAMAAAAQgN//xAAWEQEBAQAAAAAAAAAAAAAAAAABABH/2gAIAQMBAT8QAC2//8QAFxEBAQEBAAAAAAAAAAAAAAAAAQARUf/aAAgBAgEBPxBS17f/xAAcEAEBAAIDAQEAAAAAAAAAAAABEQAhMUFhUXH/2gAIAQEAAT8QuC0B1gkoVj1JX8yVSyrce4TjEE86x2CwIIZxox+rXuf/2Q==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 65.17006802721087%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAANABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMFBP/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/9oADAMBAAIQAxAAAAHAyYy1ElEv/8QAGxAAAQQDAAAAAAAAAAAAAAAAAQACAxEEECH/2gAIAQEAAQUCZIKEvDktGi4lWv/EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABYRAAMAAAAAAAAAAAAAAAAAAAEQEv/aAAgBAgEBPwGyv//EABsQAAEEAwAAAAAAAAAAAAAAAAEAAhARITOR/9oACAEBAAY/ArQtptaj2Mx//8QAGxAAAgMAAwAAAAAAAAAAAAAAABEBIUExUZH/2gAIAQEAAT8hu1ISzS3BIuC2hEk25eUN2f/aAAwDAQACAAMAAAAQgN//xAAWEQEBAQAAAAAAAAAAAAAAAAABABH/2gAIAQMBAT8QAC2//8QAFxEBAQEBAAAAAAAAAAAAAAAAAQARUf/aAAgBAgEBPxBS17f/xAAcEAEBAAIDAQEAAAAAAAAAAAABEQAhMUFhUXH/2gAIAQEAAT8QuC0B1gkoVj1JX8yVSyrce4TjEE86x0CwIIZxox+rXuf/2Q==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
