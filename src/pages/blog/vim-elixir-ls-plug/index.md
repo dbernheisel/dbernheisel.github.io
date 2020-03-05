@@ -1,8 +1,8 @@
 ---
-title: "VIM ElixirLS and Updates"
+title: "Managing ElixirLS updates in Neovim with asdf and vim-plug"
 tags: ["elixir", "vim"]
 date: 2020-03-03
-excerpt: "How I manage ElixirLS, vim, and coc.nvim with vim-plug."
+excerpt: "How I manage ElixirLS, neovim, and coc.nvim with vim-plug."
 ---
 
 [Kassio's Post] was inspirational, and I adapted from his setup. My setup is a
@@ -242,6 +242,9 @@ dictionary, you'll see a normal dictionary with some funcrefs.
 One of the great things about Neovim (and Vim8+) is that it really pushed
 asynchronous work forward. Neovim introduced some functions to manage background
 jobs. The one we end up using is `jobstart({cmd}[, {opts}])` (check out `:h jobstart`).
+**Heads up** this is for Neovim; Vim8 has a different API for asynchronous
+work. It's still `jobstart` but the options are different, so be sure to check
+out `:h job-options`.
 
 ```vim
 function ElixirLS.compile()
