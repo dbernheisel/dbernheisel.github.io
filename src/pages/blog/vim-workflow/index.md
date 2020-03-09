@@ -160,7 +160,8 @@ function! MyAppRspec(cmd) abort
   " If I'm in the pesky app and
   " not running the entire test suite indicated by the --profile flag
   " Add the SKIP_FIXTURES env var.
-  if match(a:cmd, '--profile') == -1 && system("cat README.md | grep 'MyApp'") == 0
+  call system("cat README.md | grep 'MyApp'")
+  if match(a:cmd, '--profile') == -1 && v:shell_error == 0
     return substitute(a:cmd, 'bundle exec', 'SKIP_FIXTURES=true bundle exec', '')
   else
     return a:cmd
