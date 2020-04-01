@@ -1,4 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 09 Mar 2020 20:35:54 GMT</lastBuildDate><item><title><![CDATA[Managing ElixirLS updates in Neovim with asdf and vim-plug]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 01 Apr 2020 04:20:44 GMT</lastBuildDate><item><title><![CDATA[NewTab Notes Extension]]></title><description><![CDATA[
+Today I [published a new Chrome Extension in the Chrome Web Store][extension].
+This extension replaces the New Tab page with a rendered markdown page that you
+can edit. It's customizable too!
+
+[extension]: https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn
+
+]]></description><link>https://bernheisel.com/blog/newtab-notes-chrome-extension/</link><guid isPermaLink="false">https://bernheisel.com/blog/newtab-notes-chrome-extension/</guid><pubDate>Tue, 31 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Today I &lt;a href=&quot;https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn&quot;&gt;published a new Chrome Extension in the Chrome Web Store&lt;/a&gt;.
+This extension replaces the New Tab page with a rendered markdown page that you
+can edit. It’s customizable too!&lt;/p&gt;
+&lt;!-- excerpt --&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/dbernheisel/MarkdownTab&quot;&gt;I made it open-source as well.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/ddfd0/screenshot.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 44.484958979033735%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsSAAALEgHS3X78AAABpUlEQVQoz32S6W6bUBCFeY/GjuHCZTHGeEn9CFVrJ02kVG2fvb+8AV4iB2wDxlinM7dNG6nLlT7NATTnzoKWHw7YpymOxyP+dcpzha/jCQZvrjE0JUZCwhM6WsYVDKOh0DmKJrTd0xOSKMJ2u0WWZTjwBfs9iqJAttvhSDpNn3H/cAfDEggCDx1Pwm9LOB0XMuzAJd0mbEdAS6m6Z2JHyWVZoqoqxfl8RklV16SLIifDWzT0K9iuCcvWYUkdpm3A4mfSNmnTakFbr9d4IUkSLJdLbDYbLBYLRHGM1WoFvvTx0wPavo2btz0Mhl0iUAxJhz1fvQ+6HjQ2YKbTqYKN5vO50hGNIiZT/v75yyMluBiN+ugPAvT6HQxvQqX5Ao6uZ/1oOWNofq9nyPAYLpcLTqcTPt5PqFUDXaqGWxTm9R/wYrSUkvL/bJhPRYaTuw9oSgHZttU2DdH4GX/Dphr/LlxNnueo61ot4yVydTVRlGR4+x4t14I7CCF9B6Zj/jJ5jcaLYGazmYLnxnNk4jhBtJwjW3/DePwODaMJJ/QhuGXa6N8MvwNjdd9WR6EukQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;screenshot&quot;
+        title=&quot;&quot;
+        src=&quot;/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/b9e4f/screenshot.png&quot;
+        srcset=&quot;/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/cf440/screenshot.png 148w,
+/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/d2d38/screenshot.png 295w,
+/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/b9e4f/screenshot.png 590w,
+/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/f9b6a/screenshot.png 885w,
+/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/2d849/screenshot.png 1180w,
+/static/f0aa264d8bf17af1adf7dc1cd1f0e39a/ddfd0/screenshot.png 2194w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;I’ve been trying to get in the habit of taking more notes and writing notes
+down before I forget about them. I also use the Chrome browser. The way I look
+for information in Chrome is by opening a new tab and start typing away for the
+question. What if the new tab had some information on it that I could stow away?&lt;/p&gt;
+&lt;p&gt;There’s plenty of existing extensions out there and I tried about 5 or 6 of them
+but they didn’t suite my taste or needs. If it didn’t sync between Chrome
+devices, then my notes would be scattered across machines — no go. Often times,
+the markdown syntax it provided was vanilla Markdown, but I’m used to newer
+features and extensions offered by GitHub Flavored Markdown, such as task lists,
+tables, and autolinking. If it didn’t support GFM — no go.&lt;/p&gt;
+&lt;p&gt;I’m working on a project using Elixir, Vue, and Tailwind CSS, and I wanted to
+practice using those frameworks so I can understand them more. It’s all about
+the repetition for learning.&lt;/p&gt;
+&lt;p&gt;Since I know nothing about Chrome Extension development, I &lt;a href=&quot;https://github.com/intrvertmichael/MarkdownTab&quot;&gt;found an existing
+extension&lt;/a&gt; that was pretty close
+to what I wanted. I forked it and started customizing it for my own wants.
+Fiddling around with the code made me understand more of what makes it
+Chrome-specific, which isn’t too much, and the rest was just
+plain-old-javascript. This led me down the path of using Vue and TailwindCSS,
+and packaging it with Webpack— just like I do with my Elixir project.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Chrome needs a &lt;a href=&quot;https://developer.chrome.com/extensions/manifest&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;manifest.json&lt;/code&gt;&lt;/a&gt; to specify the icon, description, and
+permissions it needs to operate within Chrome.&lt;/li&gt;
+&lt;li&gt;In the manifest, you specify the entry point HTML. In my case, I needed
+the new tab page.&lt;/li&gt;
+&lt;li&gt;There are some Chrome APIs you can use. The only one that I care about is
+&lt;a href=&quot;https://developer.chrome.com/extensions/storage&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;chrome.storage.sync&lt;/code&gt;&lt;/a&gt;. This handles storing small data related to your
+extension and handles offline and online capabilities. If you’re offline,
+then it’s ok and will store the data in local storage until you’re online
+again, which then it will sync through the net and update your other
+devices.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Maybe one day I can make it more like &lt;a href=&quot;https://github.com/vimwiki/vimwiki&quot;&gt;vimwiki&lt;/a&gt; which offers multi-page
+linking, but for now it’s fine.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Managing ElixirLS updates in Neovim with asdf and vim-plug]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
 little different from his:I use asdf to manage my installed…]]></description><link>https://bernheisel.com/blog/vim-elixir-ls-plug/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-elixir-ls-plug/</guid><pubDate>Tue, 03 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://kassio.github.io/2019/03/21/elixir-ls-on-coc.nvim.html&quot;&gt;Kassio’s Post&lt;/a&gt; was inspirational, and I adapted from his setup. My setup is a
 little different from his:&lt;/p&gt;
 &lt;ul&gt;
