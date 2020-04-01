@@ -13,8 +13,8 @@ PreCSS run the following plugins (in this order):
 
 module.exports = {
   plugins: [
-    require(`precss`),
-    require(`tailwindcss`)(`./src/css/tailwind.config.js`),
-    require(`autoprefixer`)()
+    require('precss'),
+    require('tailwindcss')('./src/css/tailwind.config.js'),
+    require('autoprefixer')()
   ]
 }

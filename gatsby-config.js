@@ -7,6 +7,13 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-postcss',
+    {
+      resolve: 'gatsby-plugin-purgecss',
+      options: {
+        tailwind: true,
+        ignore: ['prismjs/']
+      }
+    },
     'gatsby-plugin-twitter',
     'gatsby-plugin-sitemap',
     {
