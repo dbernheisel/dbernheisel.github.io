@@ -34,6 +34,24 @@ class ProjectsPage extends React.Component {
             <li>Supports arbitrary formats, eg "Saturday, Jan-34-04"</li>
           </ul>
         </article>
+
+        <article>
+          <h2>NewTab Notes - Chrome Extension</h2>
+          <OutboundLink href="https://github.com/dbernheisel/MarkdownTab">
+            GitHub
+          </OutboundLink>
+          <div class="px-2 inline-block"></div>
+          <OutboundLink href="https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn">
+            Published on the Chrome Web Store
+          </OutboundLink>
+          <p>Major functions:</p>
+          <ul>
+            <li>Replace the Chrome New Tab with a markdown page.</li>
+            <li>Customize the look of what's rendered.</li>
+            <li>Built with VueJS and Tailwind CSS</li>
+            <li>Built purely for my own use.</li>
+          </ul>
+        </article>
       </Layout>
     )
   }

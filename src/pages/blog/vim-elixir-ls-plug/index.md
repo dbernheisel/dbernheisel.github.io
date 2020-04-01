@@ -183,8 +183,8 @@ The `join([...], ' ')` is only a way to organize the commands in a visual way.
 It's not necessary; you can totally just concat some strings together. The end
 result of this join is:
 
-```sh
-asdf install && mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release
+```shell-session
+$ asdf install && mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release
 ```
 
 Since I'm using [asdf] and [so are the ElixirLS
@@ -263,7 +263,7 @@ it.
 
 Here's the complete command that ends up being sent:
 
-```sh
+```bash
 cd {the-path} && \
   git pull && \
   asdf install && \
