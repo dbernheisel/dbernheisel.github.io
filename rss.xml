@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 01 Apr 2020 05:14:28 GMT</lastBuildDate><item><title><![CDATA[NewTab Notes Extension]]></title><description><![CDATA[Today I published a new Chrome Extension in the Chrome Web Store.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 04 Apr 2020 22:34:02 GMT</lastBuildDate><item><title><![CDATA[NewTab Notes Extension]]></title><description><![CDATA[Today I published a new Chrome Extension in the Chrome Web Store.
 This extension replaces the New Tab page with a rendered markdown page that you
 can edit. It’s customizable too!]]></description><link>https://bernheisel.com/blog/newtab-notes-chrome-extension/</link><guid isPermaLink="false">https://bernheisel.com/blog/newtab-notes-chrome-extension/</guid><pubDate>Tue, 31 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Today I &lt;a href=&quot;https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn&quot;&gt;published a new Chrome Extension in the Chrome Web Store&lt;/a&gt;.
 This extension replaces the New Tab page with a rendered markdown page that you
@@ -70,7 +70,17 @@ again, which then it will sync through the net and update your other
 devices.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Maybe one day I can make it more like &lt;a href=&quot;https://github.com/vimwiki/vimwiki&quot;&gt;vimwiki&lt;/a&gt; which offers multi-page
-linking, but for now it’s fine.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Managing ElixirLS updates in Neovim with asdf and vim-plug]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
+linking, but for now it’s fine.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ecto Changesets on Elixir Mix podcast]]></title><description><![CDATA[Check it out here: https://devchat.tv/elixir-mix/emx-091-managing-change-with-ecto-with-david-bernheisel/ Coming from ActiveRecord, Ecto and…]]></description><link>https://bernheisel.com/blog/elixir-mix-ecto-changeset-podcast/</link><guid isPermaLink="false">https://bernheisel.com/blog/elixir-mix-ecto-changeset-podcast/</guid><pubDate>Tue, 31 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Check it out here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://devchat.tv/elixir-mix/emx-091-managing-change-with-ecto-with-david-bernheisel/&quot;&gt;https://devchat.tv/elixir-mix/emx-091-managing-change-with-ecto-with-david-bernheisel/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Coming from ActiveRecord, Ecto and Changesets were a wonderful alternative! They
+cover my &lt;a href=&quot;https://bernheisel.com/blog/ecto_changeset_tips/&quot;&gt;other blog post&lt;/a&gt;
+where I shared some tips and tricks for working with Changesets. We also cover
+Ecto.Multi, how to compose Changesets, using “embedded” schemas, and much more!&lt;/p&gt;
+&lt;audio controls&gt;
+  &lt;source src=&quot;/f40a78943a99f523a717c4890f2cbb1f//f40a78943a99f523a717c4890f2cbb1f/EMx_091_David_Bernheisel.mp3&quot; type=&quot;audio/mpeg&quot;&gt;
+  &lt;p&gt;Your browser doesn&apos;t support HTML5 audio. Here is
+     a &lt;a href=&quot;/f40a78943a99f523a717c4890f2cbb1f//f40a78943a99f523a717c4890f2cbb1f/EMx_091_David_Bernheisel.mp3&quot;&gt;link to the audio&lt;/a&gt; instead.&lt;/p&gt;
+&lt;/audio&gt;</content:encoded></item><item><title><![CDATA[Managing ElixirLS updates in Neovim with asdf and vim-plug]]></title><description><![CDATA[Kassio’s Post was inspirational, and I adapted from his setup. My setup is a
 little different from his: I use asdf to manage my installed…]]></description><link>https://bernheisel.com/blog/vim-elixir-ls-plug/</link><guid isPermaLink="false">https://bernheisel.com/blog/vim-elixir-ls-plug/</guid><pubDate>Tue, 03 Mar 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://kassio.github.io/2019/03/21/elixir-ls-on-coc.nvim.html&quot;&gt;Kassio’s Post&lt;/a&gt; was inspirational, and I adapted from his setup. My setup is a
 little different from his:&lt;/p&gt;
 &lt;ul&gt;
