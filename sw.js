@@ -43,10 +43,6 @@ self.__precacheManifest = [
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-8dc5b1de7df84c955e11.js"
   },
   {
-    "url": "manifest.json",
-    "revision": "9abafc0512953390a78da96633b07521"
-  },
-  {
     "url": "manifest.webmanifest",
     "revision": "b121fbb130488fa4b580cdf037971d24"
   }
