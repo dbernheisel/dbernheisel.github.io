@@ -36,6 +36,16 @@ module.exports = {
         "excerpt_separator": '<!-- excerpt -->',
         plugins: [
           {
+            resolve: 'gatsby-remark-audio',
+            options: {
+              preload: 'auto',
+              loop: false,
+              controls: true,
+              muted: false,
+              autoplay: false
+            }
+          },
+          {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 590,

@@ -18,8 +18,4 @@ we built.
 [Cory]: https://schmitty.me
 [DateTimeParser]: https://github.com/taxjar/date_time_parser
 
-<audio controls>
-  <source src="EMx_068_David_Bernheisel.mp3" type="audio/mpeg">
-  <p>Your browser doesn't support HTML5 audio. Here is
-     a <a href="EMx_068_David_Bernheisel.mp3">link to the audio</a> instead.</p>
-</audio>
+`audio: /EMx_068_David_Bernheisel.mp3`
