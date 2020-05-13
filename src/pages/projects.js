@@ -40,7 +40,7 @@ class ProjectsPage extends React.Component {
           <OutboundLink href="https://github.com/dbernheisel/MarkdownTab">
             GitHub
           </OutboundLink>
-          <div class="px-2 inline-block"></div>
+          <div className="inline-block px-2"></div>
           <OutboundLink href="https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn">
             Published on the Chrome Web Store
           </OutboundLink>

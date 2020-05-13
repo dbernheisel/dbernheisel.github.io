@@ -11,7 +11,7 @@ class Template extends React.Component {
     return (
       <div>
         <Nav location={location}/>
-        <main className="p-4 m-auto max-w-lg">
+        <main className="max-w-lg p-4 m-auto text-lg">
           {children}
         </main>
       </div>

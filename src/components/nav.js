@@ -9,13 +9,13 @@ import cx from 'classnames'
 const HeaderLink = ({children}) => {
   return (
     <Link to='/'>
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
+      <div className="flex items-center flex-shrink-0 mr-6 text-white">
         <img
           src={profilePic}
           alt='David Bernheisel'
-          className='w-16 h-16 lg:w-32 lg:h-32 rounded-full shadow-md border-2 border-teal-light mr-4'
+          className='w-16 h-16 mr-4 border-2 rounded-full shadow-md lg:w-32 lg:h-32 border-teal-light'
         />
-        <span className="text-2xl sm:text-4xl lg:text-5xl font-black">David Bernheisel</span>
+        <span className="text-2xl font-black sm:text-4xl lg:text-5xl">David Bernheisel</span>
       </div>
     </Link>
   )
@@ -50,7 +50,7 @@ const NavLink = ({location, to, children}) => {
 const OutboundNavLink = ({href, children}) => {
   return (
     <OutboundLink
-      className='bg-blue-dark hover:border-blue-darker hover:bg-blue-darker text-white font-medium block lg:inline-block mt-4 mr-4 lg:mt-0 no-underline hover:no-underline shadow rounded py-1 px-3'
+      className='block px-3 py-1 mt-4 mr-4 font-medium text-white no-underline rounded shadow bg-blue-dark hover:border-blue-darker hover:bg-blue-darker lg:inline-block lg:mt-0 hover:no-underline'
       href={href}>
       {children}
     </OutboundLink>
@@ -73,13 +73,13 @@ export default class Nav extends React.Component {
     )
 
     return (
-      <nav className='shadow-md flex items-center justify-between flex-wrap bg-teal p-4'>
+      <nav className='flex flex-wrap items-center justify-between p-4 shadow-md bg-teal'>
         <HeaderLink />
         <div className='block lg:hidden'>
           <button
             onClick={this.menuToggle}
             className="flex items-center px-3 py-2 border rounded text-gray-light border-teal-light hover:text-white hover:border-white">
-            <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
             </svg>
@@ -89,9 +89,9 @@ export default class Nav extends React.Component {
           <NavLink {...this.props} to='/'>Blog</NavLink>
           <NavLink {...this.props} to='/projects/'>Projects</NavLink>
           <OutboundNavLink href="https://twitter.com/bernheisel">Twitter</OutboundNavLink>
-          <div className="lg:mt-0 mt-4 py-1">
+          <div className="py-1 mt-4 lg:mt-0">
             <a href='/rss.xml'>
-              <img className="h-7 align-middle" src={rssIcon} alt="RSS"/>
+              <img className="align-middle h-7" src={rssIcon} alt="RSS"/>
             </a>
           </div>
         </div>
