@@ -532,12 +532,12 @@ persist. We’ll look for the steps in the <code class="language-text">@steps</c
 and that should swap-out the form for the next one!</p>
 <p>If there isn’t a next step, then that must mean that we’re finished, so we
 should try to save.</p>
-<div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> YouMeetWeb<span class="token punctuation">.</span>MeetupLive<span class="token punctuation">.</span>Step <span class="token keyword">do</span>
+<div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> YouMeetWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>Step <span class="token keyword">do</span>
   <span class="token attribute variable">@moduledoc</span> <span class="token string">"Describe a step in the multi-step form"</span>
   <span class="token keyword">defstruct</span> <span class="token punctuation">[</span><span class="token atom symbol">:name</span><span class="token punctuation">,</span> <span class="token atom symbol">:prev</span><span class="token punctuation">,</span> <span class="token atom symbol">:next</span><span class="token punctuation">]</span>
 <span class="token keyword">end</span>
 
-<span class="token keyword">defmodule</span> YouMeetWeb<span class="token punctuation">.</span>MeetupLive<span class="token punctuation">.</span>New <span class="token keyword">do</span>
+<span class="token keyword">defmodule</span> YouMeetWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>New <span class="token keyword">do</span>
   <span class="token comment"># ..snip..</span>
 
   <span class="token keyword">defp</span> assign_step<span class="token punctuation">(</span>socket<span class="token punctuation">,</span> step<span class="token punctuation">)</span> <span class="token keyword">do</span>
