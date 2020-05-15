@@ -66,9 +66,26 @@ The EEX was something like this:
 </div>
 ```
 
-This is fine when the form is smaller and simpler (but if it's this simple, you
-probably don't want a multi-step form?). However, I quickly found that
-**calculated fields** complicates things pretty quickly.
+I found that this approach has several drawbacks:
+
+- When the user hits "enter", the form will try to submit. If you're on the
+    first step, you probably don't want that to submitted yet until they're
+    on the last step. You can override this with some JavaScript, but this
+    non-standard behavior made things more complicated than it should be. I'll
+    need the JavaScript to know which step is last, and track which step it's
+    currently on. Ugh... I did this and it wasn't great. I wanted to delete
+    myself.
+- When the user is on a different step, you still need to manage all the "state"
+    of other steps. This is a lot of "weight" to worry about and ensure
+    _doesn't_ change.
+- As soon as the user interacts with the form on the first step, validations
+    will occur for the entire form, **even for those inputs on hidden steps**. This
+    means errors will already be populated before the user even interacted with
+    them.
+- Testing big form was difficult.
+
+Generally, I found it harder to "reason about", especially when I have computed
+fields and help text based on user input.
 
 For example, I need to persist two DateTimes with timezones, but I don't want to
 present that to the user as `datetime_select`s and have them select a timezone
@@ -83,6 +100,7 @@ like this:
 <%= date_select f, :date %>
 <%= time_input f, :start_time %>
 <%= time_input f, :end_time %>
+Your duration is <%= @duration %>
 ```
 
 so in my params, I would receive something like this:
@@ -127,24 +145,20 @@ record.duration #=> 7200 # seconds which is 2 hours
 
 This is going to be a lot of work!
 
-Here are some drawbacks to having all this logic on the same form with hidden
-steps:
-
-- When the user hits "enter", the form will try to submit. If you're on the
-    first step, you probably don't want that to submitted yet until they're
-    on the last step. You can override this with some JavaScript, but this
-    non-standard behavior made things more complicated than it should be. I'll
-    need the JavaScript to know which step is last, and track which step it's
-    currently on. Ugh... I did this and it wasn't great. I wanted to delete
-    myself.
-- When the user is on a different step, you still need to manage all the "state"
-    of other steps. This is a lot of "weight" to worry about and ensure
-    _doesn't_ change.
-- Testing this was difficult.
-
-
 Let's not have the giant form all be in one template, or even partials; let's
-split the form up into components.
+split the form up into components. These components will let me manage these
+computed fields easier, as well as solve some other UX issues mentioned above.
+
+## Let's break it down:
+
+- [Manage form progress in the parent LiveView.](#formprogress)
+- [Split the multi-step form into LiveComponents. At least one for each visible step.](#extract)
+- [Send input supplied client-side via `phx-hook`.](#clientside)
+- [Handle input changes from the users from the component](#clientinput)
+- [Handle stepped-form submission](#subformsubmission)
+- [Handle final form submission.](#formsubmission)
+
+<a name="formprogress"></a>
 
 ## Managing the form progress
 
@@ -186,20 +200,24 @@ end
 ```
 
 When the underlying live components are finished, they'll send a message to the
-liveview and it will re-assign `:progress`, and the conditionals in the template
-will apply/remove the "hidden" class. You'll see that as you read on.
+parent LiveView which will re-assign `:progress`; the conditionals in the
+template will apply/remove the "hidden" class for the next appropriate step, or
+previous step. You'll see that as you read on.
 
 Let's chop up the form.
+
+<a name="extract"></a>
 
 ## Extract to LiveComponents
 
 All this ugly-but-necessary logic should live in "form objects". In Ecto-land
-these can be managed with embedded schemas. These form objects can be
-responsible for the state of their own fields, and compute their own values
-without affecting other steps' values.
+these can be managed with embedded schemas. These form objects are responsible
+for the state of their own fields, and compute their own values without
+affecting other steps' values. The domain becomes much clearer.
 
-When the form is submitted, the "save" event the LiveComponent can pass the
-completed params up to its parent LiveView. The parent LiveView can track these
+When the form is submitted, it will trigger the "save" event from the
+LiveComponent. The LiveComponent can then pass the completed params up to its
+parent LiveView if the changeset is valid. The parent LiveView can track these
 params separately, sitting on it until final save, persisted as a draft, or
 whatever you need.
 
@@ -208,6 +226,9 @@ This has some benefits:
 - form submission (hitting enter) no longer needs to override default behavior.
 - isolates testing to it's own form and LiveComponent.
 - your form's "domain" has clearer boundaries.
+- user interaction and form validation makes more sense; only the visible form
+    is "tainted" when the user changes it (opposed to it being tainted before
+    the user even sees it).
 
 The multi-step form now looks like this:
 
@@ -256,27 +277,26 @@ Here's the big idea:
 - When handling validation events, we're going to throw the params into the
     changeset and assign the new changeset back.
 
-- The computed values will be updated in the changeset and can be assigned
-    into the socket.
+- The computed values will be updated from the changeset and/or pulled out of
+    the chnageset and assigned into the socket.
 
-- When handling the save event, we're going to
-    `Ecto.Changeset.apply_action(changeset)` and ensure it's valid, and if so,
-    then tell the parent LiveView that we're good to proceed. We'll send the
-    schema up to the parent LiveView. This schema will contain the computed
+- When handling the save event, we're going to ensure the changeset is valid,
+    and if so, tell the parent LiveView that we're good to proceed. We'll send
+    the struct up to the parent LiveView. This struct will contain the computed
     fields so it should be easier for the parent to stitch these steps' params
-    together into the final schema.
+    together into the final changeset that's actually persisted.
 
 Again, the flow should look like this:
 
 1. On mounting, take the Event and pluck the relevant fields out of it to create
-   a WhenComponent form backed by an embedded_schema.
+   a WhenComponent form backed by an `embedded_schema`.
 1. When the user is on the step, take the changes as they come and let the user
    iterate on the form until it's valid.
 1. When the changeset is valid and the user tries to submit it, pass the final
-   schema up to the parent LiveView. The parent LiveView can then switch to the
+   struct up to the parent LiveView. The parent LiveView can then switch to the
    next step.
 
-Here the component code:
+Here is the component code:
 
 ```elixir
 defmodule MyAppWeb.EventLive.WhenComponent do
@@ -409,11 +429,14 @@ defmodule MyAppWeb.EventLive.WhenComponent do
 end
 ```
 
+
+<a name="clientside"></a>
+
 ## Getting the user's timezone with `phx-hook`
 
-We can estimate what the user's timezone is by asking the browser. **NOTE** I
-don't recommend you do what I'm doing here. This is a placeholder until I can
-spend more time with it. Use it as a learning exercise!
+We can estimate what the user's timezone is by asking the browser. **NOTE** _I
+don't recommend you use this as your only source of user timezone._ Use this as
+an example for how to get JavaScript-sourced input
 
 Let's get the timezone. We'll need some JavaScript.
 
@@ -442,15 +465,18 @@ hooks.UserTimeZone = {
 </div>
 ```
 
-Now when the page is rendered, I'll get a `hidden_input` populated with the
-detected timezone. This will be included in further form changes and params sent
-to the LiveView process. Remember to wrap it with a `phx-update="ignore"` so the
-JavaScript-mutated value isn't overwritten by the backend.
+When the page is rendered, I'll get a `hidden_input` populated with the detected
+timezone. This will be included in further form changes and params sent to the
+LiveView process. Remember to wrap it with a `phx-update="ignore"` so the
+JavaScript-mutated value isn't overwritten by LiveView.
 
 You'll notice that I'm also using `pushEventTo` after mounting. This is needed
 because the user may not have interacted with the form yet to trigger a change,
 so until then, I won't have user's timezone! I want it pushed immediately so I
-can update the form's changeset.
+can update the form's changeset. Also, `pushEventTo` is used instead of
+`pushEvent` because this is a LiveComponent, so I want the event pushed to the
+LiveComponent and not the parent LiveView. I pass the target in via a data
+attribute.
 
 When handling the event, we'll merge the timezone with the existing params of
 the changeset, and then re-apply the changeset and re-compute fields.
@@ -468,15 +494,19 @@ def handle_event("timezone", detected_timezone, socket) do
 end
 ```
 
+<a name="clientinput"></a>
+
 ## Handling sub-form change events
 
-Handling form change events doesn't change with this embedded_schema and
+Handling form change events doesn't change with this `embedded_schema` and
 component-ized approach. It's standard Phoenix and Ecto changeset forms, so it's
-not as interesting to look at.
+not very interesting to look at. But remember that you'll need to use
+`phx-target` to send  changes to the LiveComponent, otherwise they may bubble up
+to your parent LiveView.
 
-However in my case I need to adjust the parameters that come in, so we'll look
-at that! I need to check to see what changed, and then apply new parameters
-based on what changed.
+In my case, I also need to adjust the parameters that come in, so we'll look at
+that! I need to check to see what field is changing and apply new parameters
+based on what is changing.
 
 ```elixir
 @impl Phoenix.LiveComponent
@@ -532,17 +562,24 @@ and not the parent LiveView. This is accomplished with `phx-target` on the form.
   phx_submit: :save,
   id: @id %>
 
-  <%# all my form inputs %>
+  <%# ... timezone input mentioned above ... %>
+
+  <%= date_select f, :date %>
+  <%= time_input f, :start_time %>
+  <%= time_input f, :end_time %>
+  Your duration is <%= @duration %>
 
 </form>
 ```
+
+<a name="subformsubmission"></a>
 
 ## Handling the sub-form submission
 
 When the user tries to submit the form, either by hitting "enter" or clicking on
 the submit button, I need to validate the form once again, and if it's good tell
-the parent LiveView that it's ok to proceed and supply all the nice computed
-values.
+the parent LiveView that it's ok to proceed and supply all the
+helpfully-computed values.
 
 This time we'll check if the changeset is valid with
 [`Ecto.Changeset.apply_action/2`]. Based on that result, we'll let the
@@ -551,7 +588,7 @@ run in its own process, instead it's running inside the parent LiveView's
 process. So `self()` is actually the LiveView and not the LiveComponent. This is
 how we can send the parent LiveView the result!
 
-You can [read more about LiveComponent and sources of truth](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html#module-liveview-as-the-source-of-truth).
+You can [read more about LiveComponent and sources of truth in the docs](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html#module-liveview-as-the-source-of-truth).
 
 [`Ecto.Changeset.apply_action/2`]: https://hexdocs.pm/ecto/Ecto.Changeset.html#apply_action/2
 
@@ -598,6 +635,8 @@ def handle_info({:proceed, %MyAppWeb.EventLive.WhenComponent{} = form}, socket) 
 end
 ```
 
+<a name="formsubmission"></a>
+
 ## Handling the overall form submission
 
 You'll notice that I have a function `assign_step` above. Let's go to the parent
@@ -609,12 +648,12 @@ If there isn't a next step, then that must mean that we're finished, so we
 should try to save.
 
 ```elixir
-defmodule YouMeetWeb.EventLive.Step do
-  @moduledoc "Describe a step in the multi-step form"
+defmodule MyAppWeb.EventLive.Step do
+  @moduledoc "Describe a step in the multi-step form and where it can go."
   defstruct [:name, :prev, :next]
 end
 
-defmodule YouMeetWeb.EventLive.New do
+defmodule MyAppWeb.EventLive.New do
   # ..snip..
 
   defp assign_step(socket, step) do
