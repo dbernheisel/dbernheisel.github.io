@@ -79,10 +79,11 @@ I found that this approach has several drawbacks:
     of other steps. This is a lot of "weight" to worry about and ensure
     _doesn't_ change.
 - As soon as the user interacts with the form on the first step, validations
-    will occur for the entire form, **even for those inputs on hidden steps**. This
-    means errors will already be populated before the user even interacted with
-    them.
-- Testing big form was difficult.
+    will occur for the entire form, **even for those inputs on hidden steps**.
+    This means errors will already be populated before the user even interacted
+    with them.
+- Testing the big form was difficult. The tools were great-- I just
+    bad-developered and didn't break it down well.
 
 Generally, I found it harder to "reason about", especially when I have computed
 fields and help text based on user input.
@@ -128,7 +129,7 @@ needed to detect what changed:
 1. At some point, if we accept user input for `duration`, then we we'd want to
    extend the `end_time` with the new duration.
 
-Now I have some fields, I need to compute them into my event record somehow.
+Now I have some fields, I need to compute them into my event struct somehow.
 This is how it needs to end up:
 
 ```elixir
