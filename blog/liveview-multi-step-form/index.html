@@ -15,7 +15,7 @@
       
       
       }</script><link rel="alternate" type="application/rss+xml" title="David Bernheisel&#x27;s Blog RSS Feed" href="/rss.xml"/><link rel="icon" href="/android-chrome-36x36.png?v=611230f76b9c00b58e5b99e8a179a99d"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="36x36" href="/android-chrome-36x36.png?v=611230f76b9c00b58e5b99e8a179a99d"/><link rel="apple-touch-icon" sizes="48x48" href="/android-chrome-48x48.png?v=611230f76b9c00b58e5b99e8a179a99d"/><link rel="apple-touch-icon" sizes="72x72" href="/android-chrome-72x72.png?v=611230f76b9c00b58e5b99e8a179a99d"/><link rel="apple-touch-icon" sizes="96x96" href="/android-chrome-96x96.png?v=611230f76b9c00b58e5b99e8a179a99d"/><link rel="apple-touch-icon" sizes="144x144" href="/android-chrome-144x144.png?v=611230f76b9c00b58e5b99e8a179a99d"/><link rel="apple-touch-icon" sizes="192x192" href="/android-chrome-192x192.png?v=611230f76b9c00b58e5b99e8a179a99d"/><title data-react-helmet="true">Phoenix LiveView: Multi-step forms | David Bernheisel</title><meta data-react-helmet="true" name="description" content="Phoenix LiveView has been a dream to work with so far. I really recommend
-looking at it for your next web application. Building Tailwind…"/><link as="script" rel="preload" href="/styles-48fa8a050a65bb8447bd.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-js-2780d9b33f550a804e84.js"/><link as="script" rel="preload" href="/1777bc0a756dace6068a54d243c7071eee1627a0-9e9727b36538e6264ac4.js"/><link as="script" rel="preload" href="/framework-1cbcc4f69858806ac5db.js"/><link as="script" rel="preload" href="/app-e49f8733b8aee9471acf.js"/><link as="script" rel="preload" href="/webpack-runtime-41d54de024c2d1f9252e.js"/><link as="fetch" rel="preload" href="/page-data/blog/liveview-multi-step-form/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div><nav class="flex flex-wrap items-center justify-between p-4 shadow-md bg-teal"><a class="text-white no-underline" href="/"><div class="flex items-center flex-shrink-0 mr-6 text-white"><img src="/static/profile-picture-977b63cbce04bae4479e3185b22bfb1a.jpg" alt="David Bernheisel" class="w-16 h-16 mr-4 border-2 rounded-full shadow-md lg:w-32 lg:h-32 border-teal-light"/><span class="text-2xl font-black sm:text-4xl lg:text-5xl">David Bernheisel</span></div></a><div class="block lg:hidden"><button class="flex items-center px-3 py-2 border rounded text-gray-light border-teal-light hover:text-white hover:border-white"><svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></button></div><div class="w-full block lg:mt-0 mt-4 lg:flex lg:items-center lg:w-auto hidden"><a class="text-white no-underline bg-blue-dark hover:border-blue-darker hover:bg-blue-darker text-white font-medium block lg:inline-block mt-4 mr-4 lg:mt-0 shadow rounded py-1 px-3" href="/">Blog</a><a class="text-white no-underline bg-blue-dark hover:border-blue-darker hover:bg-blue-darker text-white font-medium block lg:inline-block mt-4 mr-4 lg:mt-0 shadow rounded py-1 px-3" href="/projects/">Projects</a><a class="block px-3 py-1 mt-4 mr-4 font-medium text-white no-underline rounded shadow bg-blue-dark hover:border-blue-darker hover:bg-blue-darker lg:inline-block lg:mt-0 hover:no-underline" href="https://twitter.com/bernheisel">Twitter</a><div class="py-1 mt-4 lg:mt-0"><a href="/rss.xml"><img class="align-middle h-7" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgaWQ9IlJTU2ljb24iCiAgICAgdmlld0JveD0iMCAwIDggOCIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiPgoKICA8dGl0bGU+UlNTIGZlZWQgaWNvbjwvdGl0bGU+CgogIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CiAgICAuYnV0dG9uIHtzdHJva2U6IG5vbmU7IGZpbGw6IG9yYW5nZTt9CiAgICAuc3ltYm9sIHtzdHJva2U6IG5vbmU7IGZpbGw6IHdoaXRlO30KICA8L3N0eWxlPgoKICA8cmVjdCAgIGNsYXNzPSJidXR0b24iIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHJ4PSIxLjUiIC8+CiAgPGNpcmNsZSBjbGFzcz0ic3ltYm9sIiBjeD0iMiIgY3k9IjYiIHI9IjEiIC8+CiAgPHBhdGggICBjbGFzcz0ic3ltYm9sIiBkPSJtIDEsNCBhIDMsMyAwIDAgMSAzLDMgaCAxIGEgNCw0IDAgMCAwIC00LC00IHoiIC8+CiAgPHBhdGggICBjbGFzcz0ic3ltYm9sIiBkPSJtIDEsMiBhIDUsNSAwIDAgMSA1LDUgaCAxIGEgNiw2IDAgMCAwIC02LC02IHoiIC8+Cgo8L3N2Zz4=" alt="RSS"/></a></div></div></nav><main class="max-w-lg p-4 m-auto text-lg"><article class="blog-post"><h1 class="mb-0 text-3xl">Phoenix LiveView: Multi-step forms</h1><p class="mt-0 mb-8 text-sm frontmatter"><span>Published on <!-- -->May 13, 2020</span><span><span class="mx-2">|</span>14<!-- -->m read</span></p><div><p><a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a> has been a dream to work with so far. I <em>really</em> recommend
+looking at it for your next web application. Building Tailwind…"/><link as="script" rel="preload" href="/styles-48fa8a050a65bb8447bd.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-js-2780d9b33f550a804e84.js"/><link as="script" rel="preload" href="/1777bc0a756dace6068a54d243c7071eee1627a0-9e9727b36538e6264ac4.js"/><link as="script" rel="preload" href="/framework-1cbcc4f69858806ac5db.js"/><link as="script" rel="preload" href="/app-e49f8733b8aee9471acf.js"/><link as="script" rel="preload" href="/webpack-runtime-41d54de024c2d1f9252e.js"/><link as="fetch" rel="preload" href="/page-data/blog/liveview-multi-step-form/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div><nav class="flex flex-wrap items-center justify-between p-4 shadow-md bg-teal"><a class="text-white no-underline" href="/"><div class="flex items-center flex-shrink-0 mr-6 text-white"><img src="/static/profile-picture-977b63cbce04bae4479e3185b22bfb1a.jpg" alt="David Bernheisel" class="w-16 h-16 mr-4 border-2 rounded-full shadow-md lg:w-32 lg:h-32 border-teal-light"/><span class="text-2xl font-black sm:text-4xl lg:text-5xl">David Bernheisel</span></div></a><div class="block lg:hidden"><button class="flex items-center px-3 py-2 border rounded text-gray-light border-teal-light hover:text-white hover:border-white"><svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></button></div><div class="w-full block lg:mt-0 mt-4 lg:flex lg:items-center lg:w-auto hidden"><a class="text-white no-underline bg-blue-dark hover:border-blue-darker hover:bg-blue-darker text-white font-medium block lg:inline-block mt-4 mr-4 lg:mt-0 shadow rounded py-1 px-3" href="/">Blog</a><a class="text-white no-underline bg-blue-dark hover:border-blue-darker hover:bg-blue-darker text-white font-medium block lg:inline-block mt-4 mr-4 lg:mt-0 shadow rounded py-1 px-3" href="/projects/">Projects</a><a class="block px-3 py-1 mt-4 mr-4 font-medium text-white no-underline rounded shadow bg-blue-dark hover:border-blue-darker hover:bg-blue-darker lg:inline-block lg:mt-0 hover:no-underline" href="https://twitter.com/bernheisel">Twitter</a><div class="py-1 mt-4 lg:mt-0"><a href="/rss.xml"><img class="align-middle h-7" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgaWQ9IlJTU2ljb24iCiAgICAgdmlld0JveD0iMCAwIDggOCIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiPgoKICA8dGl0bGU+UlNTIGZlZWQgaWNvbjwvdGl0bGU+CgogIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+CiAgICAuYnV0dG9uIHtzdHJva2U6IG5vbmU7IGZpbGw6IG9yYW5nZTt9CiAgICAuc3ltYm9sIHtzdHJva2U6IG5vbmU7IGZpbGw6IHdoaXRlO30KICA8L3N0eWxlPgoKICA8cmVjdCAgIGNsYXNzPSJidXR0b24iIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHJ4PSIxLjUiIC8+CiAgPGNpcmNsZSBjbGFzcz0ic3ltYm9sIiBjeD0iMiIgY3k9IjYiIHI9IjEiIC8+CiAgPHBhdGggICBjbGFzcz0ic3ltYm9sIiBkPSJtIDEsNCBhIDMsMyAwIDAgMSAzLDMgaCAxIGEgNCw0IDAgMCAwIC00LC00IHoiIC8+CiAgPHBhdGggICBjbGFzcz0ic3ltYm9sIiBkPSJtIDEsMiBhIDUsNSAwIDAgMSA1LDUgaCAxIGEgNiw2IDAgMCAwIC02LC02IHoiIC8+Cgo8L3N2Zz4=" alt="RSS"/></a></div></div></nav><main class="max-w-lg p-4 m-auto text-lg"><article class="blog-post"><h1 class="mb-0 text-3xl">Phoenix LiveView: Multi-step forms</h1><p class="mt-0 mb-8 text-sm frontmatter"><span>Published on <!-- -->May 13, 2020</span><span><span class="mx-2">|</span>16<!-- -->m read</span></p><div><p><a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a> has been a dream to work with so far. I <em>really</em> recommend
 looking at it for your next web application. Building Tailwind, Elixir, and
 Phoenix LiveView with some Vue sprinklings has been the most enjoyable tech
 stack I’ve used in a long while.</p>
@@ -67,9 +67,26 @@ form sends the entire form values.</p>
 
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre></div>
-<p>This is fine when the form is smaller and simpler (but if it’s this simple, you
-probably don’t want a multi-step form?). However, I quickly found that
-<strong>calculated fields</strong> complicates things pretty quickly.</p>
+<p>I found that this approach has several drawbacks:</p>
+<ul>
+<li>When the user hits “enter”, the form will try to submit. If you’re on the
+first step, you probably don’t want that to submitted yet until they’re
+on the last step. You can override this with some JavaScript, but this
+non-standard behavior made things more complicated than it should be. I’ll
+need the JavaScript to know which step is last, and track which step it’s
+currently on. Ugh… I did this and it wasn’t great. I wanted to delete
+myself.</li>
+<li>When the user is on a different step, you still need to manage all the “state”
+of other steps. This is a lot of “weight” to worry about and ensure
+<em>doesn’t</em> change.</li>
+<li>As soon as the user interacts with the form on the first step, validations
+will occur for the entire form, <strong>even for those inputs on hidden steps</strong>. This
+means errors will already be populated before the user even interacted with
+them.</li>
+<li>Testing big form was difficult.</li>
+</ul>
+<p>Generally, I found it harder to “reason about”, especially when I have computed
+fields and help text based on user input.</p>
 <p>For example, I need to persist two DateTimes with timezones, but I don’t want to
 present that to the user as <code class="language-text">datetime_select</code>s and have them select a timezone
 from a drop-down.</p>
@@ -79,7 +96,8 @@ select a timezone and prefer a user’s set timezone while registering). Somethi
 like this:</p>
 <div class="gatsby-highlight" data-language="erb"><pre class="language-erb"><code class="language-erb"><span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> date_select f<span class="token punctuation">,</span> <span class="token symbol">:date</span> <span class="token delimiter punctuation">%></span></span>
 <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> time_input f<span class="token punctuation">,</span> <span class="token symbol">:start_time</span> <span class="token delimiter punctuation">%></span></span>
-<span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> time_input f<span class="token punctuation">,</span> <span class="token symbol">:end_time</span> <span class="token delimiter punctuation">%></span></span></code></pre></div>
+<span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> time_input f<span class="token punctuation">,</span> <span class="token symbol">:end_time</span> <span class="token delimiter punctuation">%></span></span>
+Your duration is <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> <span class="token variable">@duration</span> <span class="token delimiter punctuation">%></span></span></code></pre></div>
 <p>so in my params, I would receive something like this:</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token keyword">def</span> handle_event<span class="token punctuation">(</span><span class="token string">"validate"</span><span class="token punctuation">,</span> <span class="token punctuation">%</span><span class="token punctuation">{</span><span class="token string">"myform"</span> <span class="token operator">=></span> params<span class="token punctuation">}</span><span class="token punctuation">,</span> socket<span class="token punctuation">)</span> <span class="token keyword">do</span>
   IO<span class="token punctuation">.</span>inspect params<span class="token punctuation">,</span> <span class="token attr-name">label:</span> <span class="token string">"PARAMS"</span>
@@ -113,23 +131,19 @@ record<span class="token punctuation">.</span>end_at_utc <span class="token comm
 
 record<span class="token punctuation">.</span>duration <span class="token comment">#=> 7200 # seconds which is 2 hours</span></code></pre></div>
 <p>This is going to be a lot of work!</p>
-<p>Here are some drawbacks to having all this logic on the same form with hidden
-steps:</p>
-<ul>
-<li>When the user hits “enter”, the form will try to submit. If you’re on the
-first step, you probably don’t want that to submitted yet until they’re
-on the last step. You can override this with some JavaScript, but this
-non-standard behavior made things more complicated than it should be. I’ll
-need the JavaScript to know which step is last, and track which step it’s
-currently on. Ugh… I did this and it wasn’t great. I wanted to delete
-myself.</li>
-<li>When the user is on a different step, you still need to manage all the “state”
-of other steps. This is a lot of “weight” to worry about and ensure
-<em>doesn’t</em> change.</li>
-<li>Testing this was difficult.</li>
-</ul>
 <p>Let’s not have the giant form all be in one template, or even partials; let’s
-split the form up into components.</p>
+split the form up into components. These components will let me manage these
+computed fields easier, as well as solve some other UX issues mentioned above.</p>
+<h2>Let’s break it down:</h2>
+<ul>
+<li><a href="#formprogress">Manage form progress in the parent LiveView.</a></li>
+<li><a href="#extract">Split the multi-step form into LiveComponents. At least one for each visible step.</a></li>
+<li><a href="#clientside">Send input supplied client-side via <code class="language-text">phx-hook</code>.</a></li>
+<li><a href="#clientinput">Handle input changes from the users from the component</a></li>
+<li><a href="#subformsubmission">Handle stepped-form submission</a></li>
+<li><a href="#formsubmission">Handle final form submission.</a></li>
+</ul>
+<p><a name="formprogress"></a></p>
 <h2>Managing the form progress</h2>
 <p>I managed the form step progress by defining a <code class="language-text">%Step{}</code> and then writing the
 order out in the liveview as a module attribute.</p>
@@ -165,16 +179,19 @@ order out in the liveview as a module attribute.</p>
   <span class="token comment"># ...snip...</span>
 <span class="token keyword">end</span></code></pre></div>
 <p>When the underlying live components are finished, they’ll send a message to the
-liveview and it will re-assign <code class="language-text">:progress</code>, and the conditionals in the template
-will apply/remove the “hidden” class. You’ll see that as you read on.</p>
+parent LiveView which will re-assign <code class="language-text">:progress</code>; the conditionals in the
+template will apply/remove the “hidden” class for the next appropriate step, or
+previous step. You’ll see that as you read on.</p>
 <p>Let’s chop up the form.</p>
+<p><a name="extract"></a></p>
 <h2>Extract to LiveComponents</h2>
 <p>All this ugly-but-necessary logic should live in “form objects”. In Ecto-land
-these can be managed with embedded schemas. These form objects can be
-responsible for the state of their own fields, and compute their own values
-without affecting other steps’ values.</p>
-<p>When the form is submitted, the “save” event the LiveComponent can pass the
-completed params up to its parent LiveView. The parent LiveView can track these
+these can be managed with embedded schemas. These form objects are responsible
+for the state of their own fields, and compute their own values without
+affecting other steps’ values. The domain becomes much clearer.</p>
+<p>When the form is submitted, it will trigger the “save” event from the
+LiveComponent. The LiveComponent can then pass the completed params up to its
+parent LiveView if the changeset is valid. The parent LiveView can track these
 params separately, sitting on it until final save, persisted as a draft, or
 whatever you need.</p>
 <p>This has some benefits:</p>
@@ -182,6 +199,9 @@ whatever you need.</p>
 <li>form submission (hitting enter) no longer needs to override default behavior.</li>
 <li>isolates testing to it’s own form and LiveComponent.</li>
 <li>your form’s “domain” has clearer boundaries.</li>
+<li>user interaction and form validation makes more sense; only the visible form
+is “tainted” when the user changes it (opposed to it being tainted before
+the user even sees it).</li>
 </ul>
 <p>The multi-step form now looks like this:</p>
 <div class="gatsby-highlight" data-language="erb"><pre class="language-erb"><code class="language-erb"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
@@ -222,26 +242,25 @@ store the fields we care about on the step.</li>
 changeset with the fields from the record.</li>
 <li>When handling validation events, we’re going to throw the params into the
 changeset and assign the new changeset back.</li>
-<li>The computed values will be updated in the changeset and can be assigned
-into the socket.</li>
-<li>When handling the save event, we’re going to
-<code class="language-text">Ecto.Changeset.apply_action(changeset)</code> and ensure it’s valid, and if so,
-then tell the parent LiveView that we’re good to proceed. We’ll send the
-schema up to the parent LiveView. This schema will contain the computed
+<li>The computed values will be updated from the changeset and/or pulled out of
+the chnageset and assigned into the socket.</li>
+<li>When handling the save event, we’re going to ensure the changeset is valid,
+and if so, tell the parent LiveView that we’re good to proceed. We’ll send
+the struct up to the parent LiveView. This struct will contain the computed
 fields so it should be easier for the parent to stitch these steps’ params
-together into the final schema.</li>
+together into the final changeset that’s actually persisted.</li>
 </ul>
 <p>Again, the flow should look like this:</p>
 <ol>
 <li>On mounting, take the Event and pluck the relevant fields out of it to create
-a WhenComponent form backed by an embedded_schema.</li>
+a WhenComponent form backed by an <code class="language-text">embedded_schema</code>.</li>
 <li>When the user is on the step, take the changes as they come and let the user
 iterate on the form until it’s valid.</li>
 <li>When the changeset is valid and the user tries to submit it, pass the final
-schema up to the parent LiveView. The parent LiveView can then switch to the
+struct up to the parent LiveView. The parent LiveView can then switch to the
 next step.</li>
 </ol>
-<p>Here the component code:</p>
+<p>Here is the component code:</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> MyAppWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>WhenComponent <span class="token keyword">do</span>
   <span class="token keyword">use</span> MyAppWeb<span class="token punctuation">,</span> <span class="token atom symbol">:live_component</span>
 
@@ -370,10 +389,11 @@ next step.</li>
   <span class="token comment"># I'll leave some of these helper functions out, but they're essentially</span>
   <span class="token comment"># providing nil-safety, applying defaults, and calculating from other fields</span>
 <span class="token keyword">end</span></code></pre></div>
+<p><a name="clientside"></a></p>
 <h2>Getting the user’s timezone with <code class="language-text">phx-hook</code></h2>
-<p>We can estimate what the user’s timezone is by asking the browser. <strong>NOTE</strong> I
-don’t recommend you do what I’m doing here. This is a placeholder until I can
-spend more time with it. Use it as a learning exercise!</p>
+<p>We can estimate what the user’s timezone is by asking the browser. <strong>NOTE</strong> <em>I
+don’t recommend you use this as your only source of user timezone.</em> Use this as
+an example for how to get JavaScript-sourced input</p>
 <p>Let’s get the timezone. We’ll need some JavaScript.</p>
 <div class="gatsby-highlight" data-language="javascript"><pre class="language-javascript"><code class="language-javascript">window<span class="token punctuation">.</span>userTimezone <span class="token operator">=</span> Intl<span class="token punctuation">.</span><span class="token function">DateTimeFormat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">resolvedOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>timeZone
 
@@ -394,14 +414,17 @@ hooks<span class="token punctuation">.</span>UserTimeZone <span class="token ope
     <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> hidden_input f<span class="token punctuation">,</span> <span class="token symbol">:timezone</span> <span class="token delimiter punctuation">%></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre></div>
-<p>Now when the page is rendered, I’ll get a <code class="language-text">hidden_input</code> populated with the
-detected timezone. This will be included in further form changes and params sent
-to the LiveView process. Remember to wrap it with a <code class="language-text">phx-update=&quot;ignore&quot;</code> so the
-JavaScript-mutated value isn’t overwritten by the backend.</p>
+<p>When the page is rendered, I’ll get a <code class="language-text">hidden_input</code> populated with the detected
+timezone. This will be included in further form changes and params sent to the
+LiveView process. Remember to wrap it with a <code class="language-text">phx-update=&quot;ignore&quot;</code> so the
+JavaScript-mutated value isn’t overwritten by LiveView.</p>
 <p>You’ll notice that I’m also using <code class="language-text">pushEventTo</code> after mounting. This is needed
 because the user may not have interacted with the form yet to trigger a change,
 so until then, I won’t have user’s timezone! I want it pushed immediately so I
-can update the form’s changeset.</p>
+can update the form’s changeset. Also, <code class="language-text">pushEventTo</code> is used instead of
+<code class="language-text">pushEvent</code> because this is a LiveComponent, so I want the event pushed to the
+LiveComponent and not the parent LiveView. I pass the target in via a data
+attribute.</p>
 <p>When handling the event, we’ll merge the timezone with the existing params of
 the changeset, and then re-apply the changeset and re-compute fields.</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token attribute variable">@impl</span> Phoenix<span class="token punctuation">.</span>LiveComponent
@@ -414,13 +437,16 @@ the changeset, and then re-apply the changeset and re-compute fields.</p>
     <span class="token operator">|></span> assign_computed<span class="token punctuation">(</span>changeset<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token keyword">end</span></code></pre></div>
+<p><a name="clientinput"></a></p>
 <h2>Handling sub-form change events</h2>
-<p>Handling form change events doesn’t change with this embedded_schema and
+<p>Handling form change events doesn’t change with this <code class="language-text">embedded_schema</code> and
 component-ized approach. It’s standard Phoenix and Ecto changeset forms, so it’s
-not as interesting to look at.</p>
-<p>However in my case I need to adjust the parameters that come in, so we’ll look
-at that! I need to check to see what changed, and then apply new parameters
-based on what changed.</p>
+not very interesting to look at. But remember that you’ll need to use
+<code class="language-text">phx-target</code> to send  changes to the LiveComponent, otherwise they may bubble up
+to your parent LiveView.</p>
+<p>In my case, I also need to adjust the parameters that come in, so we’ll look at
+that! I need to check to see what field is changing and apply new parameters
+based on what is changing.</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token attribute variable">@impl</span> Phoenix<span class="token punctuation">.</span>LiveComponent
 <span class="token keyword">def</span> handle_event<span class="token punctuation">(</span><span class="token string">"validate"</span><span class="token punctuation">,</span> <span class="token punctuation">%</span><span class="token punctuation">{</span><span class="token string">"when_component"</span> <span class="token operator">=></span> params<span class="token punctuation">}</span><span class="token punctuation">,</span> socket<span class="token punctuation">)</span> <span class="token keyword">do</span>
   adjusted_params <span class="token operator">=</span> adjust_time_params<span class="token punctuation">(</span>params<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>assigns<span class="token punctuation">.</span>when_changeset<span class="token punctuation">)</span>
@@ -470,21 +496,27 @@ and not the parent LiveView. This is accomplished with <code class="language-tex
   phx_submit<span class="token punctuation">:</span> <span class="token symbol">:save</span><span class="token punctuation">,</span>
   id<span class="token punctuation">:</span> <span class="token variable">@id</span> <span class="token delimiter punctuation">%></span></span>
 
-  <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%</span><span class="token comment"># all my form inputs </span><span class="token delimiter punctuation">%></span></span>
+  <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%</span><span class="token comment"># ... timezone input mentioned above ... </span><span class="token delimiter punctuation">%></span></span>
+
+  <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> date_select f<span class="token punctuation">,</span> <span class="token symbol">:date</span> <span class="token delimiter punctuation">%></span></span>
+  <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> time_input f<span class="token punctuation">,</span> <span class="token symbol">:start_time</span> <span class="token delimiter punctuation">%></span></span>
+  <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> time_input f<span class="token punctuation">,</span> <span class="token symbol">:end_time</span> <span class="token delimiter punctuation">%></span></span>
+  Your duration is <span class="token erb language-erb"><span class="token delimiter punctuation">&lt;%=</span> <span class="token variable">@duration</span> <span class="token delimiter punctuation">%></span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></code></pre></div>
+<p><a name="subformsubmission"></a></p>
 <h2>Handling the sub-form submission</h2>
 <p>When the user tries to submit the form, either by hitting “enter” or clicking on
 the submit button, I need to validate the form once again, and if it’s good tell
-the parent LiveView that it’s ok to proceed and supply all the nice computed
-values.</p>
+the parent LiveView that it’s ok to proceed and supply all the
+helpfully-computed values.</p>
 <p>This time we’ll check if the changeset is valid with
 <a href="https://hexdocs.pm/ecto/Ecto.Changeset.html#apply_action/2"><code class="language-text">Ecto.Changeset.apply_action/2</code></a>. Based on that result, we’ll let the
 LiveComponent send a message to <del>itself</del>. Actually, a LiveComponent doesn’t
 run in its own process, instead it’s running inside the parent LiveView’s
 process. So <code class="language-text">self()</code> is actually the LiveView and not the LiveComponent. This is
 how we can send the parent LiveView the result!</p>
-<p>You can <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html#module-liveview-as-the-source-of-truth">read more about LiveComponent and sources of truth</a>.</p>
+<p>You can <a href="https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html#module-liveview-as-the-source-of-truth">read more about LiveComponent and sources of truth in the docs</a>.</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token attribute variable">@impl</span> Phoenix<span class="token punctuation">.</span>LiveComponent
 <span class="token keyword">def</span> handle_event<span class="token punctuation">(</span><span class="token string">"save"</span><span class="token punctuation">,</span> <span class="token punctuation">%</span><span class="token punctuation">{</span><span class="token string">"when_component"</span> <span class="token operator">=></span> params<span class="token punctuation">}</span><span class="token punctuation">,</span> socket<span class="token punctuation">)</span> <span class="token keyword">do</span>
   socket<span class="token punctuation">.</span>assigns<span class="token punctuation">.</span><span class="token keyword">when</span>
@@ -525,6 +557,7 @@ how we can send the parent LiveView the result!</p>
     <span class="token operator">|></span> assign_step<span class="token punctuation">(</span><span class="token atom symbol">:next</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token keyword">end</span></code></pre></div>
+<p><a name="formsubmission"></a></p>
 <h2>Handling the overall form submission</h2>
 <p>You’ll notice that I have a function <code class="language-text">assign_step</code> above. Let’s go to the parent
 LiveView and figure out how to change steps, except on the last step we want to
@@ -532,12 +565,12 @@ persist. We’ll look for the steps in the <code class="language-text">@steps</c
 and that should swap-out the form for the next one!</p>
 <p>If there isn’t a next step, then that must mean that we’re finished, so we
 should try to save.</p>
-<div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> YouMeetWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>Step <span class="token keyword">do</span>
-  <span class="token attribute variable">@moduledoc</span> <span class="token string">"Describe a step in the multi-step form"</span>
+<div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> MyAppWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>Step <span class="token keyword">do</span>
+  <span class="token attribute variable">@moduledoc</span> <span class="token string">"Describe a step in the multi-step form and where it can go."</span>
   <span class="token keyword">defstruct</span> <span class="token punctuation">[</span><span class="token atom symbol">:name</span><span class="token punctuation">,</span> <span class="token atom symbol">:prev</span><span class="token punctuation">,</span> <span class="token atom symbol">:next</span><span class="token punctuation">]</span>
 <span class="token keyword">end</span>
 
-<span class="token keyword">defmodule</span> YouMeetWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>New <span class="token keyword">do</span>
+<span class="token keyword">defmodule</span> MyAppWeb<span class="token punctuation">.</span>EventLive<span class="token punctuation">.</span>New <span class="token keyword">do</span>
   <span class="token comment"># ..snip..</span>
 
   <span class="token keyword">defp</span> assign_step<span class="token punctuation">(</span>socket<span class="token punctuation">,</span> step<span class="token punctuation">)</span> <span class="token keyword">do</span>
