@@ -80,10 +80,11 @@ myself.</li>
 of other steps. This is a lot of “weight” to worry about and ensure
 <em>doesn’t</em> change.</li>
 <li>As soon as the user interacts with the form on the first step, validations
-will occur for the entire form, <strong>even for those inputs on hidden steps</strong>. This
-means errors will already be populated before the user even interacted with
-them.</li>
-<li>Testing big form was difficult.</li>
+will occur for the entire form, <strong>even for those inputs on hidden steps</strong>.
+This means errors will already be populated before the user even interacted
+with them.</li>
+<li>Testing the big form was difficult. The tools were great— I just
+bad-developered and didn’t break it down well.</li>
 </ul>
 <p>Generally, I found it harder to “reason about”, especially when I have computed
 fields and help text based on user input.</p>
@@ -119,7 +120,7 @@ duration away from the <code class="language-text">start_time</code>.</li>
 <li>At some point, if we accept user input for <code class="language-text">duration</code>, then we we’d want to
 extend the <code class="language-text">end_time</code> with the new duration.</li>
 </ol>
-<p>Now I have some fields, I need to compute them into my event record somehow.
+<p>Now I have some fields, I need to compute them into my event struct somehow.
 This is how it needs to end up:</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir">record<span class="token punctuation">.</span>start_at_tz <span class="token comment">#=> "America/New_York"</span>
 record<span class="token punctuation">.</span>start_at_wall <span class="token comment">#=> ~N[2020-01-01T08:00:00]</span>

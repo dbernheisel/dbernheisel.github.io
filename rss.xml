@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 15 May 2020 05:02:16 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView: Multi-step forms]]></title><description><![CDATA[Phoenix LiveView has been a dream to work with so far. I really recommend
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 15 May 2020 05:19:47 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView: Multi-step forms]]></title><description><![CDATA[Phoenix LiveView has been a dream to work with so far. I really recommend
 looking at it for your next web application. Building Tailwind…]]></description><link>https://bernheisel.com/blog/liveview-multi-step-form/</link><guid isPermaLink="false">https://bernheisel.com/blog/liveview-multi-step-form/</guid><pubDate>Wed, 13 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_view&quot;&gt;Phoenix LiveView&lt;/a&gt; has been a dream to work with so far. I &lt;em&gt;really&lt;/em&gt; recommend
 looking at it for your next web application. Building Tailwind, Elixir, and
 Phoenix LiveView with some Vue sprinklings has been the most enjoyable tech
@@ -64,10 +64,11 @@ myself.&lt;/li&gt;
 of other steps. This is a lot of “weight” to worry about and ensure
 &lt;em&gt;doesn’t&lt;/em&gt; change.&lt;/li&gt;
 &lt;li&gt;As soon as the user interacts with the form on the first step, validations
-will occur for the entire form, &lt;strong&gt;even for those inputs on hidden steps&lt;/strong&gt;. This
-means errors will already be populated before the user even interacted with
-them.&lt;/li&gt;
-&lt;li&gt;Testing big form was difficult.&lt;/li&gt;
+will occur for the entire form, &lt;strong&gt;even for those inputs on hidden steps&lt;/strong&gt;.
+This means errors will already be populated before the user even interacted
+with them.&lt;/li&gt;
+&lt;li&gt;Testing the big form was difficult. The tools were great— I just
+bad-developered and didn’t break it down well.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Generally, I found it harder to “reason about”, especially when I have computed
 fields and help text based on user input.&lt;/p&gt;
@@ -103,7 +104,7 @@ duration away from the &lt;code class=&quot;language-text&quot;&gt;start_time&lt
 &lt;li&gt;At some point, if we accept user input for &lt;code class=&quot;language-text&quot;&gt;duration&lt;/code&gt;, then we we’d want to
 extend the &lt;code class=&quot;language-text&quot;&gt;end_time&lt;/code&gt; with the new duration.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Now I have some fields, I need to compute them into my event record somehow.
+&lt;p&gt;Now I have some fields, I need to compute them into my event struct somehow.
 This is how it needs to end up:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;record&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;start_at_tz &lt;span class=&quot;token comment&quot;&gt;#=&gt; &quot;America/New_York&quot;&lt;/span&gt;
 record&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;start_at_wall &lt;span class=&quot;token comment&quot;&gt;#=&gt; ~N[2020-01-01T08:00:00]&lt;/span&gt;
