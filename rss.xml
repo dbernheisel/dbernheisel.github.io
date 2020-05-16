@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 16 May 2020 06:52:22 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView: Multi-step forms]]></title><description><![CDATA[Phoenix LiveView has been a dream to work with so far. I really recommend
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 16 May 2020 20:34:52 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView: Multi-step forms]]></title><description><![CDATA[Phoenix LiveView has been a dream to work with so far. I really recommend
 looking at it for your next web application. Building Tailwind…]]></description><link>https://www.bernheisel.com/blog/liveview-multi-step-form/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/liveview-multi-step-form/</guid><pubDate>Wed, 13 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_view&quot;&gt;Phoenix LiveView&lt;/a&gt; has been a dream to work with so far. I &lt;em&gt;really&lt;/em&gt; recommend
 looking at it for your next web application. Building Tailwind, Elixir, and
 Phoenix LiveView with some Vue sprinklings has been the most enjoyable tech
@@ -128,7 +128,7 @@ computed fields easier, as well as solve some other UX issues mentioned above.&l
 &lt;li&gt;&lt;a href=&quot;#subformsubmission&quot;&gt;Handle stepped-form submission&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#formsubmission&quot;&gt;Handle final form submission.&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a name=&quot;formprogress&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;formprogress&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Managing the form progress&lt;/h2&gt;
 &lt;p&gt;I managed the form step progress by defining a &lt;code class=&quot;language-text&quot;&gt;%Step{}&lt;/code&gt; and then writing the
 order out in the liveview as a module attribute.&lt;/p&gt;
@@ -140,6 +140,8 @@ order out in the liveview as a module attribute.&lt;/p&gt;
 &lt;span class=&quot;token comment&quot;&gt;# in the liveview&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;EventLive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;New &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# ...snip...&lt;/span&gt;
+
   &lt;span class=&quot;token attribute variable&quot;&gt;@steps&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;Step&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;who&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;prev:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;next:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;what&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;Step&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;what&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;prev:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;who&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;next:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;when&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
@@ -168,7 +170,7 @@ parent LiveView which will re-assign &lt;code class=&quot;language-text&quot;&gt
 template will apply/remove the “hidden” class for the next appropriate step, or
 previous step. You’ll see that as you read on.&lt;/p&gt;
 &lt;p&gt;Let’s chop up the form.&lt;/p&gt;
-&lt;p&gt;&lt;a name=&quot;extract&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;extract&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Extract to LiveComponents&lt;/h2&gt;
 &lt;p&gt;All this ugly-but-necessary logic should live in “form objects”. In Ecto-land
 these can be managed with embedded schemas. These form objects are responsible
@@ -248,6 +250,7 @@ next step.&lt;/li&gt;
 &lt;p&gt;Here is the component code:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;EventLive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;WhenComponent &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_component&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;alias&lt;/span&gt; Ecto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Changeset
 
   &lt;span class=&quot;token attribute variable&quot;&gt;@primary_key&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
   embedded_schema &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -374,7 +377,7 @@ next step.&lt;/li&gt;
   &lt;span class=&quot;token comment&quot;&gt;# I&apos;ll leave some of these helper functions out, but they&apos;re essentially&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;# providing nil-safety, applying defaults, and calculating from other fields&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a name=&quot;clientside&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;clientside&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Getting the user’s timezone with &lt;code class=&quot;language-text&quot;&gt;phx-hook&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;We can estimate what the user’s timezone is by asking the browser. &lt;strong&gt;NOTE&lt;/strong&gt; &lt;em&gt;I
 don’t recommend you use this as your only source of user timezone.&lt;/em&gt; Use this as
@@ -409,7 +412,7 @@ so until then, I won’t have user’s timezone! I want it pushed immediately so
 can update the form’s changeset. Also, &lt;code class=&quot;language-text&quot;&gt;pushEventTo&lt;/code&gt; is used instead of
 &lt;code class=&quot;language-text&quot;&gt;pushEvent&lt;/code&gt; because this is a LiveComponent, so I want the event pushed to the
 LiveComponent and not the parent LiveView. I pass the target in via a data
-attribute.&lt;/p&gt;
+attribute so I don’t confuse it with Phoenix’s own &lt;code class=&quot;language-text&quot;&gt;phx-target&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;When handling the event, we’ll merge the timezone with the existing params of
 the changeset, and then re-apply the changeset and re-compute fields.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token attribute variable&quot;&gt;@impl&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveComponent
@@ -422,7 +425,7 @@ the changeset, and then re-apply the changeset and re-compute fields.&lt;/p&gt;
     &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; assign_computed&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;changeset&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a name=&quot;clientinput&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;clientinput&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Handling sub-form change events&lt;/h2&gt;
 &lt;p&gt;Handling form change events doesn’t change with this &lt;code class=&quot;language-text&quot;&gt;embedded_schema&lt;/code&gt; and
 component-ized approach. It’s standard Phoenix and Ecto changeset forms, so it’s
@@ -489,7 +492,7 @@ and not the parent LiveView. This is accomplished with &lt;code class=&quot;lang
   Your duration is &lt;span class=&quot;token erb language-erb&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;&amp;lt;%=&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;@duration&lt;/span&gt; &lt;span class=&quot;token delimiter punctuation&quot;&gt;%&gt;&lt;/span&gt;&lt;/span&gt;
 
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;form&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a name=&quot;subformsubmission&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;subformsubmission&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Handling the sub-form submission&lt;/h2&gt;
 &lt;p&gt;When the user tries to submit the form, either by hitting “enter” or clicking on
 the submit button, I need to validate the form once again, and if it’s good tell
@@ -542,7 +545,7 @@ how we can send the parent LiveView the result!&lt;/p&gt;
     &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; assign_step&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:next&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a name=&quot;formsubmission&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;formsubmission&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Handling the overall form submission&lt;/h2&gt;
 &lt;p&gt;You’ll notice that I have a function &lt;code class=&quot;language-text&quot;&gt;assign_step&lt;/code&gt; above. Let’s go to the parent
 LiveView and figure out how to change steps, except on the last step we want to
@@ -556,7 +559,9 @@ should try to save.&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;EventLive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;New &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;token comment&quot;&gt;# ..snip..&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_view&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;alias&lt;/span&gt; Ecto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Changeset
+  &lt;span class=&quot;token comment&quot;&gt;# ...snip...&lt;/span&gt;
 
   &lt;span class=&quot;token keyword&quot;&gt;defp&lt;/span&gt; assign_step&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;socket&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; step&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; new_step &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Enum&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;find&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token attribute variable&quot;&gt;@steps&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token argument variable&quot;&gt;&amp;amp;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; Map&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;socket&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;assigns&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;progress&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; step&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
