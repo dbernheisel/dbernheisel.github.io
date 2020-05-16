@@ -3,7 +3,7 @@ module.exports = {
     title: 'David Bernheisel',
     author: 'David Bernheisel',
     description: 'A blog about development',
-    siteUrl: 'https://bernheisel.com',
+    siteUrl: 'https://www.bernheisel.com',
   },
   plugins: [
     'gatsby-plugin-postcss',
