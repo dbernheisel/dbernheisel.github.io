@@ -23,7 +23,7 @@ const PostSubHeader = ({post}) => {
   const tags = get(post, 'frontmatter.tags') || []
 
   return (
-    <div className='frontmatter mb-2 mt-0'>
+    <div className='frontmatter mt-2 mb-4 text-xs'>
       <span>{post.frontmatter.date}</span>
       <PostDataPoint field={post.frontmatter.originalUrl}>
         <OutboundLink href={post.frontmatter.originalUrl}>
@@ -65,8 +65,8 @@ class BlogIndex extends React.Component {
           const excerpt = get(node, 'frontmatter.excerpt') || node.excerpt
 
           return (
-            <div key={node.fields.slug} className='mb-12 mt-0'>
-              <h1 className='mb-0 post-header'>
+            <div key={node.fields.slug} className='post-container mb-8 pb-10 mt-0'>
+              <h1 className='text-3xl font-semibold post-header'>
                 <Link to={node.fields.slug}>
                   {title}
                 </Link>

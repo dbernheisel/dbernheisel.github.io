@@ -6,12 +6,21 @@ module.exports = {
     siteUrl: 'https://www.bernheisel.com',
   },
   plugins: [
-    'gatsby-plugin-postcss',
     {
-      resolve: 'gatsby-plugin-purgecss',
+      resolve: 'gatsby-plugin-postcss',
       options: {
-        tailwind: true,
-        ignore: ['prismjs/']
+        postCssPlugins: [
+          require("postcss-import"),
+          require("tailwindcss"),
+          require("autoprefixer"),
+          require("postcss-preset-env")({
+            browsers: "last 2 versions",
+            features: {
+              // https://github.com/tailwindcss/tailwindcss/issues/1190
+              'focus-within-pseudo-class': false
+            }
+          })
+        ]
       }
     },
     'gatsby-plugin-twitter',

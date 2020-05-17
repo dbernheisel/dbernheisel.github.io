@@ -1,126 +1,48 @@
 body {
-  background: theme('colors.black');
-  color: theme('colors.white');
-  font-size: theme('textSizes.lg');
-  font-weight: 300;
-  margin: 0;
-  @apply .leading-normal;
-  @apply .tracking-normal;
-  @apply .font-sans;
+  @apply bg-gray-100 text-black text-lg font-light m-0 leading-normal tracking-wide font-sans;
 }
 
-h1, h2, h3 {
-  @apply .mt-8;
-  @apply .mb-4;
-  @apply .text-red;
+.navbar {
+  @apply bg-gray-300;
 }
 
-h4, h5, h6 {
-  @apply .mt-4;
-  @apply .mb-2;
-  @apply .text-red;
+pre, code {
+  @apply tracking-normal font-normal;
+  font-family: "Fira Code" !important;
+  border: none !important;
 }
 
-h1 { @apply .text-3xl }
-h2 { @apply .text-2xl }
-h3 { @apply .text-xl }
-h4, h5, h6 { @apply .text-lg }
-
-h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
-  @apply .text-red-lighter;
-  @apply .mr-4;
-}
-
-h1::before {
-  content: "#";
-  @apply .-ml-9;
-}
-
-h2::before {
-  content: "##";
-}
-
-h3::before {
-  content: "###";
-}
-
-h4::before, h5::before, h6::before {
-  content: "####";
-}
-
-blockquote {
-  @apply .pl-6;
-  @apply .border-l-4 .border-purple;
-}
-
-p {
-  @apply .my-4;
-}
-
-strong {
-  @apply .font-semibold;
-}
-
-article a {
-  @apply .text-red-lighter;
-  @apply .no-underline;
-}
-
-article a:focus {
-  @apply .text-red-lighter;
-}
-
-article a:visited {
-  @apply .text-red-lighter;
-}
-
-article a:hover {
-  @apply .text-red-lighter;
-  @apply .border-b .border-teal;
-  @apply .no-underline;
-}
-
-article a.gatsby-resp-image-link:hover {
-  @apply .border-0;
-}
-
-nav a {
-  @apply .text-red;
-}
-
-nav a:focus {
-  @apply .text-white;
-}
-
-nav a:visited {
-  @apply .text-white;
-}
-
-nav a:hover {
-  @apply .no-underline;
-  @apply .border-0;
-}
-
-.post-header {
-  @apply .text-3xl;
-  @apply .font-semibold;
-}
-
-.post-header a {
-  @apply .text-red;
-  @apply .no-underline;
-}
-
-.frontmatter {
-  @apply .text-gray;
-  @apply .text-xs;
-}
-
-.frontmatter a {
-  @apply .text-red-lighter;
-  @apply .no-underline;
+.avatar {
+  @apply border-2 rounded-full shadow-md border-gray-100;
 }
 
 .button {
-  @apply .py-2 .px-4 .rounded;
+  @apply text-white font-medium py-2 px-3 rounded bg-gray-500 duration-100 ease-in-out no-underline transition-colors shadow border-gray-600;
+}
+
+.button.disabled {
+  @apply text-black cursor-default bg-gray-600 border-gray-700;
+}
+
+.button:hover {
+  @apply text-black bg-gray-600 border-gray-700;
+}
+.button:focus {
+  @apply text-black bg-gray-600 border-gray-700;
+}
+
+.post-container {
+  @apply border-b-2 border-dotted border-gray-700;
+}
+
+.link {
+  @apply text-red-800 font-medium duration-100 ease-in-out no-underline transition-colors;
+}
+
+.link:visited {
+  @apply text-purple-800;
+}
+
+.link:hover {
+  @apply text-red-800 border-b border-teal-500;
 }

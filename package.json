@@ -7,14 +7,13 @@
     "url": "https://github.com/dbernheisel/dbernheisel.github.io/issues"
   },
   "scripts": {
-    "dev": "yarn run build:css && yarn run gatsby develop",
+    "dev": "yarn run gatsby develop",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
-    "build": "yarn run gatsby clean && yarn run build:css && gatsby build",
+    "build": "yarn run gatsby clean && gatsby build",
     "build:serve": "yarn run build && yarn run gatsby serve",
-    "build:css": "tailwind build src/css/tailwind.src.css -c src/css/tailwind.config.js -o src/css/tailwind.css",
-    "deploy": "yarn run build:css && gatsby build && gh-pages -b master -d public"
+    "deploy": "yarn run build && gh-pages -b master -d public"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -39,6 +38,7 @@
     "gatsby-transformer-remark": "^2.0.0",
     "gatsby-transformer-sharp": "^2.0.0",
     "lodash": "^4.17.10",
+    "prism-themes": "^1.4.0",
     "prismjs": "^1.15.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -52,7 +52,8 @@
     "gatsby-plugin-postcss": "^2.0.0",
     "gatsby-plugin-purgecss": "^5.0.0",
     "gh-pages": "^2.0.0",
-    "precss": "^3.1.2",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.0",
     "tailwindcss": "^1.0.0"
   },

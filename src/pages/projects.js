@@ -20,38 +20,42 @@ class ProjectsPage extends React.Component {
           meta={[{ name: 'description', content: siteDescription }]}
           title={siteTitle}
         />
+        <div className="flex flex-col space-y-4">
+          <article className="">
+            <h2 className="tracking-wider text-2xl font-bold">DateTimeParser</h2>
+            <div className="space-x-4">
+              <OutboundLink className="link" href="https://github.com/taxjar/date_time_parser">
+                GitHub
+              </OutboundLink>
+            </div>
+            <p>Major functions:</p>
+            <ul className="pl-4 list-disc">
+              <li className="my-2">Parse an Elixir DateTime, NaiveDateTime, Date, or Time from a string</li>
+              <li className="my-2">Tokenizes found parts of the datetime through binary matching</li>
+              <li className="my-2">Supports major ISO formats</li>
+              <li className="my-2">Supports arbitrary formats, eg "Saturday, Jan-34-04"</li>
+            </ul>
+          </article>
 
-        <article>
-          <h2>DateTimeParser</h2>
-          <OutboundLink href="https://github.com/taxjar/date_time_parser">
-            GitHub
-          </OutboundLink>
-          <p>Major functions:</p>
-          <ul>
-            <li>Parse an Elixir DateTime, NaiveDateTime, Date, or Time from a string</li>
-            <li>Tokenizes found parts of the datetime through binary matching</li>
-            <li>Suppors major ISO formats</li>
-            <li>Supports arbitrary formats, eg "Saturday, Jan-34-04"</li>
-          </ul>
-        </article>
-
-        <article>
-          <h2>NewTab Notes - Chrome Extension</h2>
-          <OutboundLink href="https://github.com/dbernheisel/MarkdownTab">
-            GitHub
-          </OutboundLink>
-          <div className="inline-block px-2"></div>
-          <OutboundLink href="https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn">
-            Published on the Chrome Web Store
-          </OutboundLink>
-          <p>Major functions:</p>
-          <ul>
-            <li>Replace the Chrome New Tab with a markdown page.</li>
-            <li>Customize the look of what's rendered.</li>
-            <li>Built with VueJS and Tailwind CSS</li>
-            <li>Built purely for my own use.</li>
-          </ul>
-        </article>
+          <article>
+            <h2 className="tracking-wider text-2xl font-bold">NewTab Notes - Chrome Extension</h2>
+            <div className="space-x-4">
+              <OutboundLink className="link" href="https://github.com/dbernheisel/MarkdownTab">
+                GitHub
+              </OutboundLink>
+              <OutboundLink className="link" href="https://chrome.google.com/webstore/detail/newtab-notes/kfbhbipgippofpifimbcnbafehjndccn">
+                Published on the Chrome Web Store
+              </OutboundLink>
+            </div>
+            <p>Major functions:</p>
+            <ul className="pl-4 list-disc">
+              <li className="my-2">Replace the Chrome New Tab with a markdown page.</li>
+              <li className="my-2">Customize the look of what's rendered.</li>
+              <li className="my-2">Built with VueJS and Tailwind CSS</li>
+              <li className="my-2">Built purely for my own use.</li>
+            </ul>
+          </article>
+        </div>
       </Layout>
     )
   }

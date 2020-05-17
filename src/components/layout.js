@@ -1,8 +1,10 @@
 import React from 'react'
 import Nav from './nav'
 
-import '../css/tailwind.css';
-import 'prismjs/themes/prism-tomorrow.css'
+import '../css/index.css'
+
+import 'prism-themes/themes/prism-ghcolors.css'
+// import 'prism-themes/themes/prism-xonokai.css'
 
 class Template extends React.Component {
   render() {
@@ -11,7 +13,7 @@ class Template extends React.Component {
     return (
       <div>
         <Nav location={location}/>
-        <main className="max-w-lg p-4 m-auto text-lg">
+        <main className="max-w-3xl p-4 m-auto text-lg">
           {children}
         </main>
       </div>

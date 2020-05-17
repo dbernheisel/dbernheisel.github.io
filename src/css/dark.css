@@ -1,0 +1,55 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-gray-900 text-white
+  }
+
+  .navbar {
+    @apply bg-white bg-opacity-25;
+  }
+
+  .avatar {
+    @apply border-gray-800;
+  }
+
+  .button {
+    @apply text-white bg-gray-600 border-gray-500;
+  }
+
+  .button.disabled {
+    @apply bg-gray-500 border-gray-400;
+  }
+
+  .button:hover {
+    @apply bg-gray-500 border-gray-400;
+  }
+  .button:focus {
+    @apply bg-gray-500 border-gray-400;
+  }
+
+  .post-content a {
+    @apply text-red-200;
+  }
+
+  .post-content a:focus {
+    @apply text-red-200;
+  }
+
+  .post-content a:visited {
+    @apply text-purple-200;
+  }
+
+  .post-content a:hover {
+    @apply text-red-200;
+  }
+
+  .link {
+    @apply text-red-200;
+  }
+
+  .link:visited {
+    @apply text-purple-200;
+  }
+  .link:hover {
+    @apply text-red-200 border-teal-500;
+  }
+}

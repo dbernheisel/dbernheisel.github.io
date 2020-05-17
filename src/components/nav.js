@@ -9,13 +9,17 @@ import cx from 'classnames'
 const HeaderLink = ({children}) => {
   return (
     <Link to='/'>
-      <div className="flex items-center flex-shrink-0 mr-6 text-white">
-        <img
-          src={profilePic}
-          alt='David Bernheisel'
-          className='w-16 h-16 mr-4 border-2 rounded-full shadow-md lg:w-32 lg:h-32 border-teal-light'
-        />
-        <span className="text-2xl font-black sm:text-4xl lg:text-5xl">David Bernheisel</span>
+      <div className="flex items-center space-x-1">
+        <div className="flex-shrink-0">
+          <img
+            src={profilePic}
+            alt='David Bernheisel'
+            className='avatar w-16 md:w-24 lg:w-32'
+          />
+        </div>
+        <div>
+          <h3 className="ml-0 md:ml-4 text-xl md:text-4xl md:font-extrabold leading-6 font-bold">David Bernheisel</h3>
+        </div>
       </div>
     </Link>
   )
@@ -24,21 +28,13 @@ const HeaderLink = ({children}) => {
 const NavLink = ({location, to, children}) => {
   const isActive = location.pathname === to
   const classes = cx(
-    {'bg-red': isActive},
-    {'bg-blue-dark': !isActive},
-    {'hover:border-blue-darker': !isActive},
-    {'hover:bg-blue-darker': !isActive},
-    {'text-white': !isActive},
-    'font-medium',
+    {'disabled': isActive},
     'block',
     'lg:inline-block',
     'mt-4',
     'mr-4',
     'lg:mt-0',
-    'shadow',
-    'rounded',
-    'py-1',
-    'px-3'
+    'button'
   )
   return (
     <Link className={classes} to={to}>
@@ -50,7 +46,7 @@ const NavLink = ({location, to, children}) => {
 const OutboundNavLink = ({href, children}) => {
   return (
     <OutboundLink
-      className='block px-3 py-1 mt-4 mr-4 font-medium text-white no-underline rounded shadow bg-blue-dark hover:border-blue-darker hover:bg-blue-darker lg:inline-block lg:mt-0 hover:no-underline'
+      className='block mt-4 mr-4 button lg:inline-block lg:mt-0'
       href={href}>
       {children}
     </OutboundLink>
@@ -73,13 +69,13 @@ export default class Nav extends React.Component {
     )
 
     return (
-      <nav className='flex flex-wrap items-center justify-between p-4 shadow-md bg-teal'>
+      <nav className='navbar flex flex-wrap items-center justify-between p-4 shadow-md'>
         <HeaderLink />
         <div className='block lg:hidden'>
           <button
             onClick={this.menuToggle}
-            className="flex items-center px-3 py-2 border rounded text-gray-light border-teal-light hover:text-white hover:border-white">
-            <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            className="button flex items-center px-3">
+            <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20">
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
             </svg>
@@ -91,7 +87,7 @@ export default class Nav extends React.Component {
           <OutboundNavLink href="https://twitter.com/bernheisel">Twitter</OutboundNavLink>
           <div className="py-1 mt-4 lg:mt-0">
             <a href='/rss.xml'>
-              <img className="align-middle h-7" src={rssIcon} alt="RSS"/>
+              <img className="align-middle h-8" src={rssIcon} alt="RSS"/>
             </a>
           </div>
         </div>

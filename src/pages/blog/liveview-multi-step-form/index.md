@@ -159,7 +159,7 @@ computed fields easier, as well as solve some other UX issues mentioned above.
 - [Handle stepped-form submission](#subformsubmission)
 - [Handle final form submission.](#formsubmission)
 
-<a name="formprogress"></a>
+<a aria-hidden="true" name="formprogress"></a>
 
 ## Managing the form progress
 
@@ -175,6 +175,8 @@ end
 # in the liveview
 
 defmodule MyAppWeb.EventLive.New do
+  # ...snip...
+
   @steps [
     %Step{name: "who", prev: nil, next: "what"},
     %Step{name: "what", prev: "who", next: "when"},
@@ -207,7 +209,7 @@ previous step. You'll see that as you read on.
 
 Let's chop up the form.
 
-<a name="extract"></a>
+<a aria-hidden="true" name="extract"></a>
 
 ## Extract to LiveComponents
 
@@ -302,6 +304,7 @@ Here is the component code:
 ```elixir
 defmodule MyAppWeb.EventLive.WhenComponent do
   use MyAppWeb, :live_component
+  alias Ecto.Changeset
 
   @primary_key false
   embedded_schema do
@@ -431,7 +434,7 @@ end
 ```
 
 
-<a name="clientside"></a>
+<a aria-hidden="true" name="clientside"></a>
 
 ## Getting the user's timezone with `phx-hook`
 
@@ -477,7 +480,7 @@ so until then, I won't have user's timezone! I want it pushed immediately so I
 can update the form's changeset. Also, `pushEventTo` is used instead of
 `pushEvent` because this is a LiveComponent, so I want the event pushed to the
 LiveComponent and not the parent LiveView. I pass the target in via a data
-attribute.
+attribute so I don't confuse it with Phoenix's own `phx-target`.
 
 When handling the event, we'll merge the timezone with the existing params of
 the changeset, and then re-apply the changeset and re-compute fields.
@@ -495,7 +498,7 @@ def handle_event("timezone", detected_timezone, socket) do
 end
 ```
 
-<a name="clientinput"></a>
+<a aria-hidden="true" name="clientinput"></a>
 
 ## Handling sub-form change events
 
@@ -573,7 +576,7 @@ and not the parent LiveView. This is accomplished with `phx-target` on the form.
 </form>
 ```
 
-<a name="subformsubmission"></a>
+<a aria-hidden="true" name="subformsubmission"></a>
 
 ## Handling the sub-form submission
 
@@ -636,7 +639,7 @@ def handle_info({:proceed, %MyAppWeb.EventLive.WhenComponent{} = form}, socket) 
 end
 ```
 
-<a name="formsubmission"></a>
+<a aria-hidden="true" name="formsubmission"></a>
 
 ## Handling the overall form submission
 
@@ -655,7 +658,9 @@ defmodule MyAppWeb.EventLive.Step do
 end
 
 defmodule MyAppWeb.EventLive.New do
-  # ..snip..
+  use MyAppWeb, :live_view
+  alias Ecto.Changeset
+  # ...snip...
 
   defp assign_step(socket, step) do
     if new_step = Enum.find(@steps, & &1.name == Map.get(socket.assigns.progress, step)) do
