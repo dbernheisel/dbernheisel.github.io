@@ -27,6 +27,9 @@ class ProjectsPage extends React.Component {
               <OutboundLink className="link" href="https://github.com/taxjar/date_time_parser">
                 GitHub
               </OutboundLink>
+              <OutboundLink className="link" href="https://hex.pm/packages/date_time_parser">
+                Published on hex.pm
+              </OutboundLink>
             </div>
             <p>Major functions:</p>
             <ul className="pl-4 list-disc">
