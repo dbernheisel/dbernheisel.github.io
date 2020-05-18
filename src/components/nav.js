@@ -14,11 +14,11 @@ const HeaderLink = ({children}) => {
           <img
             src={profilePic}
             alt='David Bernheisel'
-            className='avatar w-16 md:w-24 lg:w-32'
+            className='w-16 avatar md:w-24 lg:w-32'
           />
         </div>
         <div>
-          <h3 className="ml-0 md:ml-4 text-xl md:text-4xl md:font-extrabold leading-6 font-bold">David Bernheisel</h3>
+          <h3 className="ml-0 text-xl font-bold md:ml-4 md:text-4xl md:font-extrabold leading-6">David Bernheisel</h3>
         </div>
       </div>
     </Link>
@@ -69,12 +69,12 @@ export default class Nav extends React.Component {
     )
 
     return (
-      <nav className='navbar flex flex-wrap items-center justify-between p-4 shadow-md'>
+      <nav className='flex flex-wrap items-center justify-between p-4 shadow-md navbar'>
         <HeaderLink />
         <div className='block lg:hidden'>
           <button
             onClick={this.menuToggle}
-            className="button flex items-center px-3">
+            className="flex items-center px-3 button">
             <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20">
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -84,10 +84,11 @@ export default class Nav extends React.Component {
         <div className={navClasses}>
           <NavLink {...this.props} to='/'>Blog</NavLink>
           <NavLink {...this.props} to='/projects/'>Projects</NavLink>
+          <OutboundNavLink href="https://elixir-utilities.herokuapp.com">Utilities</OutboundNavLink>
           <OutboundNavLink href="https://twitter.com/bernheisel">Twitter</OutboundNavLink>
           <div className="py-1 mt-4 lg:mt-0">
             <a href='/rss.xml'>
-              <img className="align-middle h-8" src={rssIcon} alt="RSS"/>
+              <img className="h-8 align-middle" src={rssIcon} alt="RSS"/>
             </a>
           </div>
         </div>
