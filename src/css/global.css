@@ -1,5 +1,5 @@
 body {
-  @apply bg-gray-100 text-black text-lg font-light m-0 leading-normal tracking-wide font-sans;
+  @apply m-0 font-sans text-lg leading-normal tracking-wide text-black bg-gray-100;
 }
 
 .navbar {
@@ -7,21 +7,21 @@ body {
 }
 
 pre, code {
-  @apply tracking-normal font-normal;
+  @apply font-normal tracking-normal;
   font-family: "Fira Code" !important;
   border: none !important;
 }
 
 .avatar {
-  @apply border-2 rounded-full shadow-md border-gray-100;
+  @apply border-2 border-gray-100 rounded-full shadow-md;
 }
 
 .button {
-  @apply text-white font-medium py-2 px-3 rounded bg-gray-500 duration-100 ease-in-out no-underline transition-colors shadow border-gray-600;
+  @apply px-3 py-2 font-medium text-white no-underline bg-gray-500 border-gray-600 rounded shadow duration-100 ease-in-out transition-colors;
 }
 
 .button.disabled {
-  @apply text-black cursor-default bg-gray-600 border-gray-700;
+  @apply text-black bg-gray-600 border-gray-700 cursor-default;
 }
 
 .button:hover {
@@ -32,11 +32,11 @@ pre, code {
 }
 
 .post-container {
-  @apply border-b-2 border-dotted border-gray-700;
+  @apply border-b-2 border-gray-700 border-dotted;
 }
 
 .link {
-  @apply text-red-800 font-medium duration-100 ease-in-out no-underline transition-colors;
+  @apply font-medium text-red-800 no-underline duration-100 ease-in-out transition-colors;
 }
 
 .link:visited {
