@@ -21,14 +21,14 @@ pre, code {
 }
 
 .button.disabled {
-  @apply text-black bg-gray-600 border-gray-700 cursor-default;
+  @apply bg-gray-600 border-gray-700 cursor-default;
 }
 
 .button:hover {
-  @apply text-black bg-gray-600 border-gray-700;
+  @apply bg-gray-600 border-gray-700;
 }
 .button:focus {
-  @apply text-black bg-gray-600 border-gray-700;
+  @apply bg-gray-600 border-gray-700;
 }
 
 .post-container {
