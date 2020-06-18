@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 27 May 2020 14:23:10 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView: Multi-step forms]]></title><description><![CDATA[Phoenix LiveView has been a dream to work with so far. I really recommend
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 18 Jun 2020 00:37:30 GMT</lastBuildDate><item><title><![CDATA[Starting a New Podcast with Thinking |> Elixir]]></title><description><![CDATA[I joined the Thinking |> Elixir Podcast! I’m really happy to be joining
+friends like @brainlid and Cade to talk about my favorite…]]></description><link>https://www.bernheisel.com/blog/starting-a-new-podcast/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/starting-a-new-podcast/</guid><pubDate>Wed, 17 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I joined the &lt;a href=&quot;https://thinkingelixir.com/the-podcast&quot;&gt;Thinking |&gt; Elixir&lt;/a&gt; Podcast! I’m really happy to be joining
+friends like &lt;a href=&quot;https://twitter.com/brainlid&quot;&gt;@brainlid&lt;/a&gt; and Cade to talk about my favorite programming
+language.&lt;/p&gt;
+&lt;p&gt;I would really love it if you tweeted about the new podcast and shared with your
+friends who know or are discovering Elixir. We’re wanting it to be a good and
+succinct source to catch up on Elixir news and happenings, with some interviews
+with other Elixir folks!&lt;/p&gt;
+&lt;p&gt;Check it out at &lt;a href=&quot;https://thinkingelixir.com/the-podcast&quot;&gt;https://thinkingelixir.com/the-podcast&lt;/a&gt; or your favorite source
+for podcasts (Google, Apple, etc.).&lt;/p&gt;
+&lt;p&gt;In the first episode, we’re introducing ourselves and getting to know each
+other.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Phoenix LiveView: Multi-step forms]]></title><description><![CDATA[Phoenix LiveView has been a dream to work with so far. I really recommend
 looking at it for your next web application. Building Tailwind…]]></description><link>https://www.bernheisel.com/blog/liveview-multi-step-form/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/liveview-multi-step-form/</guid><pubDate>Wed, 13 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_view&quot;&gt;Phoenix LiveView&lt;/a&gt; has been a dream to work with so far. I &lt;em&gt;really&lt;/em&gt; recommend
 looking at it for your next web application. Building Tailwind, Elixir, and
 Phoenix LiveView with some Vue sprinklings has been the most enjoyable tech
