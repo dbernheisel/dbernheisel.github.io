@@ -1,6 +1,6 @@
 ---
 title: "DateTimeParser on Elixir Mix podcast"
-tags: ["elixir"]
+tags: ["elixir", "podcast"]
 date: 2019-09-09
 excerpt: |
   I was invited to talk on the Elixir Mix podcast. We talked about the Elixir

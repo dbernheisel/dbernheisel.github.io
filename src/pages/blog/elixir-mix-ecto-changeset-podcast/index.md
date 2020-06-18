@@ -1,6 +1,6 @@
 ---
 title: "Ecto Changesets on Elixir Mix podcast"
-tags: ["elixir"]
+tags: ["elixir", "podcast"]
 date: 2020-04-08
 excerpt: |
   I was invited to talk on the Elixir Mix podcast. We talked about the Ecto
