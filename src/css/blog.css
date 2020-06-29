@@ -57,8 +57,8 @@ h6.post-content::before {
   @apply my-4;
 }
 
-.post-content ul { @apply list-disc pl-4; }
-.post-content ol { @apply list-decimal pl-4; }
+.post-content ul { @apply list-disc ml-4 pl-4; }
+.post-content ol { @apply list-decimal ml-4 pl-4; }
 .post-content li { @apply my-2; }
 
 .post-content strong {
