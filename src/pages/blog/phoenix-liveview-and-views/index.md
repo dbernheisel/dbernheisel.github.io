@@ -45,7 +45,8 @@ and inline your html with the `~L` sigil. No `my_live.html.leex` file needed.
 
 **If you have a LiveView with lots of HTML**, then you should use the standard
 LiveView placement, and put your `my_live.ex` and `my_live.html.leex` next to
-each other under `lib/my_app_web/live`.
+each other under `lib/my_app_web/live`. You don't need to define `render/1`
+because the default will work. Omit it.
 
 **If you have a LiveView with lots of HTML helper functions** that you want to
 separate from business logic in the LiveView:
@@ -71,7 +72,13 @@ folder and path to look in when creating your `MyView` by supplying an option:
 `use Phoenix.View, root: "lib/my_app_web/live", path: ""`. This is [explained in the
 `Phoenix.View`
 docs](https://hexdocs.pm/phoenix/Phoenix.View.html#__using__/1-options). This
-can be wrapped up into a convenience though. Read on for more info.
+can be wrapped up into a convenience macro though. Read on for more info.
+
+**This totally ignores LiveComponent** as an option. If your LiveView can be
+broken up into interactive components, then breaking out into a LiveComponent is
+a good option to look into and works just like a LiveView. For the purpose of
+this post and exploring how rendering works, we're going to treat LiveComponents
+the same as a LiveView.
 
 ## ToC
 
@@ -545,6 +552,13 @@ defmodule MyAppWeb.MyView do
   def my_helper("vanilla"), do: "whoops no this is actually live"
 end
 ```
+
+## What about LiveComponents?
+
+LiveComponents are totally ignored in this article. They're another great option
+for breaking out interactive partials from your LiveViews. Their rendering
+strategy is very similar to LiveViews though, and most of this applies to them
+as well.
 
 Hope these tips help you out! If you have any more tips, tweet at me
 [@bernheisel](https://twitter.com/bernheisel)
