@@ -41,7 +41,8 @@ rendered.</p>
 and inline your html with the <code class="language-text">~L</code> sigil. No <code class="language-text">my_live.html.leex</code> file needed.</p>
 <p><strong>If you have a LiveView with lots of HTML</strong>, then you should use the standard
 LiveView placement, and put your <code class="language-text">my_live.ex</code> and <code class="language-text">my_live.html.leex</code> next to
-each other under <code class="language-text">lib/my_app_web/live</code>.</p>
+each other under <code class="language-text">lib/my_app_web/live</code>. You don’t need to define <code class="language-text">render/1</code>
+because the default will work. Omit it.</p>
 <p><strong>If you have a LiveView with lots of HTML helper functions</strong> that you want to
 separate from business logic in the LiveView:</p>
 <ol>
@@ -65,7 +66,12 @@ folder and path to look in when creating your <code class="language-text">MyView
 <code class="language-text">use Phoenix.View, root: &quot;lib/my_app_web/live&quot;, path: &quot;&quot;</code>. This is <a href="https://hexdocs.pm/phoenix/Phoenix.View.html#__using__/1-options">explained in the
 <code class="language-text">Phoenix.View</code>
 docs</a>. This
-can be wrapped up into a convenience though. Read on for more info.</p>
+can be wrapped up into a convenience macro though. Read on for more info.</p>
+<p><strong>This totally ignores LiveComponent</strong> as an option. If your LiveView can be
+broken up into interactive components, then breaking out into a LiveComponent is
+a good option to look into and works just like a LiveView. For the purpose of
+this post and exploring how rendering works, we’re going to treat LiveComponents
+the same as a LiveView.</p>
 <h2>ToC</h2>
 <ul>
 <li><a href="#default-phoenix">Phoenix Controller/View/Template</a></li>
@@ -469,5 +475,10 @@ something like this.</p>
 
   <span class="token keyword">def</span> my_helper<span class="token punctuation">(</span><span class="token string">"vanilla"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token attr-name">do:</span> <span class="token string">"whoops no this is actually live"</span>
 <span class="token keyword">end</span></code></pre></div>
+<h2>What about LiveComponents?</h2>
+<p>LiveComponents are totally ignored in this article. They’re another great option
+for breaking out interactive partials from your LiveViews. Their rendering
+strategy is very similar to LiveViews though, and most of this applies to them
+as well.</p>
 <p>Hope these tips help you out! If you have any more tips, tweet at me
 <a href="https://twitter.com/bernheisel">@bernheisel</a></p></div></article><div class="flex flex-wrap justify-between"><div class="w-full p-2 lg:w-1/2"><a class="no-underline inline-flex items-center flex-1 dark:button-dark button" href="/blog/starting-a-new-podcast/"><svg class="w-6 h-6 mr-2 fill-current" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1408 960v-128q0-26-19-45t-45-19h-502l189-189q19-19 19-45t-19-45l-91-91q-18-18-45-18t-45 18l-362 362-91 91q-18 18-18 45t18 45l91 91 362 362q18 18 45 18t45-18l91-91q18-18 18-45t-18-45l-189-189h502q26 0 45-19t19-45zm256-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"></path></svg><span>Starting a New Podcast with Thinking |&gt; Elixir</span></a></div></div></main></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/phoenix-liveview-and-views/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-e49f8733b8aee9471acf.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-8dc5b1de7df84c955e11.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-f37877f27548564a00ab.js"],"component---src-pages-404-js":["/component---src-pages-404-js-f9633554493dddb1c536.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f71e923739c6685c4443.js"],"component---src-pages-projects-js":["/component---src-pages-projects-js-ce130e74c0d10fe8ba37.js"]};/*]]>*/</script><script src="/webpack-runtime-2d45e6a9f2659de65a68.js" async=""></script><script src="/app-e49f8733b8aee9471acf.js" async=""></script><script src="/framework-1cbcc4f69858806ac5db.js" async=""></script><script src="/1777bc0a756dace6068a54d243c7071eee1627a0-9a08c3058feb24437dbd.js" async=""></script><script src="/component---src-templates-blog-post-js-f37877f27548564a00ab.js" async=""></script><script src="/styles-48fa8a050a65bb8447bd.js" async=""></script></body></html>
