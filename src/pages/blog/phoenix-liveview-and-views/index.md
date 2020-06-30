@@ -38,7 +38,8 @@ rendered.
 Glossary of examples:
   1. `MyLive` = The LiveView module
   2. `MyView` = The standard Phoenix View module, not a LiveView.
-  2. `my_live.html.leex` = The template rendered by `MyLive` or `MyView`
+  3. `my_live.html.leex` = The template rendered by `MyLive` or `MyView`
+  4. This is written in context of Phoenix LiveView 0.13.3
 
 **If you have a simple LiveView**, then you can implement `render(assigns)`
 and inline your html with the `~L` sigil. No `my_live.html.leex` file needed.
