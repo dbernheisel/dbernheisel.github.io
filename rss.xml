@@ -1,4 +1,460 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 18 Jun 2020 00:37:30 GMT</lastBuildDate><item><title><![CDATA[Starting a New Podcast with Thinking |> Elixir]]></title><description><![CDATA[I joined the Thinking |> Elixir Podcast! I’m really happy to be joining
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 30 Jun 2020 05:32:54 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://elixir-utilities.herokuapp.com&quot;&gt;Elixir Regex Tester&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;A request logger, much like &lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_dashboard&quot;&gt;Phoenix Live Dashboard&lt;/a&gt;’s&lt;/li&gt;
+&lt;li&gt;An internal webmail server, for me to receive and send email through
+SendGrid. I hope to open-source this soon when it’s ready.&lt;/li&gt;
+&lt;li&gt;Another private work-related project.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Everytime I build one, I learn something new and find a new pattern, and some
+concept finally &lt;em&gt;clicks&lt;/em&gt;. Today, that concept that cemented in my mind is how
+Phoenix and Phoenix LiveView renders templates.&lt;/p&gt;
+&lt;p&gt;I want to show you a couple different View-rendering strategies. This should
+help you decide which strategy to use.&lt;/p&gt;
+&lt;p&gt;All of these strategies work, this is purely about opinionated code organizing,
+&lt;em&gt;but who doesn’t love reading opinions&lt;/em&gt;? Plus we’ll learn how the views are
+rendered.&lt;/p&gt;
+&lt;h2&gt;TLDR&lt;/h2&gt;
+&lt;p&gt;Glossary of examples:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;MyLive&lt;/code&gt; = The LiveView module&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; = The standard Phoenix View module, not a LiveView.&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; = The template rendered by &lt;code class=&quot;language-text&quot;&gt;MyLive&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;If you have a simple LiveView&lt;/strong&gt;, then you can implement &lt;code class=&quot;language-text&quot;&gt;render(assigns)&lt;/code&gt;
+and inline your html with the &lt;code class=&quot;language-text&quot;&gt;~L&lt;/code&gt; sigil. No &lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; file needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you have a LiveView with lots of HTML&lt;/strong&gt;, then you should use the standard
+LiveView placement, and put your &lt;code class=&quot;language-text&quot;&gt;my_live.ex&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; next to
+each other under &lt;code class=&quot;language-text&quot;&gt;lib/my_app_web/live&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you have a LiveView with lots of HTML helper functions&lt;/strong&gt; that you want to
+separate from business logic in the LiveView:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add your own standard Phoenix view &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; (or a better name).&lt;/li&gt;
+&lt;li&gt;Move your &lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; file to the standard Phoenix locations (not
+next to your LiveView file).&lt;/li&gt;
+&lt;li&gt;Implement your own &lt;code class=&quot;language-text&quot;&gt;render(assigns)&lt;/code&gt; that calls
+&lt;code class=&quot;language-text&quot;&gt;MyAppWeb.MyView.render(&amp;quot;my_live.html&amp;quot;, assigns)&lt;/code&gt;. Phoenix LiveView will
+still work just fine; just remember to keep the html file named with an
+&lt;code class=&quot;language-text&quot;&gt;.html.leex&lt;/code&gt; extension so the LiveView rendering engine kicks in.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Remember that you can create shared Views&lt;/strong&gt;. Alternatively to above, if your
+helpers are used across multiple views and more generic, you can create a plain
+module that encapsulates your HTML helpers. I usually call mine &lt;code class=&quot;language-text&quot;&gt;ComponentView&lt;/code&gt;
+and use it inside my any of my templates, for example:
+&lt;code class=&quot;language-text&quot;&gt;Component.primary_button(&amp;quot;My Link&amp;quot;, to: &amp;quot;yadayada&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you want to use a regular View, but co-locate the template to the LiveView module&lt;/strong&gt;,
+as in you don’t want to go back to the vanilla Phoenix file structure but still
+need a separate &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; for your HTML helpers, you can specify the root
+folder and path to look in when creating your &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; by supplying an option:
+&lt;code class=&quot;language-text&quot;&gt;use Phoenix.View, root: &amp;quot;lib/my_app_web/live&amp;quot;, path: &amp;quot;&amp;quot;&lt;/code&gt;. This is &lt;a href=&quot;https://hexdocs.pm/phoenix/Phoenix.View.html#__using__/1-options&quot;&gt;explained in the
+&lt;code class=&quot;language-text&quot;&gt;Phoenix.View&lt;/code&gt;
+docs&lt;/a&gt;. This
+can be wrapped up into a convenience though. Read on for more info.&lt;/p&gt;
+&lt;h2&gt;ToC&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#default-phoenix&quot;&gt;Phoenix Controller/View/Template&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#default-liveview&quot;&gt;Phoenix LiveView with a template Part 1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#pluggy-controllers&quot;&gt;Pluggy Controllers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#default-liveview&quot;&gt;Phoenix LiveView with a template Part 2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#liveview-inline&quot;&gt;Phoenix LiveView with an inline template&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#liveview-external&quot;&gt;Phoenix LiveView with an external template&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a name=&quot;default-phoenix&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Default Phoenix Controller/View/Template&lt;/h2&gt;
+&lt;p&gt;First, to remember where we came from, I want to show a standard Phoenix
+Controller/View/Template pattern. There are several modules involved that the
+&lt;code class=&quot;language-text&quot;&gt;Plug.Conn&lt;/code&gt; travels through in order to turn into a response for the end-user.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Incoming request via &lt;code class=&quot;language-text&quot;&gt;:cowboy&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Endpoint&lt;/li&gt;
+&lt;li&gt;Router&lt;/li&gt;
+&lt;li&gt;Controller&lt;/li&gt;
+&lt;li&gt;View&lt;/li&gt;
+&lt;li&gt;Template (not a module)&lt;/li&gt;
+&lt;li&gt;Outgoing response via &lt;code class=&quot;language-text&quot;&gt;:cowboy&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### Router - lib/my_app_web/router.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Router &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:router&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;# ...snip...&lt;/span&gt;
+  scope &lt;span class=&quot;token string&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MyAppWeb &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    pipe_through &lt;span class=&quot;token atom symbol&quot;&gt;:browser&lt;/span&gt;
+
+    get &lt;span class=&quot;token string&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; PageController&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:home&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# ...snip...&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;### Controller - lib/my_app_web/controllers/page_controller.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PageController &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:controller&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;#&amp;lt;-- injects some logic to handle receiving&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# the conn and passing the conn on to cowboy&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; home&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;home.html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;### View - lib/my_app_web/views/page_view.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PageView &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:view&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;#&amp;lt;-- injects some logic to handle evaluating&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# the embedded elixir in your templates&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- Template - lib/my_app_web/templates/page/home.html.eex
+We&apos;re going to ignore the layout stuff for now. Just know that it&apos;s
+also evaluated and this template is a part of it --&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Yo! You&apos;re rendering the home page&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In my mind, the template is the end of the show, though that’s not technically
+correct; the real &lt;strong&gt;end of the line is the controller&lt;/strong&gt;. The controller is using
+the view module to evaluate the HTML and puts the result into the Plug.Conn’s
+&lt;code class=&quot;language-text&quot;&gt;resp_body&lt;/code&gt;. The controller terminates the flow and the
+once-a-request-and-now-a-response &lt;code class=&quot;language-text&quot;&gt;Plug.Conn&lt;/code&gt; is returned to the to the
+underlying web server, which is probably cowboy, which delivers the payload to
+the end-user through the HTTP connection.&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;default-liveview&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Default Phoenix LiveView without &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;We’re here to learn about LiveView though, so let’s see an example of a LiveView
+without a &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; function.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/live/my_live.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyLive &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_view&lt;/span&gt;
+
+  &lt;span class=&quot;token attribute variable&quot;&gt;@impl&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; mount&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_params&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _session&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; socket&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# do stuff&lt;/span&gt;
+
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; socket&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- lib/my_app_web/live/my_live.html.leex --&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Yo! I&apos;m rendered by a LiveView&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ok, without a controller, how does a given Phoenix LiveView handle the request?
+Here’s a secret: &lt;strong&gt;a LiveView is also an ordinary controller&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Now… we may not use it like an ordinary Phoenix controller, but the request is
+firstly handled like an ordinary web request; one with a Plug.Conn and a full
+HTML response back to the user. The LiveView spices are garnished &lt;em&gt;after&lt;/em&gt; the
+HTML is delivered to the user and a new websocket is initiated to the server to
+manage updates to it.&lt;/p&gt;
+&lt;p&gt;Or, as said in the LiveView docs:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A LiveView begins as a regular HTTP request and HTML response,
+and then upgrades to a stateful view on client connect,
+guaranteeing a regular HTML page even if JavaScript is disabled.
+Any time a stateful view changes or updates its socket assigns, it is
+automatically re-rendered and the updates are pushed to the client.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Prove it!&lt;/p&gt;
+&lt;p&gt; — you&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;ok ok.. I’ll prove it. To prove that it’s a regular controller, we’ll need to
+look at some of Phoenix LiveView’s source code. Let’s look at the code that
+makes &lt;code class=&quot;language-text&quot;&gt;live(&amp;quot;/my-route&amp;quot;, MyLive)&lt;/code&gt; work in the router.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;defmacro live&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; live_view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; action &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  quote &lt;span class=&quot;token attr-name&quot;&gt;bind_quoted:&lt;/span&gt; binding&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;action&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; router_options&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;
+      Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;__live__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; live_view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; action&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# vvvvv THIS PART&lt;/span&gt;
+    Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Plug&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; action&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; router_options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# ^^^^^ THIS PART&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You see it?! &lt;code class=&quot;language-text&quot;&gt;live()&lt;/code&gt; is wrapping &lt;code class=&quot;language-text&quot;&gt;Phoenix.Router.get(&amp;quot;/my-route&amp;quot;, Phoenix.LiveView.Plug, _action, _options)&lt;/code&gt;.
+You may recognize this as:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;get &lt;span class=&quot;token string&quot;&gt;&quot;/my-route&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MyController&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:show&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;in your own
+router. We’re going to ignore the action and options for this post, but the
+important part is that the &lt;code class=&quot;language-text&quot;&gt;live()&lt;/code&gt; macro is adding a GET route and calls the
+&lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView.Plug&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;But, that plug isn’t a controller…&lt;/p&gt;
+&lt;p&gt;— you&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Ah, but it is! A Phoenix Controller, even the ones you make, are indeed all just
+plugs underneath. &lt;strong&gt;All Phoenix controllers are plugs&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;pluggy-controllers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Pluggy Controllers&lt;/h2&gt;
+&lt;p&gt;When your controllers call &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :controller&lt;/code&gt;, it’s &lt;em&gt;injecting code&lt;/em&gt; into
+your controller. Let’s start at the top in our own code; but first at step 0 we
+need to understand that when Elixir code calls &lt;code class=&quot;language-text&quot;&gt;use MyUsingModule&lt;/code&gt; it’s
+actually calling &lt;code class=&quot;language-text&quot;&gt;MyUsingModule.__using__(opts)&lt;/code&gt; at compile-time, and that
+resulting code is put into the module that called it. Knowing that, let’s follow
+the &lt;code class=&quot;language-text&quot;&gt;use&lt;/code&gt; trail.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Warning: we’re going to look at macros now. The rules of which you thought
+Elixir was governed-by, ie, immutability, may not be in effect&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;######################################&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;### Inside MyAppWeb.PageController ###&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;######################################&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;PageController &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:controller&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; home&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;home.html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;#######################&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;### Inside MyAppWeb ###&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#######################&lt;/span&gt;
+
+defmacro __using__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;which&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;when&lt;/span&gt; is_atom&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;which&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  apply&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; which&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; controller &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  quote &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# vvv let&apos;s look in here vvv&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;namespace:&lt;/span&gt; MyAppWeb
+    &lt;span class=&quot;token comment&quot;&gt;# ^^^ let&apos;s look in here ^^^&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;#################################&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;### Inside Phoenix.Controller ###&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#################################&lt;/span&gt;
+
+defmacro __using__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  quote &lt;span class=&quot;token attr-name&quot;&gt;bind_quoted:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;opts:&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller
+
+    &lt;span class=&quot;token comment&quot;&gt;# vvv let&apos;s look in here vvv&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Pipeline&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts
+    &lt;span class=&quot;token comment&quot;&gt;# ^^^ let&apos;s look in here ^^^&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; Keyword&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:put_default_views&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+      plug &lt;span class=&quot;token atom symbol&quot;&gt;:put_new_layout&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;__layout__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:app&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+      plug &lt;span class=&quot;token atom symbol&quot;&gt;:put_new_view&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;__view__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;##########################################&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;### Inside Phoenix.Controller.Pipeline ###&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;##########################################&lt;/span&gt;
+
+defmacro __using__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  quote &lt;span class=&quot;token attr-name&quot;&gt;bind_quoted:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;opts:&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+
+    &lt;span class=&quot;token attribute variable&quot;&gt;@behaviour&lt;/span&gt; Plug
+    &lt;span class=&quot;token comment&quot;&gt;## AHA! HERE&apos;S YOUR CONTROLLER PLUG BEHAVIOUR&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;require&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Endpoint
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Pipeline
+
+    Module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;register_attribute&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:plugs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;accumulate:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token attribute variable&quot;&gt;@before_compile&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Pipeline
+    &lt;span class=&quot;token attribute variable&quot;&gt;@phoenix_log_level&lt;/span&gt; Keyword&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:debug&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token attribute variable&quot;&gt;@phoenix_fallback&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:unregistered&lt;/span&gt;
+
+    &lt;span class=&quot;token attribute variable&quot;&gt;@doc&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; init&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;do:&lt;/span&gt; opts
+
+    &lt;span class=&quot;token attribute variable&quot;&gt;@doc&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; call&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; action&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;when&lt;/span&gt; is_atom&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;action&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+      conn
+      &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; merge_private&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;token attr-name&quot;&gt;phoenix_controller:&lt;/span&gt; __MODULE__&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;token attr-name&quot;&gt;phoenix_action:&lt;/span&gt; action
+      &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# fun fact, this function below was introduced&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# ~6 years ago in Phoenix 0.5.0 and utilizes unhygienic functions.&lt;/span&gt;
+      &lt;span class=&quot;token comment&quot;&gt;# (as in you&apos;re in deep macro-land and your normal rules don&apos;t apply)&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; phoenix_controller_pipeline&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;action&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;token attribute variable&quot;&gt;@doc&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; action&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;Plug&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Conn&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;private:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;phoenix_action:&lt;/span&gt; action&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+      apply&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;__MODULE__&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; action&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; conn&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+    defoverridable &lt;span class=&quot;token attr-name&quot;&gt;init:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;call:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;action:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Wow! Wild. All this means your slim controllers actually have a lot more code in
+it than it appears, and that’s ok because it makes working in Phoenix much more
+convenient.&lt;/p&gt;
+&lt;p&gt;All plugs must implement &lt;code class=&quot;language-text&quot;&gt;call/2&lt;/code&gt; which accepts a conn and returns a conn. In
+our case, we’re looking for a conn that has some rendered HTML.&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;liveview-default-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Back to Default Phoenix LiveView without &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Now that we know that LiveViews are a &lt;code class=&quot;language-text&quot;&gt;GET&lt;/code&gt; request using a standard
+controller/plug underneath, let’s look at the &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView.Plug&lt;/code&gt;. We’re
+still looking for how a LiveView gets to the template.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; call&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;private:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;phoenix_live_view:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  opts &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; maybe_dispatch_session&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;token comment&quot;&gt;# ...snip... there&apos;s a lot of code here we&apos;re going to skip&lt;/span&gt;
+  conn
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;put_layout&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; put_root_layout_from_router&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# this actually is piped into `Controller.live_render(view, opts)`&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# but I&apos;m going to cut/paste what that ends up doing&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; LiveView&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Static&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# ... more snipping...&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; to_rendered_content_tag&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;socket&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; tag&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; attrs&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# ... more snipping...&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; view&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;#&amp;lt;-- here here here!&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Cool; this isn’t anything new so far. This is just confirming that Phoenix
+LiveView starts off as a regular HTTP request with a full HTML response. &lt;em&gt;how
+does it render?&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;We see that it’s calling &lt;code class=&quot;language-text&quot;&gt;view.render()&lt;/code&gt; where &lt;code class=&quot;language-text&quot;&gt;view&lt;/code&gt; is our LiveView, but we
+didn’t define &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; yet! Where’s it coming from?&lt;/p&gt;
+&lt;p&gt;It’s coming from another compile-time hook, this time from &lt;code class=&quot;language-text&quot;&gt;@before_compile&lt;/code&gt; and
+not our usual &lt;code class=&quot;language-text&quot;&gt;__using__&lt;/code&gt; friend. When we called &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :live_view&lt;/code&gt; it
+kicked off a series of &lt;code class=&quot;language-text&quot;&gt;__using__&lt;/code&gt; like we explored earlier. One of them
+included a &lt;code class=&quot;language-text&quot;&gt;@before_compile Phoenix.LiveView.Renderer&lt;/code&gt; hook. Let’s check that
+out.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;render? &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;defines?&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;module&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+root &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dirname&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;file&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+filename &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; template_filename&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+templates &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Template&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;find_all&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; filename&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;render?&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; templates&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;template&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt;
+    ext &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; template &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; Path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;extname&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; String&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;trim_leading&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; String&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;to_atom&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    engine &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Map&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fetch!&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Template&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;engines&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; ext&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    ast &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; engine&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;compile&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;template&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; filename&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+    quote &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;token attribute variable&quot;&gt;@file&lt;/span&gt; unquote&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;template&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;token attribute variable&quot;&gt;@external_resource&lt;/span&gt; unquote&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;template&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;var!&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;assigns&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+        unquote&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ast&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# ... other clauses&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Finally! This is where the default &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; function comes from. Before
+your LiveView compiles, it checks to see if a &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; is defined, and if not
+will provide a default for you. The default location for LiveView templates is
+right next to the LiveView file itself. We see this from the &lt;code class=&quot;language-text&quot;&gt;root = env.file&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;liveview-inline&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Phoenix LiveView with inline &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Probably more-likely is that you already know that your Phoenix LiveView can
+implement &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;.  &lt;a href=&quot;https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-life-cycle&quot;&gt;The docs make this pretty
+clear&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/live/my_live.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyLive &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_view&lt;/span&gt;
+
+  &lt;span class=&quot;token attribute variable&quot;&gt;@impl&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; mount&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_params&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _session&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; socket&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# do stuff&lt;/span&gt;
+
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; socket&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;assigns&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    ~L&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&quot;
+    &amp;lt;p&gt;Yo! I&apos;m rendered from a &amp;lt;%= my_helper(&quot;vanilla&quot;) %&gt; view&amp;lt;/p&gt;
+    &quot;&quot;&quot;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; my_helper&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;vanilla&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;do:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;whoops no this is actually live&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This feels the most similar to frontend frameworks such as Vue with
+single-file-components (SFCs), or React.&lt;/p&gt;
+&lt;p&gt;This is a great option in case your LiveView doesn’t have a lot of HTML. Perhaps
+you’re implementing a small widget. At some point, however, it becomes a little
+crowded if you have a lot of business logic handling changes in the LiveView as
+well as hundreds of lines of HTML and functions to conditionally render some
+HTML or apply CSS classes; so you might consider separating the HTML out into
+its own file.&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;liveview-external&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Phoenix LiveView with external &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/live/my_live.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyLive &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_view&lt;/span&gt;
+
+  &lt;span class=&quot;token attribute variable&quot;&gt;@impl&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; mount&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_params&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _session&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; socket&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# do stuff&lt;/span&gt;
+
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; socket&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;assigns&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyView&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;my_live.html&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; assigns&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/views/my_view.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyView &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:view&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; my_helper&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;vanilla&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;do:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;whoops no this is actually live&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- lib/my_app_web/templates/my_view/my_live.html.leex --&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Yo! I&apos;m rendered from a &amp;lt;%= my_helper(&quot;vanilla&quot;) %&gt; view&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- this renders &quot;whoops no this is actually live&quot; instead of &quot;vanilla&quot; --&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If I have a lot of HTML helpers, then I tend to prefer separating that into a
+View module. It’s a little tedious to setup and separate the files, and then
+jump between them when developing, but it’s clear where things should go.&lt;/p&gt;
+&lt;p&gt;This bugged me though, I have HTML floating in &lt;code class=&quot;language-text&quot;&gt;./templates&lt;/code&gt; and sometimes in
+&lt;code class=&quot;language-text&quot;&gt;./live&lt;/code&gt; and sometimes inline. Can we consolidate?&lt;/p&gt;
+&lt;p&gt;Sure we can! &lt;code class=&quot;language-text&quot;&gt;Phoenix.View&lt;/code&gt; &lt;a href=&quot;https://hexdocs.pm/phoenix/Phoenix.View.html?#__using__/1&quot;&gt;provides an option to look for templates in a
+different folder&lt;/a&gt;.
+Let’s try it out.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/views/my_view.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyView &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;View&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;root:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;lib/my_app_web/live&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;path:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token attr-name&quot;&gt;namespace:&lt;/span&gt; MyAppWeb
+  &lt;span class=&quot;token comment&quot;&gt;# and all the other imports that come with `use MyAppWeb, :view`&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; my_helper&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;vanilla&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;do:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;whoops no this is actually live&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- lib/my_app_web/live/my_live.html.leex --&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Yo! I&apos;m rendered from a &amp;lt;%= my_helper(&quot;vanilla&quot;) %&gt; view&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- this renders &quot;whoops no this is actually live&quot; instead of &quot;vanilla&quot; --&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It’s exactly the same, except where the HTML is on disk and that we can’t use
+our &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :view&lt;/code&gt; as-is anymore without some further adjustment. To
+prove the concept though, copy out all the additional imports you find for views
+in &lt;code class=&quot;language-text&quot;&gt;my_app_web.ex&lt;/code&gt; and place it here for now. If it works out, then you can add
+another clause in &lt;code class=&quot;language-text&quot;&gt;my_app_web.ex&lt;/code&gt; to handle these kinds of views. Maybe
+something like this.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web.ex&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; view_for_live &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  quote &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;View&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token attr-name&quot;&gt;root:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;lib/my_app_web/live&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token attr-name&quot;&gt;path:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;token attr-name&quot;&gt;namespace:&lt;/span&gt; MyAppWeb
+
+    &lt;span class=&quot;token comment&quot;&gt;# Import convenience functions from controllers&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Controller&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;only:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;get_flash:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;get_flash:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;view_module:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;# Use all HTML functionality (forms, tags, etc)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;HTML
+
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ErrorHelpers
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Gettext
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Helpers
+    &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveHelpers
+    &lt;span class=&quot;token keyword&quot;&gt;alias&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Helpers&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;as:&lt;/span&gt; Routes
+  &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# and then use this instead for your LiveView-centric Views&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/views/my_view.ex&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyView &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:view_for_live&lt;/span&gt;
+
+  &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; my_helper&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;vanilla&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;do:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;whoops no this is actually live&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Hope these tips help you out! If you have any more tips, tweet at me
+&lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Starting a New Podcast with Thinking |> Elixir]]></title><description><![CDATA[I joined the Thinking |> Elixir Podcast! I’m really happy to be joining
 friends like @brainlid and Cade to talk about my favorite…]]></description><link>https://www.bernheisel.com/blog/starting-a-new-podcast/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/starting-a-new-podcast/</guid><pubDate>Wed, 17 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I joined the &lt;a href=&quot;https://thinkingelixir.com/the-podcast&quot;&gt;Thinking |&gt; Elixir&lt;/a&gt; Podcast! I’m really happy to be joining
 friends like &lt;a href=&quot;https://twitter.com/brainlid&quot;&gt;@brainlid&lt;/a&gt; and Cade to talk about my favorite programming
 language.&lt;/p&gt;
