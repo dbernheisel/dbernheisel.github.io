@@ -46,8 +46,8 @@ each other under <code class="language-text">lib/my_app_web/live</code>.</p>
 separate from business logic in the LiveView:</p>
 <ol>
 <li>Add your own standard Phoenix view <code class="language-text">MyView</code> (or a better name).</li>
-<li>Move your <code class="language-text">my_live.html.leex</code> file to the standard Phoenix locations (not
-next to your LiveView file).</li>
+<li>Move your <code class="language-text">my_live.html.leex</code> file to the standard Phoenix locations (ie,
+<code class="language-text">lib/my_app_web/templates/my</code>).</li>
 <li>Implement your own <code class="language-text">render(assigns)</code> that calls
 <code class="language-text">MyAppWeb.MyView.render(&quot;my_live.html&quot;, assigns)</code>. Phoenix LiveView will
 still work just fine; just remember to keep the html file named with an
