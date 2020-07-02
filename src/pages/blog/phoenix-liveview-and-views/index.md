@@ -57,11 +57,11 @@ separate from business logic in the LiveView:
    `lib/my_app_web/templates/my`).
 3. Implement your own `render(assigns)` that calls
    `MyAppWeb.MyView.render("my_live.html", assigns)`. Phoenix LiveView will
-   still work just fine; just remember to keep the html file named with an
-   `.html.leex` extension so the LiveView rendering engine kicks in.
+   still work; just remember to keep the html file named with an `.html.leex`
+   extension so the LiveView rendering engine kicks in.
 
 **Remember that you can create shared Views**. Alternatively to above, if your
-helpers are used across multiple views and more generic, you can create a plain
+helpers are used across multiple views and generic, you can create a plain
 module that encapsulates your HTML helpers. I usually call mine `ComponentView`
 and use it inside my any of my templates, for example:
 `Component.primary_button("My Link", to: "yadayada")`.
@@ -215,15 +215,21 @@ defmacro live(path, live_view, action \\ nil, opts \\ []) do
 end
 ```
 
-You see it?! `live()` is wrapping `Phoenix.Router.get("/my-route", Phoenix.LiveView.Plug, _action, _options)`.
+You see it?! `live()` is calling this function:
+
+```elixir
+Phoenix.Router.get("/my-route", Phoenix.LiveView.Plug, _action, _options)
+```
+
 You may recognize this as:
+
 ```elixir
 get "/my-route", MyController, :show
 ```
-in your own
-router. We're going to ignore the action and options for this post, but the
-important part is that the `live()` macro is adding a GET route and calls the
-`Phoenix.LiveView.Plug`
+
+in your own router. We're going to ignore the action and options for this post,
+but the important part is that the `live()` macro is adding a GET route and
+calls the `Phoenix.LiveView.Plug`
 
 > But, that plug isn't a controller...
 >
@@ -235,12 +241,15 @@ plugs underneath. **All Phoenix controllers are plugs**.
 <a name="pluggy-controllers"></a>
 ## Pluggy Controllers
 
-When your controllers call `use MyAppWeb, :controller`, it's _injecting code_ into
-your controller. Let's start at the top in our own code; but first at step 0 we
-need to understand that when Elixir code calls `use MyUsingModule` it's
-actually calling `MyUsingModule.__using__(opts)` at compile-time, and that
-resulting code is put into the module that called it. Knowing that, let's follow
-the `use` trail.
+When your controllers call `use MyAppWeb, :controller`, it's _injecting code_
+into your controller at compile-time. Let's explore how that works.
+
+First at step 0 we need to understand that when Elixir code calls `use
+MyUsingModule` it's actually calling `MyUsingModule.__using__(opts)` at
+compile-time, and that resulting code is put into the module that called it.
+Knowing that, let's follow the `use` trail.
+
+Starting at the top in our own code:
 
 **Warning: we're going to look at macros now. The rules of which you thought
 Elixir was governed-by, ie, immutability, may not be in effect**
@@ -339,7 +348,7 @@ defmacro __using__(opts) do
 end
 ```
 
-Wow! Wild. All this means your slim controllers actually have a lot more code in
+Wow! Wild. All this means our slim controllers actually have a lot more code in
 it than it appears, and that's ok because it makes working in Phoenix much more
 convenient.
 
@@ -352,6 +361,8 @@ our case, we're looking for a conn that has some rendered HTML.
 Now that we know that LiveViews are a `GET` request using a standard
 controller/plug underneath, let's look at the `Phoenix.LiveView.Plug`. We're
 still looking for how a LiveView gets to the template.
+
+LiveView has a similar `__using__` code-path. Let's look at LiveView's plug:
 
 ```elixir
 def call(%{private: %{phoenix_live_view: {view, opts}}} = conn, _) do
@@ -375,14 +386,12 @@ Cool; this isn't anything new so far. This is just confirming that Phoenix
 LiveView starts off as a regular HTTP request with a full HTML response. _how
 does it render?_
 
-We see that it's calling `view.render()` where `view` is our LiveView, but we
-didn't define `render/1` yet! Where's it coming from?
+We see that it's calling `view.render()` where `view` is our own LiveView, but
+we didn't define `render/1` yet! Where's it coming from?
 
-It's coming from another compile-time hook, this time from `@before_compile` and
-not our usual `__using__` friend. When we called `use MyAppWeb, :live_view` it
-kicked off a series of `__using__` like we explored earlier. One of them
-included a `@before_compile Phoenix.LiveView.Renderer` hook. Let's check that
-out.
+When we called `use MyAppWeb, :live_view` it kicked off a series of `__using__`,
+which includes `use Phoenix.LiveView`. In `Phoenix.LiveView`, it's including a
+`@before_compile Phoenix.LiveView.Renderer` hook. Let's check that out.
 
 ```elixir
 render? = Module.defines?(env.module, {:render, 1})
@@ -407,17 +416,16 @@ case {render?, templates} do
 end
 ```
 
-Finally! This is where the default `render/1` function comes from. Before
-your LiveView compiles, it checks to see if a `render/1` is defined, and if not
-will provide a default for you. The default location for LiveView templates is
-right next to the LiveView file itself. We see this from the `root = env.file`.
+Finally! This is where the default `render/1` function comes from. Before our
+LiveView compiles, it checks to see if a `render/1` is defined, and if not, it
+will drop one in for us. The default location for LiveView templates is right
+next to the LiveView file itself. We see this from the `root = Path.dirname(env.file)`.
 
 <a name="liveview-inline"></a>
 ## Phoenix LiveView with inline `render/1`
 
-Probably more-likely is that you already know that your Phoenix LiveView can
-implement `render/1`.  [The docs make this pretty
-clear](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-life-cycle).
+Another option is to implement `render/1` ourselves. [The docs make this pretty
+clear how to do that](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-life-cycle).
 
 ```elixir
 ### lib/my_app_web/live/my_live.ex
@@ -480,21 +488,21 @@ defmodule MyAppWeb.MyView do
 end
 ```
 ```html
-<!-- lib/my_app_web/templates/my_view/my_live.html.leex -->
+<!-- lib/my_app_web/templates/my/my_live.html.leex -->
 <p>Yo! I'm rendered from a <%= my_helper("vanilla") %> view</p>
 <!-- this renders "whoops no this is actually live" instead of "vanilla" -->
 ```
 
 If I have a lot of HTML helpers, then I tend to prefer separating that into a
 View module. It's a little tedious to setup and separate the files, and then
-jump between them when developing, but it's clear where things should go.
+jump between them when developing, but it's clear where functions should go.
 
 This bugged me though, I have HTML floating in `./templates` and sometimes in
 `./live` and sometimes inline. Can we consolidate?
 
 Sure we can! `Phoenix.View` [provides an option to look for templates in a
 different folder](https://hexdocs.pm/phoenix/Phoenix.View.html?#__using__/1).
-Let's try it out.
+Let's try it out. We need to supply `root` and `path` with `use Phoenix.View`:
 
 ```elixir
 ### lib/my_app_web/views/my_view.ex
@@ -557,7 +565,7 @@ end
 ## What about LiveComponents?
 
 LiveComponents are totally ignored in this article. They're another great option
-for breaking out interactive partials from your LiveViews. Their rendering
+for organizing interactive partials from your LiveViews. Their rendering
 strategy is very similar to LiveViews though, and most of this applies to them
 as well.
 
