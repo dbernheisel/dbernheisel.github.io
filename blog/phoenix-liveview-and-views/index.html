@@ -30,13 +30,13 @@ help you decide which strategy to use.</p>
 <p>All of these strategies work, this is purely about opinionated code organizing,
 <em>but who doesn’t love reading opinions</em>? Plus we’ll learn how the views are
 rendered.</p>
+<p>This is written while using Phoenix LiveView 0.13.3.</p>
 <h2>TL;DR</h2>
 <p>Glossary of examples:</p>
 <ol>
 <li><code class="language-text">MyLive</code> = The LiveView module</li>
 <li><code class="language-text">MyView</code> = The standard Phoenix View module, not a LiveView.</li>
 <li><code class="language-text">my_live.html.leex</code> = The template rendered by <code class="language-text">MyLive</code> or <code class="language-text">MyView</code></li>
-<li>This is written in context of Phoenix LiveView 0.13.3</li>
 </ol>
 <p><strong>If you have a simple LiveView</strong>, then you can implement <code class="language-text">render(assigns)</code>
 and inline your html with the <code class="language-text">~L</code> sigil. No <code class="language-text">my_live.html.leex</code> file needed.</p>
