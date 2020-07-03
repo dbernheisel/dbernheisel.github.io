@@ -439,6 +439,7 @@ defmodule MyAppWeb.MyLive do
     {:ok, socket}
   end
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~L"""
     <p>Yo! I'm rendered from a <%= my_helper("vanilla") %> view</p>
@@ -474,6 +475,7 @@ defmodule MyAppWeb.MyLive do
     {:ok, socket}
   end
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     MyAppWeb.MyView.render("my_live.html", assigns)
   end
