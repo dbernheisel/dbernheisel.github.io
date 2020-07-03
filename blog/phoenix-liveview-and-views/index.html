@@ -374,6 +374,7 @@ clear how to do that</a>.</p>
     <span class="token punctuation">{</span><span class="token atom symbol">:ok</span><span class="token punctuation">,</span> socket<span class="token punctuation">}</span>
   <span class="token keyword">end</span>
 
+  <span class="token attribute variable">@impl</span> Phoenix<span class="token punctuation">.</span>LiveView
   <span class="token keyword">def</span> render<span class="token punctuation">(</span>assigns<span class="token punctuation">)</span> <span class="token keyword">do</span>
     ~L<span class="token string">"""
     &lt;p>Yo! I'm rendered from a &lt;%= my_helper("vanilla") %> view&lt;/p>
@@ -403,6 +404,7 @@ its own file.</p>
     <span class="token punctuation">{</span><span class="token atom symbol">:ok</span><span class="token punctuation">,</span> socket<span class="token punctuation">}</span>
   <span class="token keyword">end</span>
 
+  <span class="token attribute variable">@impl</span> Phoenix<span class="token punctuation">.</span>LiveView
   <span class="token keyword">def</span> render<span class="token punctuation">(</span>assigns<span class="token punctuation">)</span> <span class="token keyword">do</span>
     MyAppWeb<span class="token punctuation">.</span>MyView<span class="token punctuation">.</span>render<span class="token punctuation">(</span><span class="token string">"my_live.html"</span><span class="token punctuation">,</span> assigns<span class="token punctuation">)</span>
   <span class="token keyword">end</span>
