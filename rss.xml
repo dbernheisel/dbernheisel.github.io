@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 02 Jul 2020 20:57:51 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 03 Jul 2020 13:34:46 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;https://elixir-utilities.herokuapp.com&quot;&gt;Elixir Regex Tester&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;A request logger, much like &lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_dashboard&quot;&gt;Phoenix Live Dashboard&lt;/a&gt;’s&lt;/li&gt;
@@ -14,7 +14,7 @@ help you decide which strategy to use.&lt;/p&gt;
 &lt;p&gt;All of these strategies work, this is purely about opinionated code organizing,
 &lt;em&gt;but who doesn’t love reading opinions&lt;/em&gt;? Plus we’ll learn how the views are
 rendered.&lt;/p&gt;
-&lt;h2&gt;TLDR&lt;/h2&gt;
+&lt;h2&gt;TL;DR&lt;/h2&gt;
 &lt;p&gt;Glossary of examples:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;MyLive&lt;/code&gt; = The LiveView module&lt;/li&gt;
@@ -39,10 +39,10 @@ separate from business logic in the LiveView:&lt;/p&gt;
 still work; just remember to keep the html file named with an &lt;code class=&quot;language-text&quot;&gt;.html.leex&lt;/code&gt;
 extension so the LiveView rendering engine kicks in.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Remember that you can create shared Views&lt;/strong&gt;. Alternatively to above, if your
-helpers are used across multiple views and generic, you can create a plain
+&lt;p&gt;&lt;strong&gt;Remember that you can create shared Views&lt;/strong&gt;. Alternatively, if your
+helpers are used across multiple views and are generic, you can create a plain
 module that encapsulates your HTML helpers. I usually call mine &lt;code class=&quot;language-text&quot;&gt;ComponentView&lt;/code&gt;
-and use it inside my any of my templates, for example:
+and use it inside any of my templates, for example:
 &lt;code class=&quot;language-text&quot;&gt;Component.primary_button(&amp;quot;My Link&amp;quot;, to: &amp;quot;yadayada&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you want to use a regular View, but co-locate the template to the LiveView module&lt;/strong&gt;,
 as in you don’t want to go back to the vanilla Phoenix file structure but still
@@ -119,8 +119,8 @@ correct; the real &lt;strong&gt;end of the line is the controller&lt;/strong&gt;
 the view module to evaluate the HTML and puts the result into the Plug.Conn’s
 &lt;code class=&quot;language-text&quot;&gt;resp_body&lt;/code&gt;. The controller terminates the flow and the
 once-a-request-and-now-a-response &lt;code class=&quot;language-text&quot;&gt;Plug.Conn&lt;/code&gt; is returned to the to the
-underlying web server, which is probably cowboy, which delivers the payload to
-the end-user through the HTTP connection.&lt;/p&gt;
+underlying web server, which delivers the payload to the end-user through the
+HTTP connection.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;default-liveview&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Default Phoenix LiveView without &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;We’re here to learn about LiveView though, so let’s see an example of a LiveView
@@ -144,8 +144,8 @@ Here’s a secret: &lt;strong&gt;a LiveView is also an ordinary controller&lt;/s
 firstly handled like an ordinary web request; one with a Plug.Conn and a full
 HTML response back to the user. The LiveView spices are garnished &lt;em&gt;after&lt;/em&gt; the
 HTML is delivered to the user and a new websocket is initiated to the server to
-manage updates to it.&lt;/p&gt;
-&lt;p&gt;Or, as said in the LiveView docs:&lt;/p&gt;
+the page updates to the page.&lt;/p&gt;
+&lt;p&gt;As said in the LiveView docs:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A LiveView begins as a regular HTTP request and HTML response,
 and then upgrades to a stateful view on client connect,
@@ -182,7 +182,8 @@ calls the &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView.Plug&lt;/
 &lt;p&gt;— you&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Ah, but it is! A Phoenix Controller, even the ones you make, are indeed all just
-plugs underneath. &lt;strong&gt;All Phoenix controllers are plugs&lt;/strong&gt;.&lt;/p&gt;
+plugs underneath. &lt;a href=&quot;https://hexdocs.pm/phoenix/plug.html&quot;&gt;&lt;strong&gt;All Phoenix controllers are
+plugs&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;pluggy-controllers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Pluggy Controllers&lt;/h2&gt;
 &lt;p&gt;When your controllers call &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :controller&lt;/code&gt;, it’s &lt;em&gt;injecting code&lt;/em&gt;
@@ -192,8 +193,6 @@ MyUsingModule&lt;/code&gt; it’s actually calling &lt;code class=&quot;language
 compile-time, and that resulting code is put into the module that called it.
 Knowing that, let’s follow the &lt;code class=&quot;language-text&quot;&gt;use&lt;/code&gt; trail.&lt;/p&gt;
 &lt;p&gt;Starting at the top in our own code:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Warning: we’re going to look at macros now. The rules of which you thought
-Elixir was governed-by, ie, immutability, may not be in effect&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;######################################&lt;/span&gt;
 &lt;span class=&quot;token comment&quot;&gt;### Inside MyAppWeb.PageController ###&lt;/span&gt;
 &lt;span class=&quot;token comment&quot;&gt;######################################&lt;/span&gt;
@@ -288,8 +287,9 @@ defmacro __using__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
 &lt;p&gt;Wow! Wild. All this means our slim controllers actually have a lot more code in
 it than it appears, and that’s ok because it makes working in Phoenix much more
 convenient.&lt;/p&gt;
-&lt;p&gt;All plugs must implement &lt;code class=&quot;language-text&quot;&gt;call/2&lt;/code&gt; which accepts a conn and returns a conn. In
-our case, we’re looking for a conn that has some rendered HTML.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://hexdocs.pm/plug/Plug.html&quot;&gt;All plugs must implement &lt;code class=&quot;language-text&quot;&gt;call/2&lt;/code&gt; which accepts a conn and returns a
+conn&lt;/a&gt;. In our case, we’re looking for a conn
+that has some rendered HTML.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;liveview-default-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Back to Default Phoenix LiveView without &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;Now that we know that LiveViews are a &lt;code class=&quot;language-text&quot;&gt;GET&lt;/code&gt; request using a standard
@@ -312,12 +312,12 @@ still looking for how a LiveView gets to the template.&lt;/p&gt;
   &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; view&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;render&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;#&amp;lt;-- here here here!&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Cool; this isn’t anything new so far. This is just confirming that Phoenix
-LiveView starts off as a regular HTTP request with a full HTML response. &lt;em&gt;how
+LiveView starts off as a regular HTTP request with a full HTML response. &lt;em&gt;How
 does it render?&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;We see that it’s calling &lt;code class=&quot;language-text&quot;&gt;view.render()&lt;/code&gt; where &lt;code class=&quot;language-text&quot;&gt;view&lt;/code&gt; is our own LiveView, but
 we didn’t define &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; yet! Where’s it coming from?&lt;/p&gt;
 &lt;p&gt;When we called &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :live_view&lt;/code&gt; it kicked off a series of &lt;code class=&quot;language-text&quot;&gt;__using__&lt;/code&gt;,
-which includes &lt;code class=&quot;language-text&quot;&gt;use Phoenix.LiveView&lt;/code&gt;. In &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView&lt;/code&gt;, it’s including a
+which includes &lt;code class=&quot;language-text&quot;&gt;use Phoenix.LiveView&lt;/code&gt;. Inside &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView&lt;/code&gt; it included a
 &lt;code class=&quot;language-text&quot;&gt;@before_compile Phoenix.LiveView.Renderer&lt;/code&gt; hook. Let’s check that out.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;render? &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;defines?&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;module&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 root &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dirname&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;file&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -465,7 +465,9 @@ for organizing interactive partials from your LiveViews. Their rendering
 strategy is very similar to LiveViews though, and most of this applies to them
 as well.&lt;/p&gt;
 &lt;p&gt;Hope these tips help you out! If you have any more tips, tweet at me
-&lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Starting a New Podcast with Thinking |> Elixir]]></title><description><![CDATA[I joined the Thinking |> Elixir Podcast! I’m really happy to be joining
+&lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thank you &lt;a href=&quot;https://zachporter.dev/&quot;&gt;zporter&lt;/a&gt; for helping me with the post by
+proof-reading!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Starting a New Podcast with Thinking |> Elixir]]></title><description><![CDATA[I joined the Thinking |> Elixir Podcast! I’m really happy to be joining
 friends like @brainlid and Cade to talk about my favorite…]]></description><link>https://www.bernheisel.com/blog/starting-a-new-podcast/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/starting-a-new-podcast/</guid><pubDate>Wed, 17 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I joined the &lt;a href=&quot;https://thinkingelixir.com/the-podcast&quot;&gt;Thinking |&gt; Elixir&lt;/a&gt; Podcast! I’m really happy to be joining
 friends like &lt;a href=&quot;https://twitter.com/brainlid&quot;&gt;@brainlid&lt;/a&gt; and Cade to talk about my favorite programming
 language.&lt;/p&gt;

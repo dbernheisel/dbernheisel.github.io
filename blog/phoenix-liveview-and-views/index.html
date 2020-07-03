@@ -30,7 +30,7 @@ help you decide which strategy to use.</p>
 <p>All of these strategies work, this is purely about opinionated code organizing,
 <em>but who doesn’t love reading opinions</em>? Plus we’ll learn how the views are
 rendered.</p>
-<h2>TLDR</h2>
+<h2>TL;DR</h2>
 <p>Glossary of examples:</p>
 <ol>
 <li><code class="language-text">MyLive</code> = The LiveView module</li>
@@ -55,10 +55,10 @@ separate from business logic in the LiveView:</p>
 still work; just remember to keep the html file named with an <code class="language-text">.html.leex</code>
 extension so the LiveView rendering engine kicks in.</li>
 </ol>
-<p><strong>Remember that you can create shared Views</strong>. Alternatively to above, if your
-helpers are used across multiple views and generic, you can create a plain
+<p><strong>Remember that you can create shared Views</strong>. Alternatively, if your
+helpers are used across multiple views and are generic, you can create a plain
 module that encapsulates your HTML helpers. I usually call mine <code class="language-text">ComponentView</code>
-and use it inside my any of my templates, for example:
+and use it inside any of my templates, for example:
 <code class="language-text">Component.primary_button(&quot;My Link&quot;, to: &quot;yadayada&quot;)</code>.</p>
 <p><strong>If you want to use a regular View, but co-locate the template to the LiveView module</strong>,
 as in you don’t want to go back to the vanilla Phoenix file structure but still
@@ -135,8 +135,8 @@ correct; the real <strong>end of the line is the controller</strong>. The contro
 the view module to evaluate the HTML and puts the result into the Plug.Conn’s
 <code class="language-text">resp_body</code>. The controller terminates the flow and the
 once-a-request-and-now-a-response <code class="language-text">Plug.Conn</code> is returned to the to the
-underlying web server, which is probably cowboy, which delivers the payload to
-the end-user through the HTTP connection.</p>
+underlying web server, which delivers the payload to the end-user through the
+HTTP connection.</p>
 <p><a name="default-liveview"></a></p>
 <h2>Default Phoenix LiveView without <code class="language-text">render/1</code></h2>
 <p>We’re here to learn about LiveView though, so let’s see an example of a LiveView
@@ -160,8 +160,8 @@ Here’s a secret: <strong>a LiveView is also an ordinary controller</strong>.</
 firstly handled like an ordinary web request; one with a Plug.Conn and a full
 HTML response back to the user. The LiveView spices are garnished <em>after</em> the
 HTML is delivered to the user and a new websocket is initiated to the server to
-manage updates to it.</p>
-<p>Or, as said in the LiveView docs:</p>
+the page updates to the page.</p>
+<p>As said in the LiveView docs:</p>
 <blockquote>
 <p>A LiveView begins as a regular HTTP request and HTML response,
 and then upgrades to a stateful view on client connect,
@@ -198,7 +198,8 @@ calls the <code class="language-text">Phoenix.LiveView.Plug</code></p>
 <p>— you</p>
 </blockquote>
 <p>Ah, but it is! A Phoenix Controller, even the ones you make, are indeed all just
-plugs underneath. <strong>All Phoenix controllers are plugs</strong>.</p>
+plugs underneath. <a href="https://hexdocs.pm/phoenix/plug.html"><strong>All Phoenix controllers are
+plugs</strong></a>.</p>
 <p><a name="pluggy-controllers"></a></p>
 <h2>Pluggy Controllers</h2>
 <p>When your controllers call <code class="language-text">use MyAppWeb, :controller</code>, it’s <em>injecting code</em>
@@ -208,8 +209,6 @@ MyUsingModule</code> it’s actually calling <code class="language-text">MyUsing
 compile-time, and that resulting code is put into the module that called it.
 Knowing that, let’s follow the <code class="language-text">use</code> trail.</p>
 <p>Starting at the top in our own code:</p>
-<p><strong>Warning: we’re going to look at macros now. The rules of which you thought
-Elixir was governed-by, ie, immutability, may not be in effect</strong></p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir"><span class="token comment">######################################</span>
 <span class="token comment">### Inside MyAppWeb.PageController ###</span>
 <span class="token comment">######################################</span>
@@ -304,8 +303,9 @@ defmacro __using__<span class="token punctuation">(</span>opts<span class="token
 <p>Wow! Wild. All this means our slim controllers actually have a lot more code in
 it than it appears, and that’s ok because it makes working in Phoenix much more
 convenient.</p>
-<p>All plugs must implement <code class="language-text">call/2</code> which accepts a conn and returns a conn. In
-our case, we’re looking for a conn that has some rendered HTML.</p>
+<p><a href="https://hexdocs.pm/plug/Plug.html">All plugs must implement <code class="language-text">call/2</code> which accepts a conn and returns a
+conn</a>. In our case, we’re looking for a conn
+that has some rendered HTML.</p>
 <p><a name="liveview-default-2"></a></p>
 <h2>Back to Default Phoenix LiveView without <code class="language-text">render/1</code></h2>
 <p>Now that we know that LiveViews are a <code class="language-text">GET</code> request using a standard
@@ -328,12 +328,12 @@ still looking for how a LiveView gets to the template.</p>
   <span class="token operator">|></span> view<span class="token punctuation">.</span>render<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">#&lt;-- here here here!</span>
 <span class="token keyword">end</span></code></pre></div>
 <p>Cool; this isn’t anything new so far. This is just confirming that Phoenix
-LiveView starts off as a regular HTTP request with a full HTML response. <em>how
+LiveView starts off as a regular HTTP request with a full HTML response. <em>How
 does it render?</em></p>
 <p>We see that it’s calling <code class="language-text">view.render()</code> where <code class="language-text">view</code> is our own LiveView, but
 we didn’t define <code class="language-text">render/1</code> yet! Where’s it coming from?</p>
 <p>When we called <code class="language-text">use MyAppWeb, :live_view</code> it kicked off a series of <code class="language-text">__using__</code>,
-which includes <code class="language-text">use Phoenix.LiveView</code>. In <code class="language-text">Phoenix.LiveView</code>, it’s including a
+which includes <code class="language-text">use Phoenix.LiveView</code>. Inside <code class="language-text">Phoenix.LiveView</code> it included a
 <code class="language-text">@before_compile Phoenix.LiveView.Renderer</code> hook. Let’s check that out.</p>
 <div class="gatsby-highlight" data-language="elixir"><pre class="language-elixir"><code class="language-elixir">render? <span class="token operator">=</span> Module<span class="token punctuation">.</span>defines?<span class="token punctuation">(</span>env<span class="token punctuation">.</span>module<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token atom symbol">:render</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 root <span class="token operator">=</span> Path<span class="token punctuation">.</span>dirname<span class="token punctuation">(</span>env<span class="token punctuation">.</span>file<span class="token punctuation">)</span>
@@ -481,4 +481,6 @@ for organizing interactive partials from your LiveViews. Their rendering
 strategy is very similar to LiveViews though, and most of this applies to them
 as well.</p>
 <p>Hope these tips help you out! If you have any more tips, tweet at me
-<a href="https://twitter.com/bernheisel">@bernheisel</a></p></div></article><div class="flex flex-wrap justify-between"><div class="w-full p-2 lg:w-1/2"><a class="no-underline inline-flex items-center flex-1 dark:button-dark button" href="/blog/starting-a-new-podcast/"><svg class="w-6 h-6 mr-2 fill-current" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1408 960v-128q0-26-19-45t-45-19h-502l189-189q19-19 19-45t-19-45l-91-91q-18-18-45-18t-45 18l-362 362-91 91q-18 18-18 45t18 45l91 91 362 362q18 18 45 18t45-18l91-91q18-18 18-45t-18-45l-189-189h502q26 0 45-19t19-45zm256-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"></path></svg><span>Starting a New Podcast with Thinking |&gt; Elixir</span></a></div></div></main></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/phoenix-liveview-and-views/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-e49f8733b8aee9471acf.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-8dc5b1de7df84c955e11.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-f37877f27548564a00ab.js"],"component---src-pages-404-js":["/component---src-pages-404-js-f9633554493dddb1c536.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f71e923739c6685c4443.js"],"component---src-pages-projects-js":["/component---src-pages-projects-js-ce130e74c0d10fe8ba37.js"]};/*]]>*/</script><script src="/webpack-runtime-2d45e6a9f2659de65a68.js" async=""></script><script src="/app-e49f8733b8aee9471acf.js" async=""></script><script src="/framework-1cbcc4f69858806ac5db.js" async=""></script><script src="/1777bc0a756dace6068a54d243c7071eee1627a0-9a08c3058feb24437dbd.js" async=""></script><script src="/component---src-templates-blog-post-js-f37877f27548564a00ab.js" async=""></script><script src="/styles-48fa8a050a65bb8447bd.js" async=""></script></body></html>
+<a href="https://twitter.com/bernheisel">@bernheisel</a></p>
+<p>Thank you <a href="https://zachporter.dev/">zporter</a> for helping me with the post by
+proof-reading!</p></div></article><div class="flex flex-wrap justify-between"><div class="w-full p-2 lg:w-1/2"><a class="no-underline inline-flex items-center flex-1 dark:button-dark button" href="/blog/starting-a-new-podcast/"><svg class="w-6 h-6 mr-2 fill-current" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1408 960v-128q0-26-19-45t-45-19h-502l189-189q19-19 19-45t-19-45l-91-91q-18-18-45-18t-45 18l-362 362-91 91q-18 18-18 45t18 45l91 91 362 362q18 18 45 18t45-18l91-91q18-18 18-45t-18-45l-189-189h502q26 0 45-19t19-45zm256-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"></path></svg><span>Starting a New Podcast with Thinking |&gt; Elixir</span></a></div></div></main></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/phoenix-liveview-and-views/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-e49f8733b8aee9471acf.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-8dc5b1de7df84c955e11.js"],"component---src-templates-blog-post-js":["/component---src-templates-blog-post-js-f37877f27548564a00ab.js"],"component---src-pages-404-js":["/component---src-pages-404-js-f9633554493dddb1c536.js"],"component---src-pages-index-js":["/component---src-pages-index-js-f71e923739c6685c4443.js"],"component---src-pages-projects-js":["/component---src-pages-projects-js-ce130e74c0d10fe8ba37.js"]};/*]]>*/</script><script src="/webpack-runtime-2d45e6a9f2659de65a68.js" async=""></script><script src="/app-e49f8733b8aee9471acf.js" async=""></script><script src="/framework-1cbcc4f69858806ac5db.js" async=""></script><script src="/1777bc0a756dace6068a54d243c7071eee1627a0-9a08c3058feb24437dbd.js" async=""></script><script src="/component---src-templates-blog-post-js-f37877f27548564a00ab.js" async=""></script><script src="/styles-48fa8a050a65bb8447bd.js" async=""></script></body></html>
