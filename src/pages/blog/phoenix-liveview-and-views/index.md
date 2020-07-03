@@ -33,13 +33,14 @@ All of these strategies work, this is purely about opinionated code organizing,
 _but who doesn't love reading opinions_? Plus we'll learn how the views are
 rendered.
 
-## TLDR
+This is written while using Phoenix LiveView 0.13.3.
+
+## TL;DR
 
 Glossary of examples:
   1. `MyLive` = The LiveView module
   2. `MyView` = The standard Phoenix View module, not a LiveView.
   3. `my_live.html.leex` = The template rendered by `MyLive` or `MyView`
-  4. This is written in context of Phoenix LiveView 0.13.3
 
 **If you have a simple LiveView**, then you can implement `render(assigns)`
 and inline your html with the `~L` sigil. No `my_live.html.leex` file needed.
@@ -60,10 +61,10 @@ separate from business logic in the LiveView:
    still work; just remember to keep the html file named with an `.html.leex`
    extension so the LiveView rendering engine kicks in.
 
-**Remember that you can create shared Views**. Alternatively to above, if your
-helpers are used across multiple views and generic, you can create a plain
+**Remember that you can create shared Views**. Alternatively, if your
+helpers are used across multiple views and are generic, you can create a plain
 module that encapsulates your HTML helpers. I usually call mine `ComponentView`
-and use it inside my any of my templates, for example:
+and use it inside any of my templates, for example:
 `Component.primary_button("My Link", to: "yadayada")`.
 
 **If you want to use a regular View, but co-locate the template to the LiveView module**,
@@ -150,8 +151,8 @@ correct; the real **end of the line is the controller**. The controller is using
 the view module to evaluate the HTML and puts the result into the Plug.Conn's
 `resp_body`. The controller terminates the flow and the
 once-a-request-and-now-a-response `Plug.Conn` is returned to the to the
-underlying web server, which is probably cowboy, which delivers the payload to
-the end-user through the HTTP connection.
+underlying web server, which delivers the payload to the end-user through the
+HTTP connection.
 
 <a name="default-liveview"></a>
 ## Default Phoenix LiveView without `render/1`
@@ -184,9 +185,9 @@ Now... we may not use it like an ordinary Phoenix controller, but the request is
 firstly handled like an ordinary web request; one with a Plug.Conn and a full
 HTML response back to the user. The LiveView spices are garnished _after_ the
 HTML is delivered to the user and a new websocket is initiated to the server to
-manage updates to it.
+the page updates to the page.
 
-Or, as said in the LiveView docs:
+As said in the LiveView docs:
 
 > A LiveView begins as a regular HTTP request and HTML response,
 > and then upgrades to a stateful view on client connect,
@@ -236,7 +237,8 @@ calls the `Phoenix.LiveView.Plug`
 > -- you
 
 Ah, but it is! A Phoenix Controller, even the ones you make, are indeed all just
-plugs underneath. **All Phoenix controllers are plugs**.
+plugs underneath. [**All Phoenix controllers are
+plugs**](https://hexdocs.pm/phoenix/plug.html).
 
 <a name="pluggy-controllers"></a>
 ## Pluggy Controllers
@@ -250,9 +252,6 @@ compile-time, and that resulting code is put into the module that called it.
 Knowing that, let's follow the `use` trail.
 
 Starting at the top in our own code:
-
-**Warning: we're going to look at macros now. The rules of which you thought
-Elixir was governed-by, ie, immutability, may not be in effect**
 
 ```elixir
 ######################################
@@ -352,8 +351,9 @@ Wow! Wild. All this means our slim controllers actually have a lot more code in
 it than it appears, and that's ok because it makes working in Phoenix much more
 convenient.
 
-All plugs must implement `call/2` which accepts a conn and returns a conn. In
-our case, we're looking for a conn that has some rendered HTML.
+[All plugs must implement `call/2` which accepts a conn and returns a
+conn](https://hexdocs.pm/plug/Plug.html). In our case, we're looking for a conn
+that has some rendered HTML.
 
 <a name="liveview-default-2"></a>
 ## Back to Default Phoenix LiveView without `render/1`
@@ -383,14 +383,14 @@ end
 ```
 
 Cool; this isn't anything new so far. This is just confirming that Phoenix
-LiveView starts off as a regular HTTP request with a full HTML response. _how
+LiveView starts off as a regular HTTP request with a full HTML response. _How
 does it render?_
 
 We see that it's calling `view.render()` where `view` is our own LiveView, but
 we didn't define `render/1` yet! Where's it coming from?
 
 When we called `use MyAppWeb, :live_view` it kicked off a series of `__using__`,
-which includes `use Phoenix.LiveView`. In `Phoenix.LiveView`, it's including a
+which includes `use Phoenix.LiveView`. Inside `Phoenix.LiveView` it included a
 `@before_compile Phoenix.LiveView.Renderer` hook. Let's check that out.
 
 ```elixir
@@ -571,3 +571,6 @@ as well.
 
 Hope these tips help you out! If you have any more tips, tweet at me
 [@bernheisel](https://twitter.com/bernheisel)
+
+Thank you [zporter](https://zachporter.dev/) for helping me with the post by
+proof-reading!
