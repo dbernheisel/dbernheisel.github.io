@@ -281,7 +281,7 @@ Here's the big idea:
     changeset and assign the new changeset back.
 
 - The computed values will be updated from the changeset and/or pulled out of
-    the chnageset and assigned into the socket.
+    the changeset and assigned into the socket.
 
 - When handling the save event, we're going to ensure the changeset is valid,
     and if so, tell the parent LiveView that we're good to proceed. We'll send
@@ -706,5 +706,17 @@ first step! (otherwise you'll mistakenly try to save).
 
 I hope this helps you out in your endeavors to tackle long and complicated
 forms. Tweet me [@bernheisel] if you have suggestions or enjoyed this post!
+
+
+## Update
+
+You might want to persist a draft record in-between steps. This is a great idea!
+If you do this, then you can leverage LiveView's `handle_params` to navigate to
+the appropriate step depending on the draft's progress.
+
+Also, some of my code examples aren't very good for managing existing resources.
+Keep that in mind when developing your own multi-step form. This was written for
+the context of _creating a new event_, and not editing an existing event.
+Subscribe to my RSS feed to check for a new post that revisits this problem.
 
 [@bernheisel]: https://twitter.com/bernheisel
