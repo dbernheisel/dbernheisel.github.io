@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 05 Jul 2020 03:11:34 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 09 Jul 2020 01:03:05 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;https://elixir-utilities.herokuapp.com&quot;&gt;Elixir Regex Tester&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;A request logger, much like &lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_dashboard&quot;&gt;Phoenix Live Dashboard&lt;/a&gt;’s&lt;/li&gt;
@@ -18,38 +18,38 @@ rendered.&lt;/p&gt;
 &lt;h2&gt;TL;DR&lt;/h2&gt;
 &lt;p&gt;Glossary of examples:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;MyLive&lt;/code&gt; = The LiveView module&lt;/li&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; = The standard Phoenix View module, not a LiveView.&lt;/li&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; = The template rendered by &lt;code class=&quot;language-text&quot;&gt;MyLive&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MyLive&lt;/code&gt; = The LiveView module&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MyView&lt;/code&gt; = The standard Phoenix View module, not a LiveView.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;my_live.html.leex&lt;/code&gt; = The template rendered by &lt;code&gt;MyLive&lt;/code&gt; or &lt;code&gt;MyView&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;If you have a simple LiveView&lt;/strong&gt;, then you can implement &lt;code class=&quot;language-text&quot;&gt;render(assigns)&lt;/code&gt;
-and inline your html with the &lt;code class=&quot;language-text&quot;&gt;~L&lt;/code&gt; sigil. No &lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; file needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you have a simple LiveView&lt;/strong&gt;, then you can implement &lt;code&gt;render(assigns)&lt;/code&gt;
+and inline your html with the &lt;code&gt;~L&lt;/code&gt; sigil. No &lt;code&gt;my_live.html.leex&lt;/code&gt; file needed.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you have a LiveView with lots of HTML&lt;/strong&gt;, then you should use the standard
-LiveView placement, and put your &lt;code class=&quot;language-text&quot;&gt;my_live.ex&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; next to
-each other under &lt;code class=&quot;language-text&quot;&gt;lib/my_app_web/live&lt;/code&gt;. You don’t need to define &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;
+LiveView placement, and put your &lt;code&gt;my_live.ex&lt;/code&gt; and &lt;code&gt;my_live.html.leex&lt;/code&gt; next to
+each other under &lt;code&gt;lib/my_app_web/live&lt;/code&gt;. You don’t need to define &lt;code&gt;render/1&lt;/code&gt;
 because the default will work. Omit it.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you have a LiveView with lots of HTML helper functions&lt;/strong&gt; that you want to
 separate from business logic in the LiveView:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Add your own standard Phoenix view &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; (or a better name).&lt;/li&gt;
-&lt;li&gt;Move your &lt;code class=&quot;language-text&quot;&gt;my_live.html.leex&lt;/code&gt; file to the standard Phoenix locations (ie,
-&lt;code class=&quot;language-text&quot;&gt;lib/my_app_web/templates/my&lt;/code&gt;).&lt;/li&gt;
-&lt;li&gt;Implement your own &lt;code class=&quot;language-text&quot;&gt;render(assigns)&lt;/code&gt; that calls
-&lt;code class=&quot;language-text&quot;&gt;MyAppWeb.MyView.render(&amp;quot;my_live.html&amp;quot;, assigns)&lt;/code&gt;. Phoenix LiveView will
-still work; just remember to keep the html file named with an &lt;code class=&quot;language-text&quot;&gt;.html.leex&lt;/code&gt;
+&lt;li&gt;Add your own standard Phoenix view &lt;code&gt;MyView&lt;/code&gt; (or a better name).&lt;/li&gt;
+&lt;li&gt;Move your &lt;code&gt;my_live.html.leex&lt;/code&gt; file to the standard Phoenix locations (ie,
+&lt;code&gt;lib/my_app_web/templates/my&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Implement your own &lt;code&gt;render(assigns)&lt;/code&gt; that calls
+&lt;code&gt;MyAppWeb.MyView.render(&quot;my_live.html&quot;, assigns)&lt;/code&gt;. Phoenix LiveView will
+still work; just remember to keep the html file named with an &lt;code&gt;.html.leex&lt;/code&gt;
 extension so the LiveView rendering engine kicks in.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;Remember that you can create shared Views&lt;/strong&gt;. Alternatively, if your
 helpers are used across multiple views and are generic, you can create a plain
-module that encapsulates your HTML helpers. I usually call mine &lt;code class=&quot;language-text&quot;&gt;ComponentView&lt;/code&gt;
+module that encapsulates your HTML helpers. I usually call mine &lt;code&gt;ComponentView&lt;/code&gt;
 and use it inside any of my templates, for example:
-&lt;code class=&quot;language-text&quot;&gt;Component.primary_button(&amp;quot;My Link&amp;quot;, to: &amp;quot;yadayada&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;code&gt;Component.primary_button(&quot;My Link&quot;, to: &quot;yadayada&quot;)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you want to use a regular View, but co-locate the template to the LiveView module&lt;/strong&gt;,
 as in you don’t want to go back to the vanilla Phoenix file structure but still
-need a separate &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; for your HTML helpers, you can specify the root
-folder and path to look in when creating your &lt;code class=&quot;language-text&quot;&gt;MyView&lt;/code&gt; by supplying an option:
-&lt;code class=&quot;language-text&quot;&gt;use Phoenix.View, root: &amp;quot;lib/my_app_web/live&amp;quot;, path: &amp;quot;&amp;quot;&lt;/code&gt;. This is &lt;a href=&quot;https://hexdocs.pm/phoenix/Phoenix.View.html#__using__/1-options&quot;&gt;explained in the
-&lt;code class=&quot;language-text&quot;&gt;Phoenix.View&lt;/code&gt;
+need a separate &lt;code&gt;MyView&lt;/code&gt; for your HTML helpers, you can specify the root
+folder and path to look in when creating your &lt;code&gt;MyView&lt;/code&gt; by supplying an option:
+&lt;code&gt;use Phoenix.View, root: &quot;lib/my_app_web/live&quot;, path: &quot;&quot;&lt;/code&gt;. This is &lt;a href=&quot;https://hexdocs.pm/phoenix/Phoenix.View.html#__using__/1-options&quot;&gt;explained in the
+&lt;code&gt;Phoenix.View&lt;/code&gt;
 docs&lt;/a&gt;. This
 can be wrapped up into a convenience macro though. Read on for more info.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;This totally ignores LiveComponent&lt;/strong&gt; as an option. If your LiveView can be
@@ -70,15 +70,15 @@ the same as a LiveView.&lt;/p&gt;
 &lt;h2&gt;Default Phoenix Controller/View/Template&lt;/h2&gt;
 &lt;p&gt;First, to remember where we came from, I want to show a standard Phoenix
 Controller/View/Template pattern. There are several modules involved that the
-&lt;code class=&quot;language-text&quot;&gt;Plug.Conn&lt;/code&gt; travels through in order to turn into a response for the end-user.&lt;/p&gt;
+&lt;code&gt;Plug.Conn&lt;/code&gt; travels through in order to turn into a response for the end-user.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Incoming request via &lt;code class=&quot;language-text&quot;&gt;:cowboy&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Incoming request via &lt;code&gt;:cowboy&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Endpoint&lt;/li&gt;
 &lt;li&gt;Router&lt;/li&gt;
 &lt;li&gt;Controller&lt;/li&gt;
 &lt;li&gt;View&lt;/li&gt;
 &lt;li&gt;Template (not a module)&lt;/li&gt;
-&lt;li&gt;Outgoing response via &lt;code class=&quot;language-text&quot;&gt;:cowboy&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Outgoing response via &lt;code&gt;:cowboy&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### Router - lib/my_app_web/router.ex&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Router &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -117,14 +117,14 @@ also evaluated and this template is a part of it --&gt;&lt;/span&gt;
 &lt;p&gt;In my mind, the template is the end of the show, though that’s not technically
 correct; the real &lt;strong&gt;end of the line is the controller&lt;/strong&gt;. The controller is using
 the view module to evaluate the HTML and puts the result into the Plug.Conn’s
-&lt;code class=&quot;language-text&quot;&gt;resp_body&lt;/code&gt;. The controller terminates the flow and the
-once-a-request-and-now-a-response &lt;code class=&quot;language-text&quot;&gt;Plug.Conn&lt;/code&gt; is returned to the to the
+&lt;code&gt;resp_body&lt;/code&gt;. The controller terminates the flow and the
+once-a-request-and-now-a-response &lt;code&gt;Plug.Conn&lt;/code&gt; is returned to the to the
 underlying web server, which delivers the payload to the end-user through the
 HTTP connection.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;default-liveview&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Default Phoenix LiveView without &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;h2&gt;Default Phoenix LiveView without &lt;code&gt;render/1&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;We’re here to learn about LiveView though, so let’s see an example of a LiveView
-without a &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; function.&lt;/p&gt;
+without a &lt;code&gt;render/1&lt;/code&gt; function.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/live/my_live.ex&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyLive &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_view&lt;/span&gt;
@@ -159,7 +159,7 @@ automatically re-rendered and the updates are pushed to the client.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;ok ok.. I’ll prove it. To prove that it’s a regular controller, we’ll need to
 look at some of Phoenix LiveView’s source code. Let’s look at the code that
-makes &lt;code class=&quot;language-text&quot;&gt;live(&amp;quot;/my-route&amp;quot;, MyLive)&lt;/code&gt; work in the router.&lt;/p&gt;
+makes &lt;code&gt;live(&quot;/my-route&quot;, MyLive)&lt;/code&gt; work in the router.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;defmacro live&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; live_view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; action &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts &lt;span class=&quot;token operator&quot;&gt;\\&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   quote &lt;span class=&quot;token attr-name&quot;&gt;bind_quoted:&lt;/span&gt; binding&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;action&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; router_options&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;
@@ -170,13 +170,13 @@ makes &lt;code class=&quot;language-text&quot;&gt;live(&amp;quot;/my-route&amp;q
     &lt;span class=&quot;token comment&quot;&gt;# ^^^^^ THIS PART&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You see it?! &lt;code class=&quot;language-text&quot;&gt;live()&lt;/code&gt; is calling this function:&lt;/p&gt;
+&lt;p&gt;You see it?! &lt;code&gt;live()&lt;/code&gt; is calling this function:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Router&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;/my-route&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveView&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Plug&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _action&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _options&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You may recognize this as:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;get &lt;span class=&quot;token string&quot;&gt;&quot;/my-route&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; MyController&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:show&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;in your own router. We’re going to ignore the action and options for this post,
-but the important part is that the &lt;code class=&quot;language-text&quot;&gt;live()&lt;/code&gt; macro is adding a GET route and
-calls the &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView.Plug&lt;/code&gt;&lt;/p&gt;
+but the important part is that the &lt;code&gt;live()&lt;/code&gt; macro is adding a GET route and
+calls the &lt;code&gt;Phoenix.LiveView.Plug&lt;/code&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;But, that plug isn’t a controller…&lt;/p&gt;
 &lt;p&gt;— you&lt;/p&gt;
@@ -186,12 +186,11 @@ plugs underneath. &lt;a href=&quot;https://hexdocs.pm/phoenix/plug.html&quot;&gt
 plugs&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;pluggy-controllers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Pluggy Controllers&lt;/h2&gt;
-&lt;p&gt;When your controllers call &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :controller&lt;/code&gt;, it’s &lt;em&gt;injecting code&lt;/em&gt;
+&lt;p&gt;When your controllers call &lt;code&gt;use MyAppWeb, :controller&lt;/code&gt;, it’s &lt;em&gt;injecting code&lt;/em&gt;
 into your controller at compile-time. Let’s explore how that works.&lt;/p&gt;
-&lt;p&gt;First at step 0 we need to understand that when Elixir code calls &lt;code class=&quot;language-text&quot;&gt;use
-MyUsingModule&lt;/code&gt; it’s actually calling &lt;code class=&quot;language-text&quot;&gt;MyUsingModule.__using__(opts)&lt;/code&gt; at
+&lt;p&gt;First at step 0 we need to understand that when Elixir code calls &lt;code&gt;use MyUsingModule&lt;/code&gt; it’s actually calling &lt;code&gt;MyUsingModule.__using__(opts)&lt;/code&gt; at
 compile-time, and that resulting code is put into the module that called it.
-Knowing that, let’s follow the &lt;code class=&quot;language-text&quot;&gt;use&lt;/code&gt; trail.&lt;/p&gt;
+Knowing that, let’s follow the &lt;code&gt;use&lt;/code&gt; trail.&lt;/p&gt;
 &lt;p&gt;Starting at the top in our own code:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;######################################&lt;/span&gt;
 &lt;span class=&quot;token comment&quot;&gt;### Inside MyAppWeb.PageController ###&lt;/span&gt;
@@ -287,15 +286,15 @@ defmacro __using__&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
 &lt;p&gt;Wow! Wild. All this means our slim controllers actually have a lot more code in
 it than it appears, and that’s ok because it makes working in Phoenix much more
 convenient.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://hexdocs.pm/plug/Plug.html&quot;&gt;All plugs must implement &lt;code class=&quot;language-text&quot;&gt;call/2&lt;/code&gt; which accepts a conn and returns a
+&lt;p&gt;&lt;a href=&quot;https://hexdocs.pm/plug/Plug.html&quot;&gt;All plugs must implement &lt;code&gt;call/2&lt;/code&gt; which accepts a conn and returns a
 conn&lt;/a&gt;. In our case, we’re looking for a conn
 that has some rendered HTML.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;liveview-default-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Back to Default Phoenix LiveView without &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;Now that we know that LiveViews are a &lt;code class=&quot;language-text&quot;&gt;GET&lt;/code&gt; request using a standard
-controller/plug underneath, let’s look at the &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView.Plug&lt;/code&gt;. We’re
+&lt;h2&gt;Back to Default Phoenix LiveView without &lt;code&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Now that we know that LiveViews are a &lt;code&gt;GET&lt;/code&gt; request using a standard
+controller/plug underneath, let’s look at the &lt;code&gt;Phoenix.LiveView.Plug&lt;/code&gt;. We’re
 still looking for how a LiveView gets to the template.&lt;/p&gt;
-&lt;p&gt;LiveView has a similar &lt;code class=&quot;language-text&quot;&gt;__using__&lt;/code&gt; code-path. Let’s look at LiveView’s plug:&lt;/p&gt;
+&lt;p&gt;LiveView has a similar &lt;code&gt;__using__&lt;/code&gt; code-path. Let’s look at LiveView’s plug:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; call&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;private:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;phoenix_live_view:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;view&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   opts &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; maybe_dispatch_session&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;conn&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; opts&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
@@ -314,11 +313,11 @@ still looking for how a LiveView gets to the template.&lt;/p&gt;
 &lt;p&gt;Cool; this isn’t anything new so far. This is just confirming that Phoenix
 LiveView starts off as a regular HTTP request with a full HTML response. &lt;em&gt;How
 does it render?&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;We see that it’s calling &lt;code class=&quot;language-text&quot;&gt;view.render()&lt;/code&gt; where &lt;code class=&quot;language-text&quot;&gt;view&lt;/code&gt; is our own LiveView, but
-we didn’t define &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; yet! Where’s it coming from?&lt;/p&gt;
-&lt;p&gt;When we called &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :live_view&lt;/code&gt; it kicked off a series of &lt;code class=&quot;language-text&quot;&gt;__using__&lt;/code&gt;,
-which includes &lt;code class=&quot;language-text&quot;&gt;use Phoenix.LiveView&lt;/code&gt;. Inside &lt;code class=&quot;language-text&quot;&gt;Phoenix.LiveView&lt;/code&gt; it included a
-&lt;code class=&quot;language-text&quot;&gt;@before_compile Phoenix.LiveView.Renderer&lt;/code&gt; hook. Let’s check that out.&lt;/p&gt;
+&lt;p&gt;We see that it’s calling &lt;code&gt;view.render()&lt;/code&gt; where &lt;code&gt;view&lt;/code&gt; is our own LiveView, but
+we didn’t define &lt;code&gt;render/1&lt;/code&gt; yet! Where’s it coming from?&lt;/p&gt;
+&lt;p&gt;When we called &lt;code&gt;use MyAppWeb, :live_view&lt;/code&gt; it kicked off a series of &lt;code&gt;__using__&lt;/code&gt;,
+which includes &lt;code&gt;use Phoenix.LiveView&lt;/code&gt;. Inside &lt;code&gt;Phoenix.LiveView&lt;/code&gt; it included a
+&lt;code&gt;@before_compile Phoenix.LiveView.Renderer&lt;/code&gt; hook. Let’s check that out.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;render? &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Module&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;defines?&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;module&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 root &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dirname&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;file&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 filename &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; template_filename&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -339,13 +338,13 @@ templates &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Phoenix&lt
     &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
   &lt;span class=&quot;token comment&quot;&gt;# ... other clauses&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Finally! This is where the default &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; function comes from. Before our
-LiveView compiles, it checks to see if a &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; is defined, and if not, it
+&lt;p&gt;Finally! This is where the default &lt;code&gt;render/1&lt;/code&gt; function comes from. Before our
+LiveView compiles, it checks to see if a &lt;code&gt;render/1&lt;/code&gt; is defined, and if not, it
 will drop one in for us. The default location for LiveView templates is right
-next to the LiveView file itself. We see this from the &lt;code class=&quot;language-text&quot;&gt;root = Path.dirname(env.file)&lt;/code&gt;.&lt;/p&gt;
+next to the LiveView file itself. We see this from the &lt;code&gt;root = Path.dirname(env.file)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;liveview-inline&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Phoenix LiveView with inline &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;Another option is to implement &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt; ourselves. &lt;a href=&quot;https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-life-cycle&quot;&gt;The docs make this pretty
+&lt;h2&gt;Phoenix LiveView with inline &lt;code&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Another option is to implement &lt;code&gt;render/1&lt;/code&gt; ourselves. &lt;a href=&quot;https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-life-cycle&quot;&gt;The docs make this pretty
 clear how to do that&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/live/my_live.ex&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyLive &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -376,7 +375,7 @@ well as hundreds of lines of HTML and functions to conditionally render some
 HTML or apply CSS classes; so you might consider separating the HTML out into
 its own file.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;liveview-external&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Phoenix LiveView with external &lt;code class=&quot;language-text&quot;&gt;render/1&lt;/code&gt;&lt;/h2&gt;
+&lt;h2&gt;Phoenix LiveView with external &lt;code&gt;render/1&lt;/code&gt;&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/live/my_live.ex&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyLive &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:live_view&lt;/span&gt;
@@ -407,11 +406,11 @@ its own file.&lt;/p&gt;
 &lt;p&gt;If I have a lot of HTML helpers, then I tend to prefer separating that into a
 View module. It’s a little tedious to setup and separate the files, and then
 jump between them when developing, but it’s clear where functions should go.&lt;/p&gt;
-&lt;p&gt;This bugged me though, I have HTML floating in &lt;code class=&quot;language-text&quot;&gt;./templates&lt;/code&gt; and sometimes in
-&lt;code class=&quot;language-text&quot;&gt;./live&lt;/code&gt; and sometimes inline. Can we consolidate?&lt;/p&gt;
-&lt;p&gt;Sure we can! &lt;code class=&quot;language-text&quot;&gt;Phoenix.View&lt;/code&gt; &lt;a href=&quot;https://hexdocs.pm/phoenix/Phoenix.View.html?#__using__/1&quot;&gt;provides an option to look for templates in a
+&lt;p&gt;This bugged me though, I have HTML floating in &lt;code&gt;./templates&lt;/code&gt; and sometimes in
+&lt;code&gt;./live&lt;/code&gt; and sometimes inline. Can we consolidate?&lt;/p&gt;
+&lt;p&gt;Sure we can! &lt;code&gt;Phoenix.View&lt;/code&gt; &lt;a href=&quot;https://hexdocs.pm/phoenix/Phoenix.View.html?#__using__/1&quot;&gt;provides an option to look for templates in a
 different folder&lt;/a&gt;.
-Let’s try it out. We need to supply &lt;code class=&quot;language-text&quot;&gt;root&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;path&lt;/code&gt; with &lt;code class=&quot;language-text&quot;&gt;use Phoenix.View&lt;/code&gt;:&lt;/p&gt;
+Let’s try it out. We need to supply &lt;code&gt;root&lt;/code&gt; and &lt;code&gt;path&lt;/code&gt; with &lt;code&gt;use Phoenix.View&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web/views/my_view.ex&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MyView &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;View&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
@@ -426,10 +425,10 @@ Let’s try it out. We need to supply &lt;code class=&quot;language-text&quot;&g
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Yo! I&apos;m rendered from a &amp;lt;%= my_helper(&quot;vanilla&quot;) %&gt; view&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token comment&quot;&gt;&amp;lt;!-- this renders &quot;whoops no this is actually live&quot; instead of &quot;vanilla&quot; --&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;It’s exactly the same, except where the HTML is on disk and that we can’t use
-our &lt;code class=&quot;language-text&quot;&gt;use MyAppWeb, :view&lt;/code&gt; as-is anymore without some further adjustment. To
+our &lt;code&gt;use MyAppWeb, :view&lt;/code&gt; as-is anymore without some further adjustment. To
 prove the concept though, copy out all the additional imports you find for views
-in &lt;code class=&quot;language-text&quot;&gt;my_app_web.ex&lt;/code&gt; and place it here for now. If it works out, then you can add
-another clause in &lt;code class=&quot;language-text&quot;&gt;my_app_web.ex&lt;/code&gt; to handle these kinds of views. Maybe
+in &lt;code&gt;my_app_web.ex&lt;/code&gt; and place it here for now. If it works out, then you can add
+another clause in &lt;code&gt;my_app_web.ex&lt;/code&gt; to handle these kinds of views. Maybe
 something like this.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;### lib/my_app_web.ex&lt;/span&gt;
 
@@ -512,7 +511,7 @@ used to help organize code.&lt;/p&gt;
 &lt;p&gt;I was still trying to figure out what I wanted on the form and still learning
 LiveView generally. Eventually, this LiveView became an ugly 1000+-line horror
 show that managed state in multiple places.&lt;/p&gt;
-&lt;p&gt;It was a single &lt;code class=&quot;language-text&quot;&gt;&amp;lt;form&amp;gt;&lt;/code&gt; that handled all the fields for the database-backed
+&lt;p&gt;It was a single &lt;code&gt;&amp;#x3C;form&gt;&lt;/code&gt; that handled all the fields for the database-backed
 record, and each step was hidden until you hit “next”, so every change in the
 form sends the entire form values.&lt;/p&gt;
 &lt;p&gt;The EEX was something like this:&lt;/p&gt;
@@ -555,7 +554,7 @@ bad-developered and didn’t break it down well.&lt;/li&gt;
 &lt;p&gt;Generally, I found it harder to “reason about”, especially when I have computed
 fields and help text based on user input.&lt;/p&gt;
 &lt;p&gt;For example, I need to persist two DateTimes with timezones, but I don’t want to
-present that to the user as &lt;code class=&quot;language-text&quot;&gt;datetime_select&lt;/code&gt;s and have them select a timezone
+present that to the user as &lt;code&gt;datetime_select&lt;/code&gt;s and have them select a timezone
 from a drop-down.&lt;/p&gt;
 &lt;p&gt;Instead I want a date picker, and then separately collect the times and merge it
 with the user’s detected timezone (this will later be improved to allow them to
@@ -579,12 +578,12 @@ Your duration is &lt;span class=&quot;token erb language-erb&quot;&gt;&lt;span c
 &lt;p&gt;There’s a complicated mechanism in the time pickers that made it harder. I
 needed to detect what changed:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Was it the &lt;code class=&quot;language-text&quot;&gt;end_time&lt;/code&gt;? Then let’s extend the duration as well and accept the
-new &lt;code class=&quot;language-text&quot;&gt;end_time&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Was it the &lt;code class=&quot;language-text&quot;&gt;start_time&lt;/code&gt;? Then let’s back the &lt;code class=&quot;language-text&quot;&gt;end_time&lt;/code&gt; up to the same
-duration away from the &lt;code class=&quot;language-text&quot;&gt;start_time&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;At some point, if we accept user input for &lt;code class=&quot;language-text&quot;&gt;duration&lt;/code&gt;, then we we’d want to
-extend the &lt;code class=&quot;language-text&quot;&gt;end_time&lt;/code&gt; with the new duration.&lt;/li&gt;
+&lt;li&gt;Was it the &lt;code&gt;end_time&lt;/code&gt;? Then let’s extend the duration as well and accept the
+new &lt;code&gt;end_time&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Was it the &lt;code&gt;start_time&lt;/code&gt;? Then let’s back the &lt;code&gt;end_time&lt;/code&gt; up to the same
+duration away from the &lt;code&gt;start_time&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;At some point, if we accept user input for &lt;code&gt;duration&lt;/code&gt;, then we we’d want to
+extend the &lt;code&gt;end_time&lt;/code&gt; with the new duration.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Now I have some fields, I need to compute them into my event struct somehow.
 This is how it needs to end up:&lt;/p&gt;
@@ -605,14 +604,14 @@ computed fields easier, as well as solve some other UX issues mentioned above.&l
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#formprogress&quot;&gt;Manage form progress in the parent LiveView.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#extract&quot;&gt;Split the multi-step form into LiveComponents. At least one for each visible step.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#clientside&quot;&gt;Send input supplied client-side via &lt;code class=&quot;language-text&quot;&gt;phx-hook&lt;/code&gt;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#clientside&quot;&gt;Send input supplied client-side via &lt;code&gt;phx-hook&lt;/code&gt;.&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#clientinput&quot;&gt;Handle input changes from the users from the component&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#subformsubmission&quot;&gt;Handle stepped-form submission&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#formsubmission&quot;&gt;Handle final form submission.&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;formprogress&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Managing the form progress&lt;/h2&gt;
-&lt;p&gt;I managed the form step progress by defining a &lt;code class=&quot;language-text&quot;&gt;%Step{}&lt;/code&gt; and then writing the
+&lt;p&gt;I managed the form step progress by defining a &lt;code&gt;%Step{}&lt;/code&gt; and then writing the
 order out in the liveview as a module attribute.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyAppWeb&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;EventLive&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Step &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token attribute variable&quot;&gt;@moduledoc&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Describe a step in the multi-step form and where it can go.&quot;&lt;/span&gt;
@@ -648,7 +647,7 @@ order out in the liveview as a module attribute.&lt;/p&gt;
   &lt;span class=&quot;token comment&quot;&gt;# ...snip...&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;When the underlying live components are finished, they’ll send a message to the
-parent LiveView which will re-assign &lt;code class=&quot;language-text&quot;&gt;:progress&lt;/code&gt;; the conditionals in the
+parent LiveView which will re-assign &lt;code&gt;:progress&lt;/code&gt;; the conditionals in the
 template will apply/remove the “hidden” class for the next appropriate step, or
 previous step. You’ll see that as you read on.&lt;/p&gt;
 &lt;p&gt;Let’s chop up the form.&lt;/p&gt;
@@ -702,10 +701,10 @@ the user even sees it).&lt;/li&gt;
     &lt;span class=&quot;token delimiter punctuation&quot;&gt;%&gt;&lt;/span&gt;&lt;/span&gt;
   &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Let’s focus on the &lt;code class=&quot;language-text&quot;&gt;WhenComponent&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Let’s focus on the &lt;code&gt;WhenComponent&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Here’s the big idea:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Inside of the WhenComponent, we need our &lt;code class=&quot;language-text&quot;&gt;embedded_schema&lt;/code&gt; to represent and
+&lt;li&gt;Inside of the WhenComponent, we need our &lt;code&gt;embedded_schema&lt;/code&gt; to represent and
 store the fields we care about on the step.&lt;/li&gt;
 &lt;li&gt;When loading/updating the component itself, we’re going to initialize the
 changeset with the fields from the record.&lt;/li&gt;
@@ -722,7 +721,7 @@ together into the final changeset that’s actually persisted.&lt;/li&gt;
 &lt;p&gt;Again, the flow should look like this:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;On mounting, take the Event and pluck the relevant fields out of it to create
-a WhenComponent form backed by an &lt;code class=&quot;language-text&quot;&gt;embedded_schema&lt;/code&gt;.&lt;/li&gt;
+a WhenComponent form backed by an &lt;code&gt;embedded_schema&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;When the user is on the step, take the changes as they come and let the user
 iterate on the form until it’s valid.&lt;/li&gt;
 &lt;li&gt;When the changeset is valid and the user tries to submit it, pass the final
@@ -860,7 +859,7 @@ next step.&lt;/li&gt;
   &lt;span class=&quot;token comment&quot;&gt;# providing nil-safety, applying defaults, and calculating from other fields&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;clientside&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;Getting the user’s timezone with &lt;code class=&quot;language-text&quot;&gt;phx-hook&lt;/code&gt;&lt;/h2&gt;
+&lt;h2&gt;Getting the user’s timezone with &lt;code&gt;phx-hook&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;We can estimate what the user’s timezone is by asking the browser. &lt;strong&gt;NOTE&lt;/strong&gt; &lt;em&gt;I
 don’t recommend you use this as your only source of user timezone.&lt;/em&gt; Use this as
 an example for how to get JavaScript-sourced input&lt;/p&gt;
@@ -884,17 +883,17 @@ hooks&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;UserTimeZone 
     &lt;span class=&quot;token erb language-erb&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;&amp;lt;%=&lt;/span&gt; hidden_input f&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token symbol&quot;&gt;:timezone&lt;/span&gt; &lt;span class=&quot;token delimiter punctuation&quot;&gt;%&gt;&lt;/span&gt;&lt;/span&gt;
   &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When the page is rendered, I’ll get a &lt;code class=&quot;language-text&quot;&gt;hidden_input&lt;/code&gt; populated with the detected
+&lt;p&gt;When the page is rendered, I’ll get a &lt;code&gt;hidden_input&lt;/code&gt; populated with the detected
 timezone. This will be included in further form changes and params sent to the
-LiveView process. Remember to wrap it with a &lt;code class=&quot;language-text&quot;&gt;phx-update=&amp;quot;ignore&amp;quot;&lt;/code&gt; so the
+LiveView process. Remember to wrap it with a &lt;code&gt;phx-update=&quot;ignore&quot;&lt;/code&gt; so the
 JavaScript-mutated value isn’t overwritten by LiveView.&lt;/p&gt;
-&lt;p&gt;You’ll notice that I’m also using &lt;code class=&quot;language-text&quot;&gt;pushEventTo&lt;/code&gt; after mounting. This is needed
+&lt;p&gt;You’ll notice that I’m also using &lt;code&gt;pushEventTo&lt;/code&gt; after mounting. This is needed
 because the user may not have interacted with the form yet to trigger a change,
 so until then, I won’t have user’s timezone! I want it pushed immediately so I
-can update the form’s changeset. Also, &lt;code class=&quot;language-text&quot;&gt;pushEventTo&lt;/code&gt; is used instead of
-&lt;code class=&quot;language-text&quot;&gt;pushEvent&lt;/code&gt; because this is a LiveComponent, so I want the event pushed to the
+can update the form’s changeset. Also, &lt;code&gt;pushEventTo&lt;/code&gt; is used instead of
+&lt;code&gt;pushEvent&lt;/code&gt; because this is a LiveComponent, so I want the event pushed to the
 LiveComponent and not the parent LiveView. I pass the target in via a data
-attribute so I don’t confuse it with Phoenix’s own &lt;code class=&quot;language-text&quot;&gt;phx-target&lt;/code&gt;.&lt;/p&gt;
+attribute so I don’t confuse it with Phoenix’s own &lt;code&gt;phx-target&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;When handling the event, we’ll merge the timezone with the existing params of
 the changeset, and then re-apply the changeset and re-compute fields.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token attribute variable&quot;&gt;@impl&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveComponent
@@ -909,10 +908,10 @@ the changeset, and then re-apply the changeset and re-compute fields.&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;clientinput&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Handling sub-form change events&lt;/h2&gt;
-&lt;p&gt;Handling form change events doesn’t change with this &lt;code class=&quot;language-text&quot;&gt;embedded_schema&lt;/code&gt; and
+&lt;p&gt;Handling form change events doesn’t change with this &lt;code&gt;embedded_schema&lt;/code&gt; and
 component-ized approach. It’s standard Phoenix and Ecto changeset forms, so it’s
 not very interesting to look at. But remember that you’ll need to use
-&lt;code class=&quot;language-text&quot;&gt;phx-target&lt;/code&gt; to send  changes to the LiveComponent, otherwise they may bubble up
+&lt;code&gt;phx-target&lt;/code&gt; to send  changes to the LiveComponent, otherwise they may bubble up
 to your parent LiveView.&lt;/p&gt;
 &lt;p&gt;In my case, I also need to adjust the parameters that come in, so we’ll look at
 that! I need to check to see what field is changing and apply new parameters
@@ -959,7 +958,7 @@ based on what is changing.&lt;/p&gt;
   &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Remember, we’re in a LiveComponent so we want to target the changes to itself
-and not the parent LiveView. This is accomplished with &lt;code class=&quot;language-text&quot;&gt;phx-target&lt;/code&gt; on the form.&lt;/p&gt;
+and not the parent LiveView. This is accomplished with &lt;code&gt;phx-target&lt;/code&gt; on the form.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;erb&quot;&gt;&lt;pre class=&quot;language-erb&quot;&gt;&lt;code class=&quot;language-erb&quot;&gt;&lt;span class=&quot;token erb language-erb&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;&amp;lt;%=&lt;/span&gt; f &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; form_for &lt;span class=&quot;token variable&quot;&gt;@when_changeset&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;#&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
   phx_change&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token symbol&quot;&gt;:validate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
   phx_target&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;#&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;#{@id}&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
@@ -981,10 +980,10 @@ the submit button, I need to validate the form once again, and if it’s good te
 the parent LiveView that it’s ok to proceed and supply all the
 helpfully-computed values.&lt;/p&gt;
 &lt;p&gt;This time we’ll check if the changeset is valid with
-&lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html#apply_action/2&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Ecto.Changeset.apply_action/2&lt;/code&gt;&lt;/a&gt;. Based on that result, we’ll let the
+&lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Changeset.html#apply_action/2&quot;&gt;&lt;code&gt;Ecto.Changeset.apply_action/2&lt;/code&gt;&lt;/a&gt;. Based on that result, we’ll let the
 LiveComponent send a message to &lt;del&gt;itself&lt;/del&gt;. Actually, a LiveComponent doesn’t
 run in its own process, instead it’s running inside the parent LiveView’s
-process. So &lt;code class=&quot;language-text&quot;&gt;self()&lt;/code&gt; is actually the LiveView and not the LiveComponent. This is
+process. So &lt;code&gt;self()&lt;/code&gt; is actually the LiveView and not the LiveComponent. This is
 how we can send the parent LiveView the result!&lt;/p&gt;
 &lt;p&gt;You can &lt;a href=&quot;https://hexdocs.pm/phoenix_live_view/Phoenix.LiveComponent.html#module-liveview-as-the-source-of-truth&quot;&gt;read more about LiveComponent and sources of truth in the docs&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token attribute variable&quot;&gt;@impl&lt;/span&gt; Phoenix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;LiveComponent
@@ -1029,9 +1028,9 @@ how we can send the parent LiveView the result!&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a aria-hidden=&quot;true&quot; name=&quot;formsubmission&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Handling the overall form submission&lt;/h2&gt;
-&lt;p&gt;You’ll notice that I have a function &lt;code class=&quot;language-text&quot;&gt;assign_step&lt;/code&gt; above. Let’s go to the parent
+&lt;p&gt;You’ll notice that I have a function &lt;code&gt;assign_step&lt;/code&gt; above. Let’s go to the parent
 LiveView and figure out how to change steps, except on the last step we want to
-persist. We’ll look for the steps in the &lt;code class=&quot;language-text&quot;&gt;@steps&lt;/code&gt; module attribute, assign it,
+persist. We’ll look for the steps in the &lt;code&gt;@steps&lt;/code&gt; module attribute, assign it,
 and that should swap-out the form for the next one!&lt;/p&gt;
 &lt;p&gt;If there isn’t a next step, then that must mean that we’re finished, so we
 should try to save.&lt;/p&gt;
@@ -1076,15 +1075,15 @@ should try to save.&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;erb&quot;&gt;&lt;pre class=&quot;language-erb&quot;&gt;&lt;code class=&quot;language-erb&quot;&gt;&lt;span class=&quot;token erb language-erb&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;&amp;lt;%=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;MyAppWeb&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;Components&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;secondary_button&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;t&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Back&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; phx_click&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;prev-step&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token delimiter punctuation&quot;&gt;%&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;token erb language-erb&quot;&gt;&lt;span class=&quot;token delimiter punctuation&quot;&gt;&amp;lt;%=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;MyAppWeb&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;Components&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;primary_button&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;t&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Next&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; phx_disable_with&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;...&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; submit&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token delimiter punctuation&quot;&gt;%&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Back buttons are easy too. Add &lt;code class=&quot;language-text&quot;&gt;phx-click=&amp;quot;prev-step&amp;quot;&lt;/code&gt; and handle the event in
-the same way, except using &lt;code class=&quot;language-text&quot;&gt;:prev&lt;/code&gt;. Make sure there’s no back button on the
+&lt;p&gt;Back buttons are easy too. Add &lt;code&gt;phx-click=&quot;prev-step&quot;&lt;/code&gt; and handle the event in
+the same way, except using &lt;code&gt;:prev&lt;/code&gt;. Make sure there’s no back button on the
 first step! (otherwise you’ll mistakenly try to save).&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;I hope this helps you out in your endeavors to tackle long and complicated
 forms. Tweet me &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt; if you have suggestions or enjoyed this post!&lt;/p&gt;
 &lt;h2&gt;Update&lt;/h2&gt;
 &lt;p&gt;You might want to persist a draft record in-between steps. This is a great idea!
-If you do this, then you can leverage LiveView’s &lt;code class=&quot;language-text&quot;&gt;handle_params&lt;/code&gt; to navigate to
+If you do this, then you can leverage LiveView’s &lt;code&gt;handle_params&lt;/code&gt; to navigate to
 the appropriate step depending on the draft’s progress.&lt;/p&gt;
 &lt;p&gt;Also, some of my code examples aren’t very good for managing existing resources.
 Keep that in mind when developing your own multi-step form. This was written for
@@ -1165,12 +1164,12 @@ Chrome-specific, which isn’t too much, and the rest was just
 plain-old-javascript. This led me down the path of using Vue and TailwindCSS,
 and packaging it with Webpack— just like I do with my Elixir project.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Chrome needs a &lt;a href=&quot;https://developer.chrome.com/extensions/manifest&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;manifest.json&lt;/code&gt;&lt;/a&gt; to specify the icon, description, and
+&lt;li&gt;Chrome needs a &lt;a href=&quot;https://developer.chrome.com/extensions/manifest&quot;&gt;&lt;code&gt;manifest.json&lt;/code&gt;&lt;/a&gt; to specify the icon, description, and
 permissions it needs to operate within Chrome.&lt;/li&gt;
 &lt;li&gt;In the manifest, you specify the entry point HTML. In my case, I needed
 the new tab page.&lt;/li&gt;
 &lt;li&gt;There are some Chrome APIs you can use. The only one that I care about is
-&lt;a href=&quot;https://developer.chrome.com/extensions/storage&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;chrome.storage.sync&lt;/code&gt;&lt;/a&gt;. This handles storing small data related to your
+&lt;a href=&quot;https://developer.chrome.com/extensions/storage&quot;&gt;&lt;code&gt;chrome.storage.sync&lt;/code&gt;&lt;/a&gt;. This handles storing small data related to your
 extension and handles offline and online capabilities. If you’re offline,
 then it’s ok and will store the data in local storage until you’re online
 again, which then it will sync through the net and update your other
@@ -1262,7 +1261,7 @@ that is watching the filesystem so we can see it’s actually doing something:&l
   \ &lt;span class=&quot;token string&quot;&gt;&apos;filetypes&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;eelixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
   \&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir.pathToElixirLS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;And this is in my &lt;code class=&quot;language-text&quot;&gt;:CocConfig&lt;/code&gt; (&lt;code class=&quot;language-text&quot;&gt;~/.config/nvim/coc-settings.json&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;And this is in my &lt;code&gt;:CocConfig&lt;/code&gt; (&lt;code&gt;~/.config/nvim/coc-settings.json&lt;/code&gt;):&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token property&quot;&gt;&quot;codeLens.enable&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
   &lt;span class=&quot;token property&quot;&gt;&quot;diagnostic-languageserver.filetypes&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1280,9 +1279,9 @@ that is watching the filesystem so we can see it’s actually doing something:&l
 &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;coc_global_extensions &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;coc-elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;coc-diagnostic&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I’m using vim-plug to grab some plugins. All we care about for now is coc.nvim
 and elixir-ls. I’m providing options for elixir-ls to perform an after-update
-action. In this case, a lambda which immediately evaluates &lt;code class=&quot;language-text&quot;&gt;{ &amp;#39;do&amp;#39;: { -&amp;gt; g:ElixirLS.compile() } }&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;To learn more about the vim lambda, check out &lt;code class=&quot;language-text&quot;&gt;:h expr-lambda&lt;/code&gt;. We’re going to
-look at the &lt;code class=&quot;language-text&quot;&gt;ElixirLS.compile()&lt;/code&gt; function later.&lt;/p&gt;
+action. In this case, a lambda which immediately evaluates &lt;code&gt;{ &apos;do&apos;: { -&gt; g:ElixirLS.compile() } }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To learn more about the vim lambda, check out &lt;code&gt;:h expr-lambda&lt;/code&gt;. We’re going to
+look at the &lt;code&gt;ElixirLS.compile()&lt;/code&gt; function later.&lt;/p&gt;
 &lt;p&gt;The coc.nvim setup is straight from their readme. I’m also adding some
 extensions that nvim.coc will install on its own after startup. In this case I
 want &lt;a href=&quot;https://github.com/amiralies/coc-elixir&quot;&gt;coc-elixir&lt;/a&gt; and &lt;a href=&quot;https://github.com/iamcco/coc-diagnostic&quot;&gt;coc-diagnostic&lt;/a&gt;.&lt;/p&gt;
@@ -1301,9 +1300,9 @@ going to manage several things for us:&lt;/p&gt;
 &lt;li&gt;The commands to run when needing to compile&lt;/li&gt;
 &lt;li&gt;Job hook functions so Neovim can run this task asynchronously&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Check out &lt;code class=&quot;language-text&quot;&gt;:h dictionary-function&lt;/code&gt; in vim for more info on how to be a bit more
+&lt;p&gt;Check out &lt;code&gt;:h dictionary-function&lt;/code&gt; in vim for more info on how to be a bit more
 object-oriented in your vim scripts. If you go down this rabbit hole, I really
-encourage you to look into &lt;code class=&quot;language-text&quot;&gt;:h lua&lt;/code&gt; as well which is better-suited for serious
+encourage you to look into &lt;code&gt;:h lua&lt;/code&gt; as well which is better-suited for serious
 vim programming.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;&lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;stdpath&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;config&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;/plugged/elixir-ls&apos;&lt;/span&gt;
@@ -1319,8 +1318,8 @@ vim programming.&lt;/p&gt;
         \ &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;So far it’s pretty standard stuff. We initialize an empty global dictionary
 first, then start stuffing some values in there. We’re using the function
-&lt;code class=&quot;language-text&quot;&gt;stdpath&lt;/code&gt; so we avoid hard-coding any paths.&lt;/p&gt;
-&lt;p&gt;The &lt;code class=&quot;language-text&quot;&gt;join([...], &amp;#39; &amp;#39;)&lt;/code&gt; is only a way to organize the commands in a visual way.
+&lt;code&gt;stdpath&lt;/code&gt; so we avoid hard-coding any paths.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;join([...], &apos; &apos;)&lt;/code&gt; is only a way to organize the commands in a visual way.
 It’s not necessary; you can totally just concat some strings together. The end
 result of this join is:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell-session&quot;&gt;&lt;pre class=&quot;language-shell-session&quot;&gt;&lt;code class=&quot;language-shell-session&quot;&gt;&lt;span class=&quot;token command&quot;&gt;&lt;span class=&quot;token sh important&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;token bash language-bash&quot;&gt;asdf &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mix &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt; local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -1368,10 +1367,10 @@ dictionary, you’ll see a normal dictionary with some funcrefs.&lt;/p&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;One of the great things about Neovim (and Vim8+) is that it really pushed
 asynchronous work forward. Neovim introduced some functions to manage background
-jobs. The one we end up using is &lt;code class=&quot;language-text&quot;&gt;jobstart({cmd}[, {opts}])&lt;/code&gt; (check out &lt;code class=&quot;language-text&quot;&gt;:h jobstart&lt;/code&gt;).
+jobs. The one we end up using is &lt;code&gt;jobstart({cmd}[, {opts}])&lt;/code&gt; (check out &lt;code&gt;:h jobstart&lt;/code&gt;).
 &lt;strong&gt;Heads up&lt;/strong&gt; this is for Neovim; Vim8 has a different API for asynchronous
-work. It’s still &lt;code class=&quot;language-text&quot;&gt;jobstart&lt;/code&gt; but the options are different, so be sure to check
-out &lt;code class=&quot;language-text&quot;&gt;:h job-options&lt;/code&gt;.&lt;/p&gt;
+work. It’s still &lt;code&gt;jobstart&lt;/code&gt; but the options are different, so be sure to check
+out &lt;code&gt;:h job-options&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;&lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;copy&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
@@ -1379,7 +1378,7 @@ out &lt;code class=&quot;language-text&quot;&gt;:h job-options&lt;/code&gt;.&lt;
   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;id &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;jobstart&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;cd &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos; &amp;amp;&amp;amp; git pull &amp;amp;&amp;amp; &apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt; me&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;cmd&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; me&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;First we’re going to make a copy of the dictionary since this can be
-asynchronous; we’ll call it &lt;code class=&quot;language-text&quot;&gt;me&lt;/code&gt;. Then we’ll initialize a new key &lt;code class=&quot;language-text&quot;&gt;output&lt;/code&gt; so we
+asynchronous; we’ll call it &lt;code&gt;me&lt;/code&gt;. Then we’ll initialize a new key &lt;code&gt;output&lt;/code&gt; so we
 can store all the background job’s output into it. Lastly, we’ll start the job.
 The first argument (if a string) will shell out and execute the command you fed
 it.&lt;/p&gt;
@@ -1389,17 +1388,17 @@ it.&lt;/p&gt;
   asdf &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
   mix &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt; local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;If you’re only using this via vim-plug&lt;/strong&gt;, then vim-plug will take care of the
-&lt;code class=&quot;language-text&quot;&gt;cd {the-path} &amp;amp;&amp;amp; git pull&lt;/code&gt; on its own, so we don’t need to include that.
-Totally skip it and only include &lt;code class=&quot;language-text&quot;&gt;me.cmd&lt;/code&gt;. In my case, I wanted to be able to
-run &lt;code class=&quot;language-text&quot;&gt;:call ElixirLS.compile()&lt;/code&gt; myself as well which will need to perform those
+&lt;code&gt;cd {the-path} &amp;#x26;&amp;#x26; git pull&lt;/code&gt; on its own, so we don’t need to include that.
+Totally skip it and only include &lt;code&gt;me.cmd&lt;/code&gt;. In my case, I wanted to be able to
+run &lt;code&gt;:call ElixirLS.compile()&lt;/code&gt; myself as well which will need to perform those
 tasks. It doesn’t hurt to keep those commands but they’re redundant.&lt;/p&gt;
-&lt;p&gt;The last argument &lt;code class=&quot;language-text&quot;&gt;me&lt;/code&gt; is a dictionary that contains the keys that point to
+&lt;p&gt;The last argument &lt;code&gt;me&lt;/code&gt; is a dictionary that contains the keys that point to
 functions that will accept a certain signature; the three functions it cares
 about are:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;on_stdout(job_id, data, event)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;on_stderr(job_id, data, event)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;on_exit(job_id, exitcode, _event)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;on_stdout(job_id, data, event)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;on_stderr(job_id, data, event)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;on_exit(job_id, exitcode, _event)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The values that are passed into these functions are a bit odd, but remember it’s
 focused on a stream of data, and not all the data at once. This means that the
@@ -1410,21 +1409,20 @@ stdout or stderr).&lt;/p&gt;
   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;.=&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;output&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;endfunction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;self&lt;/code&gt; refers to the copy of the ElixirLS dictionary that started this job.
-(check out &lt;code class=&quot;language-text&quot;&gt;:h self&lt;/code&gt;). Before we started the job, we initialized the dictionary
-to have an &lt;code class=&quot;language-text&quot;&gt;output&lt;/code&gt; key that had a list with one empty string &lt;code class=&quot;language-text&quot;&gt;[&amp;#39;&amp;#39;]&lt;/code&gt;. We’re
+&lt;p&gt;&lt;code&gt;self&lt;/code&gt; refers to the copy of the ElixirLS dictionary that started this job.
+(check out &lt;code&gt;:h self&lt;/code&gt;). Before we started the job, we initialized the dictionary
+to have an &lt;code&gt;output&lt;/code&gt; key that had a list with one empty string &lt;code&gt;[&apos;&apos;]&lt;/code&gt;. We’re
 going to use this list and append all the incoming output into it. At the very
-end, &lt;code class=&quot;language-text&quot;&gt;self.output&lt;/code&gt; have something like &lt;code class=&quot;language-text&quot;&gt;[&amp;#39;hey&amp;#39;, &amp;#39;hi\nthere&amp;#39;, &amp;quot;I&amp;#39;m d&amp;#39;, &amp;#39;one
-now&amp;#39;]&lt;/code&gt;. Since the data isn’t necessarily split at newlines, we’re going to
+end, &lt;code&gt;self.output&lt;/code&gt; have something like &lt;code&gt;[&apos;hey&apos;, &apos;hi\nthere&apos;, &quot;I&apos;m d&apos;, &apos;one now&apos;]&lt;/code&gt;. Since the data isn’t necessarily split at newlines, we’re going to
 combine the last stored output’s with the first incoming element, and then add
 the rest of the incoming data to the stored output.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;let self.output[-1] .= a:data[0]&lt;/code&gt;. Take the last stored element and concat the
-first incoming data’s element, and then assign it back to &lt;code class=&quot;language-text&quot;&gt;self.output[-1]&lt;/code&gt;.
-Then add the two lists together. &lt;code class=&quot;language-text&quot;&gt;extend()&lt;/code&gt; will mutate the first element.&lt;/p&gt;
-&lt;p&gt;Since we want to treat &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt; as the same kind of output, we’re
-going to have the &lt;code class=&quot;language-text&quot;&gt;on_stderr&lt;/code&gt; callback forward the call to the &lt;code class=&quot;language-text&quot;&gt;on_stdout&lt;/code&gt;
+&lt;p&gt;&lt;code&gt;let self.output[-1] .= a:data[0]&lt;/code&gt;. Take the last stored element and concat the
+first incoming data’s element, and then assign it back to &lt;code&gt;self.output[-1]&lt;/code&gt;.
+Then add the two lists together. &lt;code&gt;extend()&lt;/code&gt; will mutate the first element.&lt;/p&gt;
+&lt;p&gt;Since we want to treat &lt;code&gt;stderr&lt;/code&gt; and &lt;code&gt;stdout&lt;/code&gt; as the same kind of output, we’re
+going to have the &lt;code&gt;on_stderr&lt;/code&gt; callback forward the call to the &lt;code&gt;on_stdout&lt;/code&gt;
 function. This avoids duplicating the code.&lt;/p&gt;
-&lt;p&gt;Finally, let’s look at the &lt;code class=&quot;language-text&quot;&gt;on_exit&lt;/code&gt; callback:&lt;/p&gt;
+&lt;p&gt;Finally, let’s look at the &lt;code&gt;on_exit&lt;/code&gt; callback:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;&lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;on_exit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;_job_id&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; exitcode&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; _event&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; a&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;exitcode&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
     &lt;span class=&quot;token keyword&quot;&gt;echom&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&gt;&gt;&gt; ElixirLS compiled&apos;&lt;/span&gt;
@@ -1438,12 +1436,12 @@ array but it should always just be the one element with the exit code. If it’s
 0, then it exited ok without error so let’s echo a message indicating we’re
 done.&lt;/p&gt;
 &lt;p&gt;Otherwise, let’s echo out the entire output as an error that I can find with
-&lt;code class=&quot;language-text&quot;&gt;:messages&lt;/code&gt; and investigate what went wrong.&lt;/p&gt;
-&lt;p&gt;All this means now is that we can run &lt;code class=&quot;language-text&quot;&gt;:PlugUpdate&lt;/code&gt; and ElixirLS will now update
+&lt;code&gt;:messages&lt;/code&gt; and investigate what went wrong.&lt;/p&gt;
+&lt;p&gt;All this means now is that we can run &lt;code&gt;:PlugUpdate&lt;/code&gt; and ElixirLS will now update
 itself, ensuring it’s running on the best version of Elixir for itself,
 everything’s updated, downloaded, and recompiled without issue. I can also run
-&lt;code class=&quot;language-text&quot;&gt;ElixirLS.compile()&lt;/code&gt; at any time if I suspect I need to update ElixirLS.&lt;/p&gt;
-&lt;p&gt;With nvim.coc I can also check &lt;code class=&quot;language-text&quot;&gt;:CocInfo&lt;/code&gt; to see if the language servers are
+&lt;code&gt;ElixirLS.compile()&lt;/code&gt; at any time if I suspect I need to update ElixirLS.&lt;/p&gt;
+&lt;p&gt;With nvim.coc I can also check &lt;code&gt;:CocInfo&lt;/code&gt; to see if the language servers are
 running ok.&lt;/p&gt;
 &lt;h2&gt;Use the fruits of the labor&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;&lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1453,13 +1451,13 @@ running ok.&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; coc#&lt;span class=&quot;token function&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;elixir.pathToElixirLS&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;ElixirLS&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;lsp&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Almost done!!&lt;/p&gt;
 &lt;p&gt;We have a somewhat dynamic path for the newly-compiled ElixirLS. On my Mac, the
-path could be &lt;code class=&quot;language-text&quot;&gt;/Users/me/.config/...&lt;/code&gt;, but on my Linux computer it would be
-&lt;code class=&quot;language-text&quot;&gt;/home/me/.config/...&lt;/code&gt;. CocConfig is a JSON file that can’t evaluate any
+path could be &lt;code&gt;/Users/me/.config/...&lt;/code&gt;, but on my Linux computer it would be
+&lt;code&gt;/home/me/.config/...&lt;/code&gt;. CocConfig is a JSON file that can’t evaluate any
 environment variables, so I need to resort to calling it from within vim. This
 really works out though.&lt;/p&gt;
-&lt;p&gt;The first &lt;code class=&quot;language-text&quot;&gt;coc#config&lt;/code&gt; is telling coc.nvim in general that there is an available
-language server for the &lt;code class=&quot;language-text&quot;&gt;elixir&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;eexlixir&lt;/code&gt; filetypes. Lastly, we’re going
-to tell &lt;code class=&quot;language-text&quot;&gt;coc-elixir&lt;/code&gt; to use our own compiled ElixirLS so it doesn’t need to go
+&lt;p&gt;The first &lt;code&gt;coc#config&lt;/code&gt; is telling coc.nvim in general that there is an available
+language server for the &lt;code&gt;elixir&lt;/code&gt; and &lt;code&gt;eexlixir&lt;/code&gt; filetypes. Lastly, we’re going
+to tell &lt;code&gt;coc-elixir&lt;/code&gt; to use our own compiled ElixirLS so it doesn’t need to go
 off on its own and try to manage the installation and compilation of ElixirLS.&lt;/p&gt;
 &lt;p&gt;======&lt;/p&gt;
 &lt;p&gt;Have any vim and Elixir tips of your own? TWEEEEEEEET at me &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ecto Tips: UUID Boilerplate, Docs, and Composing Changesets]]></title><description><![CDATA[I use Ecto Changesets a lot— a TON! and I love them. Since I’ve
@@ -1500,7 +1498,7 @@ macro&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;configure-generators&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Configure Generators&lt;/h3&gt;
 &lt;p&gt;If you’re using Phoenix and use its generators, you might care about this
-section. When you run &lt;code class=&quot;language-text&quot;&gt;mix phx.gen.schema ARGS&lt;/code&gt;, Phoenix and Ecto will throw in
+section. When you run &lt;code&gt;mix phx.gen.schema ARGS&lt;/code&gt;, Phoenix and Ecto will throw in
 some boilerplate into your schemas and migrations. Even if you don’t, it’s
 harmless to configure it just in case things change later, or other developers
 on your project choose to use the generators.&lt;/p&gt;
@@ -1521,7 +1519,7 @@ schema &lt;span class=&quot;token string&quot;&gt;&quot;my_table&quot;&lt;/span&
 &lt;h3&gt;Configure Migrations&lt;/h3&gt;
 &lt;p&gt;When creating tables through a migration, you’ll need to specify that it should
 not create an ID column that generates it’s own IDs (more on this later).
-Instead, we’ll supply our own primary key column called &lt;code class=&quot;language-text&quot;&gt;id&lt;/code&gt;.&lt;/p&gt;
+Instead, we’ll supply our own primary key column called &lt;code&gt;id&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyApp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Repo&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Migrations&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CreateUsers &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token attribute variable&quot;&gt;@moduledoc&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Creating Users in the database&quot;&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; Ecto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Migration
@@ -1536,7 +1534,7 @@ Instead, we’ll supply our own primary key column called &lt;code class=&quot;l
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;In Ecto 3.x, you can also &lt;a href=&quot;https://hexdocs.pm/ecto_sql/Ecto.Migration.html#module-repo-configuration&quot;&gt;reconfigure default ID column
 settings&lt;/a&gt;
-with &lt;code class=&quot;language-text&quot;&gt;:migration_primary_key&lt;/code&gt; so you wouldn’t even have to &lt;code class=&quot;language-text&quot;&gt;add :id&lt;/code&gt; yourself,
+with &lt;code&gt;:migration_primary_key&lt;/code&gt; so you wouldn’t even have to &lt;code&gt;add :id&lt;/code&gt; yourself,
 but unfortunately it does not play well with Ecto macros that I will end up
 using since it’s via Mix config.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;configure-schema&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1556,13 +1554,13 @@ for you, but if not, you’ll need to make sure they’re present.&lt;/p&gt;
     timestamps&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That’s it! It should work. Ecto’s &lt;code class=&quot;language-text&quot;&gt;schema&lt;/code&gt; macro will use the module attributes
+&lt;p&gt;That’s it! It should work. Ecto’s &lt;code&gt;schema&lt;/code&gt; macro will use the module attributes
 to configure how it should treat the primary key. &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Schema.html#module-schema-attributes&quot;&gt;The documentation has more
 information if you want to read more&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;pull-into-macro&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Pull Into Macro&lt;/h3&gt;
 &lt;p&gt;That’s a lot of boilerplate for &lt;em&gt;each schema&lt;/em&gt;. Let’s make it easier. Notice at
-the top of the schema definition? &lt;code class=&quot;language-text&quot;&gt;use Ecto.Schema&lt;/code&gt;.&lt;/p&gt;
+the top of the schema definition? &lt;code&gt;use Ecto.Schema&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;This injects some code into the module. We can do that too! Let’s create our own
 schema file that injects our boilerplate.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyApp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Schema &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -1596,7 +1594,7 @@ schema file that injects our boilerplate.&lt;/p&gt;
 remember the boilerplate anymore.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;db-generated-uuids&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;DB-Generated UUIDs&lt;/h2&gt;
-&lt;p&gt;Maybe you noticed above that we have &lt;code class=&quot;language-text&quot;&gt;autogenerate: true&lt;/code&gt; above. This is telling
+&lt;p&gt;Maybe you noticed above that we have &lt;code&gt;autogenerate: true&lt;/code&gt; above. This is telling
 &lt;strong&gt;Ecto&lt;/strong&gt; to generate those ID UUIDs instead of the database. That bothered me; I
 feel like that’s a database responsibility, not an app responsibility.&lt;/p&gt;
 &lt;p&gt;Let’s move that into the database. I’m using PostgreSQL, but I’m sure there are
@@ -1612,7 +1610,7 @@ ship with functions that you can enable. You can get away with creating a
 function that’ll generate UUIDs, but I prefer some battle-tested code that ships
 with &lt;a href=&quot;https://www.postgresql.org/docs/current/contrib.html&quot;&gt;postgres contrib&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;One of those extensions is &lt;a href=&quot;https://www.postgresql.org/docs/current/pgcrypto.html&quot;&gt;pgcrypto&lt;/a&gt; which supplies a function
-&lt;code class=&quot;language-text&quot;&gt;gen_random_uuid()&lt;/code&gt;.&lt;/p&gt;
+&lt;code&gt;gen_random_uuid()&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Let’s create a migration to have Postgres enable the extension.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;shell-session&quot;&gt;&lt;pre class=&quot;language-shell-session&quot;&gt;&lt;code class=&quot;language-shell-session&quot;&gt;&lt;span class=&quot;token command&quot;&gt;&lt;span class=&quot;token sh important&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;token bash language-bash&quot;&gt;mix ecto.gen.migration add_pgcrypto&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyApp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Repo&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Migrations&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;AddPgcrypto &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -1654,7 +1652,7 @@ ID!&lt;/strong&gt; What happened?!&lt;/p&gt;
 &lt;p&gt;We need to tell Ecto to &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Schema.html#field/3-options&quot;&gt;read the ID back into the struct after
 writing&lt;/a&gt;.
 Thankfully, that’s easy. Earlier we pulled some boilerplate into a
-&lt;code class=&quot;language-text&quot;&gt;MyApp.Schema&lt;/code&gt;; let’s modify it:&lt;/p&gt;
+&lt;code&gt;MyApp.Schema&lt;/code&gt;; let’s modify it:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;defmodule MyApp.Schema do
 &lt;span class=&quot;token unchanged&quot;&gt;  @moduledoc &quot;Ecto Schema Helpers&quot;
 &lt;/span&gt;
@@ -1760,7 +1758,7 @@ fields? Let’s make that happen.&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;It’s not hard at all! It’s a feature I often forget exists with ExDocs and
 Elixir: you can interpolate compiled values into documentation. In this case,
-I’m defining my &lt;code class=&quot;language-text&quot;&gt;@optional_fields&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;@required_fields&lt;/code&gt;, and &lt;code class=&quot;language-text&quot;&gt;@defaults&lt;/code&gt;, and
+I’m defining my &lt;code&gt;@optional_fields&lt;/code&gt;, &lt;code&gt;@required_fields&lt;/code&gt;, and &lt;code&gt;@defaults&lt;/code&gt;, and
 then interpolating them into the changeset docs.&lt;/p&gt;
 &lt;p&gt;Easy peasy!&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;compose-changesets&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1813,9 +1811,9 @@ You don’t have to duplicate that code!&lt;/p&gt;
   &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; MySchema&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;token operator&quot;&gt;|&gt;&lt;/span&gt; MySchema&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;user_changeset&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;params&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This way, you can use &lt;code class=&quot;language-text&quot;&gt;additional_restrictions_changeset/2&lt;/code&gt; by itself and get
-all the same logic within &lt;code class=&quot;language-text&quot;&gt;changeset/2&lt;/code&gt;. Or alternatively, compose them together
-from the outside like in &lt;code class=&quot;language-text&quot;&gt;user_create/1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This way, you can use &lt;code&gt;additional_restrictions_changeset/2&lt;/code&gt; by itself and get
+all the same logic within &lt;code&gt;changeset/2&lt;/code&gt;. Or alternatively, compose them together
+from the outside like in &lt;code&gt;user_create/1&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;A common mistake that prevents changesets from being composable is that we’ll
 write our function signatures to require the struct as the first param:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# don&apos;t do this:&lt;/span&gt;
@@ -1934,7 +1932,7 @@ nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span 
 nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;T &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; TestFile&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;a &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;RunTestSuite&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 nmap &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;silent&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;leader&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;call&lt;/span&gt; TestLast&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I’ve found it conventional to have a &lt;code class=&quot;language-text&quot;&gt;bin/test_suite&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;bin/test&lt;/code&gt; script in
+&lt;p&gt;I’ve found it conventional to have a &lt;code&gt;bin/test_suite&lt;/code&gt; or &lt;code&gt;bin/test&lt;/code&gt; script in
 the project that takes care of a lot of details like environment exports,
 cleanup, or making sure the test environment’s database is setup as well as
 running all the tests. Even if the test suite isn’t complicated, it’s still
@@ -1942,15 +1940,15 @@ helpful for new developers on the project.&lt;/p&gt;
 &lt;p&gt;If that script is present and when I want to run all tests, I should execute
 that file; otherwise use the default vim-test suite command. For non-suite
 tests, I use the default vim-test commands.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;a&lt;/code&gt; triggers &lt;strong&gt;a&lt;/strong&gt;ll tests. If a neoterm split isn’t open,
+&lt;p&gt;&lt;code&gt;&amp;#x3C;space&gt;a&lt;/code&gt; triggers &lt;strong&gt;a&lt;/strong&gt;ll tests. If a neoterm split isn’t open,
 then it’ll automatically open one with the default settings— in my case, a
 vertical split at 80 columns wide. If a neoterm split is already open, then
 it’ll send the test to that split. In situations where my vertical space is
-lacking, I prep by opening up a split, and then hit my test shortcut. &lt;code class=&quot;language-text&quot;&gt;:HT&lt;/code&gt; to
+lacking, I prep by opening up a split, and then hit my test shortcut. &lt;code&gt;:HT&lt;/code&gt; to
 open the terminal up.&lt;/p&gt;
-&lt;p&gt;If I’m testing a method or function, then &lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;t&lt;/code&gt; to send the nearest
+&lt;p&gt;If I’m testing a method or function, then &lt;code&gt;&amp;#x3C;space&gt;t&lt;/code&gt; to send the nearest
 &lt;strong&gt;t&lt;/strong&gt;est to it. If I’m trying to make a test pass, I’ll modify the code and then
-&lt;code class=&quot;language-text&quot;&gt;&amp;lt;space&amp;gt;l&lt;/code&gt; to run the &lt;strong&gt;l&lt;/strong&gt;ast test. If I’m refactoring a class or module, I’ll
+&lt;code&gt;&amp;#x3C;space&gt;l&lt;/code&gt; to run the &lt;strong&gt;l&lt;/strong&gt;ast test. If I’m refactoring a class or module, I’ll
 run all the &lt;strong&gt;T&lt;/strong&gt;ests for it. I haven’t found myself using vim-test’s TestVisit.
 If you have some examples on where that command helps, I’d love to hear it!&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/gs6r5QlC8oR8HPNYhRPDypY6n&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/gs6r5QlC8oR8HPNYhRPDypY6n.svg&quot; alt=&quot;asciicast&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -1979,7 +1977,7 @@ I’m in that project, then change the command where I can.&lt;/p&gt;
       \ &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; g&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;test#transformation &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;myapp_ruby&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;On the Elixir side, umbrella apps can be a little tricky. vim-test will send the
-path of the test to &lt;code class=&quot;language-text&quot;&gt;mix test {file}&lt;/code&gt;, but &lt;code class=&quot;language-text&quot;&gt;mix&lt;/code&gt; will run that command for each
+path of the test to &lt;code&gt;mix test {file}&lt;/code&gt;, but &lt;code&gt;mix&lt;/code&gt; will run that command for each
 of the apps in the umbrella. That’s probably not what we want to do since that
 test exists for only one for apps. Again, we can solve it with a transformation.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;vim&quot;&gt;&lt;pre class=&quot;language-vim&quot;&gt;&lt;code class=&quot;language-vim&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;&quot; ~/.config/nvim/after/ftplugin/elixir.vim&lt;/span&gt;
@@ -2038,13 +2036,13 @@ brotli”&lt;/p&gt;
 and &lt;strong&gt;the server’s gonna give whatever it wants to you&lt;/strong&gt;. To complicate it more,
 there are layers between the client and server that may compress data and modify
 headers (or not). So, the server might have sent plaintext and provided a
-Content-Encoding of &lt;code class=&quot;language-text&quot;&gt;identity&lt;/code&gt; or not a Content-Encoding at all (both of these
+Content-Encoding of &lt;code&gt;identity&lt;/code&gt; or not a Content-Encoding at all (both of these
 mean there is no compression.), but a load balancer, router, CDN, whatever,
 might have compressed the body of data on the way back from the server to the
 client.&lt;/p&gt;
 &lt;p&gt;So what’s the client to do? It has to guess. This is probably why some clients
 don’t automatically decompress data for you.&lt;/p&gt;
-&lt;p&gt;Here are some of the options for &lt;code class=&quot;language-text&quot;&gt;Content-Encoding&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Here are some of the options for &lt;code&gt;Content-Encoding&lt;/code&gt;:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -2054,27 +2052,27 @@ don’t automatically decompress data for you.&lt;/p&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;gzip&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Compressed with Lempel-Ziv (LZ77). On desktops, this is a &lt;code class=&quot;language-text&quot;&gt;.gz&lt;/code&gt; file&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;gzip&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Compressed with Lempel-Ziv (LZ77). On desktops, this is a &lt;code&gt;.gz&lt;/code&gt; file&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;x-gzip&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;x-gzip&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;Same as above, just an older expression&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;compress&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;compress&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;Compressed with Lempel-Ziv-Welch (LZW)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;deflate&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Compressed with zlib. On desktops, this is a normal &lt;code class=&quot;language-text&quot;&gt;.zip&lt;/code&gt; file&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;deflate&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Compressed with zlib. On desktops, this is a normal &lt;code&gt;.zip&lt;/code&gt; file&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;br&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;br&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;Compressed with brotli.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code class=&quot;language-text&quot;&gt;identity&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;identity&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;No compression&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2087,7 +2085,7 @@ don’t automatically decompress data for you.&lt;/p&gt;
 otherwise there’s not yet built-in support for decompressing Brotli in
 Erlang/Elixir. There’s also no built-in support for LZW, but that’s ok because
 it’s not as good or popular as the other formats. The only built-ins for Erlang
-and Elixir are &lt;code class=&quot;language-text&quot;&gt;gzip&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;deflate&lt;/code&gt; so that’s what I’ll support on this first
+and Elixir are &lt;code&gt;gzip&lt;/code&gt; and &lt;code&gt;deflate&lt;/code&gt; so that’s what I’ll support on this first
 iteration.&lt;/p&gt;
 &lt;h2&gt;HTTPoison&lt;/h2&gt;
 &lt;p&gt;In Elixir, the most popular HTTP client is &lt;a href=&quot;https://github.com/edgurgel/httpoison&quot;&gt;HTTPoison&lt;/a&gt; according to &lt;a href=&quot;https://hex.pm/packages&quot;&gt;hex.pm&lt;/a&gt;.
@@ -2120,8 +2118,8 @@ ISO-8859-1 sometimes; not in UTF-8. In Elixir, strings are UTF-8 so I need to
 make sure I can convert those characters to something readable for my logs, and
 ultimately the clients. This character encoding is indicated in the HTTP header
 &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type&quot;&gt;Content-Type&lt;/a&gt;, paired with the format of content, like JSON or XML. It’s going
-to look something like &lt;code class=&quot;language-text&quot;&gt;text/plain;charset=utf-8&lt;/code&gt; or
-&lt;code class=&quot;language-text&quot;&gt;application/json;charset=ISO-8859-1&lt;/code&gt;.&lt;/p&gt;
+to look something like &lt;code&gt;text/plain;charset=utf-8&lt;/code&gt; or
+&lt;code&gt;application/json;charset=ISO-8859-1&lt;/code&gt;.&lt;/p&gt;
 &lt;h2&gt;Let’s do it&lt;/h2&gt;
 &lt;p&gt;Let’s stick with HTTPoison out of pure laziness. If you’re implementing from
 scratch, I’d recommend you to look at &lt;a href=&quot;https://github.com/ericmj/mint&quot;&gt;Mint&lt;/a&gt; first because it has no
@@ -2135,8 +2133,8 @@ see some helpers in the tests and implementation. If you’re not using Phoenix 
 Plug, it should be pretty easy to replace these functions with your own.&lt;/p&gt;
 &lt;h2&gt;My interface&lt;/h2&gt;
 &lt;p&gt;It’s going to be exactly like HTTPoison’s. Creative, I know. But, this way I can
-replace any usage of &lt;code class=&quot;language-text&quot;&gt;HTTPoison.get&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;HTTPoison.post&lt;/code&gt; with my own
-&lt;code class=&quot;language-text&quot;&gt;HttpClient.get&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;HttpClient.post&lt;/code&gt;. Easy peasy.&lt;/p&gt;
+replace any usage of &lt;code&gt;HTTPoison.get&lt;/code&gt; or &lt;code&gt;HTTPoison.post&lt;/code&gt; with my own
+&lt;code&gt;HttpClient.get&lt;/code&gt; or &lt;code&gt;HttpClient.post&lt;/code&gt;. Easy peasy.&lt;/p&gt;
 &lt;p&gt;I’m also going to give room for dependency-injection so I can test this easily.
 And, maybe one day I won’t want to use HTTPoison anymore, so this new interface
 might also help transition my app to another HTTP client without disrupting too
@@ -2446,7 +2444,7 @@ missed anything or you have another cool idea.&lt;/p&gt;
 what we don’t need: yet another HTTP client. But, if you found yourself needing
 to decompress responses with HTTPoison, then this will be a good start.&lt;/p&gt;
 &lt;p&gt;You’ll notice that this doesn’t implement all the calls (we’re missing the ones
-like &lt;code class=&quot;language-text&quot;&gt;delete&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;head&lt;/code&gt;), nor is it the smartest way to solve the problem. I’ll
+like &lt;code&gt;delete&lt;/code&gt; and &lt;code&gt;head&lt;/code&gt;), nor is it the smartest way to solve the problem. I’ll
 leave the gaps to inspire you.&lt;/p&gt;
 &lt;h2&gt;Or use &lt;a href=&quot;https://github.com/teamon/tesla&quot;&gt;Tesla&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Tesla supports decompression out of the box; so if you started on that HTTP
@@ -2585,7 +2583,7 @@ Good question, I don’t really understand it, but I know I need it to allow som
 browser tests to run. Just roll with it.&lt;/p&gt;
 &lt;p&gt;In my case, my project is using Ruby 2.5.1 but unfortunately requires Node 6.x
 because of an older node-based asset pipeline; CircleCI’s Ruby image
-&lt;a href=&quot;https://github.com/CircleCI-Public/circleci-dockerfiles/blob/16a3d488ce42027c38f6ef5f419e2eaf9df2f35b/ruby/images/2.5.1-stretch/node/Dockerfile#L36&quot;&gt;Dockerfile&lt;/a&gt; includes Node 8.x. I can’t run &lt;code class=&quot;language-text&quot;&gt;npm install&lt;/code&gt; under Node 8.x.
+&lt;a href=&quot;https://github.com/CircleCI-Public/circleci-dockerfiles/blob/16a3d488ce42027c38f6ef5f419e2eaf9df2f35b/ruby/images/2.5.1-stretch/node/Dockerfile#L36&quot;&gt;Dockerfile&lt;/a&gt; includes Node 8.x. I can’t run &lt;code&gt;npm install&lt;/code&gt; under Node 8.x.
 That’s OK though, because we can separate them with containers.&lt;/p&gt;
 &lt;h2&gt;Let’s try this out&lt;/h2&gt;
 &lt;p&gt;According to CircleCI docs, I’ll need to define multiple jobs. I’ll try to keep
@@ -2594,7 +2592,7 @@ the jobs focused on one task. Let’s start with two tasks:&lt;/p&gt;
 &lt;li&gt;Bundle Install&lt;/li&gt;
 &lt;li&gt;NPM Install. The production environment doesn’t use Yarn, so I shouldn’t
 either in CI yet. Also, Node 6.x doesn’t ship with npm that supports
-&lt;code class=&quot;language-text&quot;&gt;package-lock.json&lt;/code&gt;. ::sigh:: I’ll leave some commented-out code though in
+&lt;code&gt;package-lock.json&lt;/code&gt;. ::sigh:: I’ll leave some commented-out code though in
 case you can use it.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
@@ -2662,12 +2660,12 @@ concepts we should know:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Cache: This is used to save dependencies across runs.&lt;/li&gt;
 &lt;li&gt;Workspace: This is used to save data as the workflow continues, so the next
-step can use the results of a previous step like &lt;code class=&quot;language-text&quot;&gt;node_modules&lt;/code&gt; and
-&lt;code class=&quot;language-text&quot;&gt;vendor/bundle&lt;/code&gt;. We attach the workspace at the beginning, and then persist
+step can use the results of a previous step like &lt;code&gt;node_modules&lt;/code&gt; and
+&lt;code&gt;vendor/bundle&lt;/code&gt;. We attach the workspace at the beginning, and then persist
 some resulting files to the workspace at the end of the task.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;For my project, we when we run &lt;code class=&quot;language-text&quot;&gt;npm run production&lt;/code&gt;, it compiles assets into
-the folder &lt;code class=&quot;language-text&quot;&gt;public/assets/frontend&lt;/code&gt;. I need that to run my tests later.&lt;/p&gt;
+&lt;p&gt;For my project, we when we run &lt;code&gt;npm run production&lt;/code&gt;, it compiles assets into
+the folder &lt;code&gt;public/assets/frontend&lt;/code&gt;. I need that to run my tests later.&lt;/p&gt;
 &lt;p&gt;Let’s move on to the test step:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;token key atrule&quot;&gt;working_directory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ~/repo
@@ -2706,8 +2704,7 @@ the folder &lt;code class=&quot;language-text&quot;&gt;public/assets/frontend&lt
     &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token key atrule&quot;&gt;store_test_results&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
         &lt;span class=&quot;token key atrule&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ~/repo/tmp/test&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;results&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Since we’re attaching the workspace, we can assume that we have our
-&lt;code class=&quot;language-text&quot;&gt;node_modules&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;vendor/bundle&lt;/code&gt; already present. We still run &lt;code class=&quot;language-text&quot;&gt;bundle
-install&lt;/code&gt;, but it’s incredibly quick since the workspace already has the info—
+&lt;code&gt;node_modules&lt;/code&gt; and &lt;code&gt;vendor/bundle&lt;/code&gt; already present. We still run &lt;code&gt;bundle install&lt;/code&gt;, but it’s incredibly quick since the workspace already has the info—
 bundler just needs to recognize it.&lt;/p&gt;
 &lt;p&gt;I want to point out another CircleCI feature: &lt;a href=&quot;https://circleci.com/docs/2.0/collect-test-data/&quot;&gt;collecting test metadata&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;There’s a popular XML format for expressing test outputs and metadata, like the
@@ -2755,8 +2752,8 @@ automatically, but you can also add it to older Rails projects with
 artifacts.&lt;/p&gt;
 &lt;p&gt;Ideally, you could set up two more jobs here:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;job: &lt;code class=&quot;language-text&quot;&gt;lint-rubocop&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;job: &lt;code class=&quot;language-text&quot;&gt;lint-eslint&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;job: &lt;code&gt;lint-rubocop&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;job: &lt;code&gt;lint-eslint&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;But that’s up to you.&lt;/p&gt;
 &lt;p&gt;Lastly, we need to deploy the app:&lt;/p&gt;
@@ -2805,11 +2802,11 @@ now.&lt;/p&gt;
           &lt;span class=&quot;token key atrule&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
             &lt;span class=&quot;token key atrule&quot;&gt;branches&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
               &lt;span class=&quot;token key atrule&quot;&gt;only&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This describes the shape of your workflow. &lt;code class=&quot;language-text&quot;&gt;bundle-install&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;npm-install&lt;/code&gt;
-don’t have any requirements, so they can run in parallel. &lt;code class=&quot;language-text&quot;&gt;test&lt;/code&gt; requires the
-installation steps to succeed before it can run, and &lt;code class=&quot;language-text&quot;&gt;deploy-integration&lt;/code&gt;
+&lt;p&gt;This describes the shape of your workflow. &lt;code&gt;bundle-install&lt;/code&gt; and &lt;code&gt;npm-install&lt;/code&gt;
+don’t have any requirements, so they can run in parallel. &lt;code&gt;test&lt;/code&gt; requires the
+installation steps to succeed before it can run, and &lt;code&gt;deploy-integration&lt;/code&gt;
 requires the test step to succeed, and only run when CI is running from
-a commit on the &lt;code class=&quot;language-text&quot;&gt;master&lt;/code&gt; branch.&lt;/p&gt;
+a commit on the &lt;code&gt;master&lt;/code&gt; branch.&lt;/p&gt;
 &lt;p&gt;That gives us this shape:&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
@@ -2843,12 +2840,12 @@ a commit on the &lt;code class=&quot;language-text&quot;&gt;master&lt;/code&gt; 
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Remember, if you also linted the code and had JavaScript tests, you could have
 4 jobs running in parallel since they don’t depend on each other (only
-&lt;code class=&quot;language-text&quot;&gt;npm-install&lt;/code&gt; and/or &lt;code class=&quot;language-text&quot;&gt;bundle-install&lt;/code&gt;)&lt;/p&gt;
+&lt;code&gt;npm-install&lt;/code&gt; and/or &lt;code&gt;bundle-install&lt;/code&gt;)&lt;/p&gt;
 &lt;h2&gt;YAML&lt;/h2&gt;
 &lt;p&gt;We can make it a little better with a little bit of &lt;a href=&quot;https://en.wikipedia.org/wiki/YAML&quot;&gt;YAML&lt;/a&gt; knowledge. With
 workflows, you’ll repeat a lot of the same steps, and some of those steps can
 be verbose. We can help that.&lt;/p&gt;
-&lt;p&gt;For example, we repeated &lt;code class=&quot;language-text&quot;&gt;working_directory: ~/repo&lt;/code&gt; a lot, as well as the
+&lt;p&gt;For example, we repeated &lt;code&gt;working_directory: ~/repo&lt;/code&gt; a lot, as well as the
 docker images for several jobs. Let’s shorten it with a named anchor.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;defaults&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token important&quot;&gt;&amp;amp;defaults&lt;/span&gt;
   &lt;span class=&quot;token key atrule&quot;&gt;working_directory&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ~/repo
@@ -3084,19 +3081,19 @@ it clear and easy.&lt;/p&gt;
 This is useful for those moments when you need to store data that could
 be variably structured, such as responses from other services’ APIs, or
 data that frequently travels together within your relational tables.&lt;/p&gt;
-&lt;p&gt;A common trade-off for mixing scalar column data types (like &lt;code class=&quot;language-text&quot;&gt;varchar&lt;/code&gt;
-or &lt;code class=&quot;language-text&quot;&gt;integer&lt;/code&gt;) with column data types that handle more-complicated
+&lt;p&gt;A common trade-off for mixing scalar column data types (like &lt;code&gt;varchar&lt;/code&gt;
+or &lt;code&gt;integer&lt;/code&gt;) with column data types that handle more-complicated
 objects (like &lt;abbr title=&quot;JavaScript Object Notation&quot;&gt;JSON&lt;/abbr&gt;) is
 that &lt;abbr title=&quot;Object-relational Mapping&quot;&gt;ORMs&lt;/abbr&gt; or data mappers
 sometimes can’t introspect on them for you, which means it becomes much
 harder to query that data.&lt;/p&gt;
-&lt;p&gt;Using Ecto’s &lt;code class=&quot;language-text&quot;&gt;embedded_schema&lt;/code&gt; helps introspect on those known values,
+&lt;p&gt;Using Ecto’s &lt;code&gt;embedded_schema&lt;/code&gt; helps introspect on those known values,
 but it doesn’t really assist you with querying those fields in SQL. This
 is where I became extremely greatful for &lt;a href=&quot;https://hexdocs.pm/ecto/Ecto.Query.html#module-fragments&quot;&gt;Ecto’s escape
-hatch&lt;/a&gt;: &lt;code class=&quot;language-text&quot;&gt;fragment()&lt;/code&gt;.&lt;/p&gt;
+hatch&lt;/a&gt;: &lt;code&gt;fragment()&lt;/code&gt;.&lt;/p&gt;
 &lt;h2&gt;Define the Struct or Map in Ecto&lt;/h2&gt;
 &lt;p&gt;Let’s dive into some code as an example:&lt;/p&gt;
-&lt;p&gt;I have a &lt;code class=&quot;language-text&quot;&gt;Vehicle.Photo&lt;/code&gt; schema that has several versions of the photo:&lt;/p&gt;
+&lt;p&gt;I have a &lt;code&gt;Vehicle.Photo&lt;/code&gt; schema that has several versions of the photo:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;craigslist_ad&lt;/li&gt;
 &lt;li&gt;facebook_ad&lt;/li&gt;
@@ -3111,7 +3108,7 @@ hatch&lt;/a&gt;: &lt;code class=&quot;language-text&quot;&gt;fragment()&lt;/code
 &lt;p&gt;We decided to store the versions’ &lt;abbr title=&quot;Uniform Resource
 Locators&quot;&gt;URLs&lt;/abbr&gt; inside a map in the database,
 because we’re going to use a set of the URLs at the same time inside of
-an HTML &lt;code class=&quot;language-text&quot;&gt;&amp;lt;img srcset /&amp;gt;&lt;/code&gt;. &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images&quot;&gt;You can read more about srcset from
+an HTML &lt;code&gt;&amp;#x3C;img srcset /&gt;&lt;/code&gt;. &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images&quot;&gt;You can read more about srcset from
 MDN and how it helps with responsive images&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The Ecto migration looks like this:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; up &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -3145,10 +3142,10 @@ MDN and how it helps with responsive images&lt;/a&gt;.&lt;/p&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Since this is a known structure, Ecto can introspect on the JSON values and
 cast and dump them to the appropriate Elixir data types, which is immensely
-helpful. Here I am achieving that by using &lt;code class=&quot;language-text&quot;&gt;embeds_one&lt;/code&gt; and specifying the
+helpful. Here I am achieving that by using &lt;code&gt;embeds_one&lt;/code&gt; and specifying the
 struct. Once pulled from the database, Ecto will decode them.&lt;/p&gt;
 &lt;p&gt;Other times, you may not be able to do this ahead of time, so the schema
-might look like this (the &lt;code class=&quot;language-text&quot;&gt;api_response&lt;/code&gt; field):&lt;/p&gt;
+might look like this (the &lt;code&gt;api_response&lt;/code&gt; field):&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;schema &lt;span class=&quot;token string&quot;&gt;&quot;vehicle_photos&quot;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   field&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:file&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; PhotoUploader&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Type&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
   field&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:api_response&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token atom symbol&quot;&gt;:map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -3169,9 +3166,9 @@ PostgreSQL as JSON? We need to drop down into raw SQL:&lt;/p&gt;
     &quot;&quot;&quot;&lt;/span&gt;
   &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The SQL operator &lt;code class=&quot;language-text&quot;&gt;-&amp;gt;&amp;gt;&lt;/code&gt; will leverage &lt;a href=&quot;https://www.postgresql.org/docs/current/static/functions-json.html&quot;&gt;PostgreSQL’s JSON
+&lt;p&gt;The SQL operator &lt;code&gt;-&gt;&gt;&lt;/code&gt; will leverage &lt;a href=&quot;https://www.postgresql.org/docs/current/static/functions-json.html&quot;&gt;PostgreSQL’s JSON
 functions&lt;/a&gt; to retrieve the text or integers that are stored
-in the JSON. You can access them using this syntax: &lt;code class=&quot;language-text&quot;&gt;column-&amp;gt;&amp;gt;key&lt;/code&gt;. In
+in the JSON. You can access them using this syntax: &lt;code&gt;column-&gt;&gt;key&lt;/code&gt;. In
 my case, I needed to find if the column was null, or it wasn’t null,
 then to ask if the JSON object has any keys that are null.  This will
 work regardless of whether you use an embedded struct or a map, because
@@ -3193,8 +3190,8 @@ PostgreSQL sees it as the same thing: JSON.&lt;/p&gt;
 &lt;h2&gt;Make the Query Composable&lt;/h2&gt;
 &lt;p&gt;Above is all I needed for my use case, but I wondered how I could continue
 querying those fields in a reusable way. For example, how do I chain these
-together in an &lt;code class=&quot;language-text&quot;&gt;OR&lt;/code&gt; statement that uses both of these fragments?&lt;/p&gt;
-&lt;p&gt;To do that, I’ll need to extract the &lt;code class=&quot;language-text&quot;&gt;fragment&lt;/code&gt; expressions and put them
+together in an &lt;code&gt;OR&lt;/code&gt; statement that uses both of these fragments?&lt;/p&gt;
+&lt;p&gt;To do that, I’ll need to extract the &lt;code&gt;fragment&lt;/code&gt; expressions and put them
 into a macro so they can be used within Ecto’s functions.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyProject&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;SampleQuery&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Fragments &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; Ecto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Query&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;API&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;only:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;fragment:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
@@ -3272,11 +3269,9 @@ with user’s data to make it secure. How do we test this then?&lt;/p&gt;
 &lt;p&gt;There are two ways!&lt;/p&gt;
 &lt;h2&gt;Use regex to cover the static text and skip dynamic text.&lt;/h2&gt;
 &lt;p&gt;Here we are testing the behavior and static data, ignoring the dynamic
-data.  Bamboo provides &lt;code class=&quot;language-text&quot;&gt;assert_email_delivered_with()&lt;/code&gt; which accepts a
+data.  Bamboo provides &lt;code&gt;assert_email_delivered_with()&lt;/code&gt; which accepts a
 keyword list of parts of the email, and what those parts should match.
-We can match the email entirely by supplying a string like &lt;code class=&quot;language-text&quot;&gt;[subject:
-&amp;quot;Password reset link for MyApp&amp;quot;]&lt;/code&gt;, or we can supply a regex, &lt;code class=&quot;language-text&quot;&gt;[text:
-~r/reset_token=/)&lt;/code&gt;, and the assertion will check if the regex matches.&lt;/p&gt;
+We can match the email entirely by supplying a string like &lt;code&gt;[subject: &quot;Password reset link for MyApp&quot;]&lt;/code&gt;, or we can supply a regex, &lt;code&gt;[text: ~r/reset_token=/)&lt;/code&gt;, and the assertion will check if the regex matches.&lt;/p&gt;
 &lt;p&gt;Here’s a fuller integration test example:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;test &lt;span class=&quot;token string&quot;&gt;&quot;customers can request a password reset link&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token attr-name&quot;&gt;session:&lt;/span&gt; session&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   customer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; insert&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token atom symbol&quot;&gt;:customer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -3401,13 +3396,13 @@ things better and organize code.&lt;/p&gt;
 &lt;p&gt;A practical example: instead of your controller talking to the database, your
 controller will talk to the context, and the context will interface with
 necessary functions and schemas and modules to accomplish the task.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I did not use 1.3.0-rc3 which changes the &lt;code class=&quot;language-text&quot;&gt;Web&lt;/code&gt; namespace, so I will
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; I did not use 1.3.0-rc3 which changes the &lt;code&gt;Web&lt;/code&gt; namespace, so I will
 skip that part. I think that’s a good change, but I have no real experience with
 those tweaks yet.&lt;/p&gt;
 &lt;h2&gt;Lessons&lt;/h2&gt;
 &lt;p&gt;&lt;a name=&quot;dontgenerators&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;Don’t use the generators more than once&lt;/h3&gt;
-&lt;p&gt;With Phoenix 1.3, I only recommend using the &lt;code class=&quot;language-text&quot;&gt;phx&lt;/code&gt; generators ONCE in a
+&lt;p&gt;With Phoenix 1.3, I only recommend using the &lt;code&gt;phx&lt;/code&gt; generators ONCE in a
 greenfield project. After that, ditch them. Ditch them because once you’ve
 adjusted the code to your liking (and you’ll definitely need to edit the
 generated code), using the generators again may &lt;em&gt;&lt;strong&gt;inject&lt;/strong&gt;&lt;/em&gt; generated code into
@@ -3424,11 +3419,11 @@ scenarios. At first, I thought the generated fixture was a great idea.  I’m
 providing an interface for creating widgets, so I should use it in my tests,
 right?&lt;/p&gt;
 &lt;p&gt;Here’s the problem:&lt;/p&gt;
-&lt;p&gt;Imagine if someone introduced a bug in &lt;code class=&quot;language-text&quot;&gt;create_widget()&lt;/code&gt;— now all your tests
-that involve inserting a &lt;code class=&quot;language-text&quot;&gt;widget&lt;/code&gt; breaks. That’s unreasonable, because I’m not
+&lt;p&gt;Imagine if someone introduced a bug in &lt;code&gt;create_widget()&lt;/code&gt;— now all your tests
+that involve inserting a &lt;code&gt;widget&lt;/code&gt; breaks. That’s unreasonable, because I’m not
 testing &lt;em&gt;getting to that state&lt;/em&gt; most of the time, I’m testing the unit of
 functionality or integration between functions. Instead, I want the tests for
-&lt;code class=&quot;language-text&quot;&gt;create_widget()&lt;/code&gt; to fail (and any reliant integration tests), as opposed to
+&lt;code&gt;create_widget()&lt;/code&gt; to fail (and any reliant integration tests), as opposed to
 the &lt;strong&gt;WHOLE TEST SUITE&lt;/strong&gt; breaking and thus freaking me out. When the whole
 test suite breaks, it’s harder to discern where the problem is.&lt;/p&gt;
 &lt;/li&gt;
@@ -3439,12 +3434,12 @@ not a schema. As I kept building the application, it became evident that the
 context file and context test file were getting too large. I felt compelled to
 isolate and organize this big bag-o’-functions into smaller bags-o’-functions.
 I decided to start splitting the tests into different schema-related files,
-like &lt;code class=&quot;language-text&quot;&gt;{context}/{schema}_test.exs&lt;/code&gt;. Since I split the test files, it became
+like &lt;code&gt;{context}/{schema}_test.exs&lt;/code&gt;. Since I split the test files, it became
 clearer where I should place tests for custom changeset functions as well.&lt;/p&gt;
-&lt;p&gt;I also want to be more careful about how I use &lt;code class=&quot;language-text&quot;&gt;describe&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;test&lt;/code&gt; blocks,
-since ExUnit doesn’t support nested &lt;code class=&quot;language-text&quot;&gt;describe&lt;/code&gt; or context blocks.  The
+&lt;p&gt;I also want to be more careful about how I use &lt;code&gt;describe&lt;/code&gt; and &lt;code&gt;test&lt;/code&gt; blocks,
+since ExUnit doesn’t support nested &lt;code&gt;describe&lt;/code&gt; or context blocks.  The
 generated test names were also a bit long for my taste, so I moved the
-function name to the &lt;code class=&quot;language-text&quot;&gt;describe&lt;/code&gt; block, and then used the test title to
+function name to the &lt;code&gt;describe&lt;/code&gt; block, and then used the test title to
 describe the context and the expected result.&lt;/p&gt;
 &lt;p&gt;Lastly, the generated style was … different.&lt;/p&gt;
 &lt;ul&gt;
@@ -3529,8 +3524,8 @@ teaching tool for new developers than meant to be used in an ongoing fashion
 throughout a project’s lifetime. If you’ve formed your opinion, or your
 organization has a coding style within Phoenix, then you might appreciate
 knowing you can customize the templates that the generators will use. You can do
-this by copying them out of &lt;code class=&quot;language-text&quot;&gt;deps/phoenix/priv/templates&lt;/code&gt; and into your
-project’s &lt;code class=&quot;language-text&quot;&gt;priv/templates&lt;/code&gt; folder. That’s pretty awesome.&lt;/p&gt;
+this by copying them out of &lt;code&gt;deps/phoenix/priv/templates&lt;/code&gt; and into your
+project’s &lt;code&gt;priv/templates&lt;/code&gt; folder. That’s pretty awesome.&lt;/p&gt;
 &lt;p&gt;Recap: for new developers, Phoenix’s new generators are a great learning tool,
 but I don’t recommend using them after the first use.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;dothedomain&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -3550,12 +3545,12 @@ organize your code.&lt;/p&gt;
 &lt;li&gt;Admins&lt;/li&gt;
 &lt;li&gt;SalesAssociate&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;This roughly corresponds with a typical &lt;code class=&quot;language-text&quot;&gt;User&lt;/code&gt; schema that &lt;code class=&quot;language-text&quot;&gt;belongs_to&lt;/code&gt; a &lt;code class=&quot;language-text&quot;&gt;Role&lt;/code&gt;
-schema. I placed both schemas into a new context called &lt;code class=&quot;language-text&quot;&gt;Accounts&lt;/code&gt;, and all
+&lt;p&gt;This roughly corresponds with a typical &lt;code&gt;User&lt;/code&gt; schema that &lt;code&gt;belongs_to&lt;/code&gt; a &lt;code&gt;Role&lt;/code&gt;
+schema. I placed both schemas into a new context called &lt;code&gt;Accounts&lt;/code&gt;, and all
 user-related functions are in that context file. I hesitated with the domain
 vocabulary thinking that generic terms were going to be more flexible later.&lt;/p&gt;
 &lt;p&gt;As the project evolved, that decision turned out to be a mistake&lt;/p&gt;
-&lt;p&gt;Instead of something like this (using a generic term &lt;code class=&quot;language-text&quot;&gt;Accounts&lt;/code&gt; as the context):&lt;/p&gt;
+&lt;p&gt;Instead of something like this (using a generic term &lt;code&gt;Accounts&lt;/code&gt; as the context):&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyApp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Accounts &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;alias&lt;/span&gt; MyApp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Accounts&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;User
 
@@ -3636,8 +3631,8 @@ be more apparent having the separated context &lt;strong&gt;will&lt;/strong&gt; 
   &lt;span class=&quot;token comment&quot;&gt;# ...&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Above we’re adding another function that has different permissions regarding
-what the user may update on an event. The &lt;code class=&quot;language-text&quot;&gt;supervisor_changeset&lt;/code&gt; will cast all
-params, whereas the &lt;code class=&quot;language-text&quot;&gt;operator_changeset&lt;/code&gt; will cast only a subset of params. This
+what the user may update on an event. The &lt;code&gt;supervisor_changeset&lt;/code&gt; will cast all
+params, whereas the &lt;code&gt;operator_changeset&lt;/code&gt; will cast only a subset of params. This
 would also be reflected for preparing any forms in templates.&lt;/p&gt;
 &lt;p&gt;All the above &lt;em&gt;requires&lt;/em&gt; you to understand the vocabulary before building, which
 is the critique I usually hear about contexts: “It requires more up-front
@@ -3656,12 +3651,12 @@ point, I had several hundred lines in a context file; it was easy to let the
 context file grow. &lt;strong&gt;RESIST&lt;/strong&gt;. Use domain-related vocabulary to keep contexts
 small. I had to determine how to organize the code better.&lt;/p&gt;
 &lt;p&gt;A technique that helped keep contexts small was to limit them a set of action
-verbs, like &lt;code class=&quot;language-text&quot;&gt;list&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;prepare&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;create&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;update&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;delete&lt;/code&gt; (some semblance to
+verbs, like &lt;code&gt;list&lt;/code&gt; &lt;code&gt;prepare&lt;/code&gt; &lt;code&gt;create&lt;/code&gt; &lt;code&gt;update&lt;/code&gt; and &lt;code&gt;delete&lt;/code&gt; (some semblance to
 CRUD actions). Outside of those verbs, I put them into supporting modules. For
-example, &lt;code class=&quot;language-text&quot;&gt;def list&lt;/code&gt; actually hits the database and returns the list of things—
+example, &lt;code&gt;def list&lt;/code&gt; actually hits the database and returns the list of things—
 it did not return an Ecto query that I could further modify. I saved those
-query-building functions for a &lt;code class=&quot;language-text&quot;&gt;Context.Query&lt;/code&gt; module. This helped keep my
-&lt;code class=&quot;language-text&quot;&gt;list&lt;/code&gt; function simple, and helped me make composable queries.&lt;/p&gt;
+query-building functions for a &lt;code&gt;Context.Query&lt;/code&gt; module. This helped keep my
+&lt;code&gt;list&lt;/code&gt; function simple, and helped me make composable queries.&lt;/p&gt;
 &lt;p&gt;My controllers and other services then &lt;em&gt;only&lt;/em&gt; call functions in context modules.&lt;/p&gt;
 &lt;p&gt;For example:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;elixir&quot;&gt;&lt;pre class=&quot;language-elixir&quot;&gt;&lt;code class=&quot;language-elixir&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;defmodule&lt;/span&gt; MyApp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Operators &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
@@ -3735,7 +3730,7 @@ you’re not familiar with umbrellas, &lt;a href=&quot;https://elixir-lang.org/g
 it&lt;/a&gt;.
 What I love about umbrellas is that it allows me to draw boundaries between
 related applications. This is difficult to do in other frameworks and languages,
-so the fact that &lt;code class=&quot;language-text&quot;&gt;mix&lt;/code&gt; gives this tool for free is &lt;em&gt;incredible&lt;/em&gt;. Before I heard
+so the fact that &lt;code&gt;mix&lt;/code&gt; gives this tool for free is &lt;em&gt;incredible&lt;/em&gt;. Before I heard
 about Phoenix contexts, I was drawn to organize my application via umbrellas
 because I didn’t see other tools that made it easy.&lt;/p&gt;
 &lt;p&gt;Umbrellas, in a sense, help accomplish the same thing as contexts: it helps you
@@ -3800,7 +3795,7 @@ giving the developer some customization options.&lt;/p&gt;
 Phoenix tries to get the form errors closer to the input tags themselves, as
 opposed to Rails where error messages are typically flashed near the top of a
 page. Getting used to this difference is like putting my toothbrush on the other
-side of the sink, I tend to forget the &lt;code class=&quot;language-text&quot;&gt;error_tag&lt;/code&gt; when making a new form and
+side of the sink, I tend to forget the &lt;code&gt;error_tag&lt;/code&gt; when making a new form and
 wonder for about 5 minutes why my test can’t find the error text I’m expecting.
 Formulator saves me some keystrokes and keeps me from forgetting error tags.&lt;/p&gt;
 &lt;p&gt;We made Formulator because we realized we were repeating ourselves waaaay too
@@ -3871,7 +3866,7 @@ let us know what you think!&lt;/p&gt;</content:encoded></item><item><title><![CD
 &lt;h2&gt;When to refactor life&lt;/h2&gt;
 &lt;p&gt;You’ll know. It’s when you determine if you’re unhappy or depressed. Pretty simple. No long section here.&lt;/p&gt;
 &lt;h2&gt;How I did it&lt;/h2&gt;
-&lt;p&gt;Refactor sometimes means &lt;code class=&quot;language-text&quot;&gt;.strip&lt;/code&gt;. Sometimes it means &lt;code class=&quot;language-text&quot;&gt;.sort&lt;/code&gt; or even &lt;code class=&quot;language-text&quot;&gt;.sort!&lt;/code&gt;, or &lt;code class=&quot;language-text&quot;&gt;.order&lt;/code&gt;-ing your priorities according to their &lt;code class=&quot;language-text&quot;&gt;:worth&lt;/code&gt; so you can make &lt;code class=&quot;language-text&quot;&gt;self.satisfied?&lt;/code&gt; true.&lt;/p&gt;
+&lt;p&gt;Refactor sometimes means &lt;code&gt;.strip&lt;/code&gt;. Sometimes it means &lt;code&gt;.sort&lt;/code&gt; or even &lt;code&gt;.sort!&lt;/code&gt;, or &lt;code&gt;.order&lt;/code&gt;-ing your priorities according to their &lt;code&gt;:worth&lt;/code&gt; so you can make &lt;code&gt;self.satisfied?&lt;/code&gt; true.&lt;/p&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 320px;&quot;
@@ -3909,7 +3904,7 @@ let us know what you think!&lt;/p&gt;</content:encoded></item><item><title><![CD
 &lt;p&gt;Out of these experiences, you’ll naturally have to refactor. Moving and going to school is obvious. The others are just risking your “perfect image” you’ve crafted. Believe me, it’s worth breaking that mirror. There is no perfection of self. &lt;a href=&quot;http://www.esvbible.org/Ecclesiastes+1/&quot;&gt;Don’t chase after the wind&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Be careful about talking about your bright moments to someone who’s depressed; this may not have the result you’re hoping. Depression is a maze of confusion.&lt;/p&gt;
 &lt;h3&gt;Trim&lt;/h3&gt;
-&lt;p&gt;Once you’ve faithfully leaped toward experiences, you’ll have a better idea of what wasn’t helping. This is your moment to take another leap of faith and &lt;code class=&quot;language-text&quot;&gt;self.strip!&lt;/code&gt; out some of the things that weren’t helping.&lt;/p&gt;
+&lt;p&gt;Once you’ve faithfully leaped toward experiences, you’ll have a better idea of what wasn’t helping. This is your moment to take another leap of faith and &lt;code&gt;self.strip!&lt;/code&gt; out some of the things that weren’t helping.&lt;/p&gt;
 &lt;p&gt;You know another big thing I trimmed? My beard.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/a1e2db0990f168b8ad402e6673c5625d/cutitout.gif&quot; alt=&quot;Cut it out&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Don’t just keep reflecting on your experiences. Take action on those and keep doing the things you enjoy, and stop doing the things that are not enjoyable (except for adulting; unfortunately that is the curse of adulthood).&lt;/p&gt;
@@ -4015,12 +4010,12 @@ SetFile -a V ~/Desktop/Syncing/$&lt;span class=&quot;token string&quot;&gt;&apos
 &lt;p&gt;There’s a good amount of logic in there, so let’s go through it.&lt;/p&gt;
 &lt;p&gt;I don’t like hardcoding stuff I have to say over and over, so I start by naming the variables in case I need to reuse this code later. The variables are&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;My external hard drive, put into &lt;code class=&quot;language-text&quot;&gt;$local&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;My network NAS drive, put into &lt;code class=&quot;language-text&quot;&gt;$remote&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;My rsync limiter, put into &lt;code class=&quot;language-text&quot;&gt;$maxthreads&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;How long I want rsync to wait before trying to launch another thread, put into &lt;code class=&quot;language-text&quot;&gt;$sleeptime&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Where I want the double-purposed folder, 1) to ensure I only have one of these scripts running at a time, and 2) visually tell me when the script is running; this is put into &lt;code class=&quot;language-text&quot;&gt;$LOCK&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Lastly, so I can debug if needed, I log all the actions into a text file, put into &lt;code class=&quot;language-text&quot;&gt;$logging&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;My external hard drive, put into &lt;code&gt;$local&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;My network NAS drive, put into &lt;code&gt;$remote&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;My rsync limiter, put into &lt;code&gt;$maxthreads&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;How long I want rsync to wait before trying to launch another thread, put into &lt;code&gt;$sleeptime&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Where I want the double-purposed folder, 1) to ensure I only have one of these scripts running at a time, and 2) visually tell me when the script is running; this is put into &lt;code&gt;$LOCK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Lastly, so I can debug if needed, I log all the actions into a text file, put into &lt;code&gt;$logging&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;So now that I have everything named. Now it’s time for some real logic.&lt;/p&gt;
 &lt;p&gt;I start out by checking whether my script is already running. I check by attempting to create a folder. If the folder is already created, it’ll fail, and then exit the script. Pretty simple. I can’t tell you the specifics, but creating a folder is a great way of setting up a lock without conflicts, from what I’ve read online. In my script, I also used the folder as a status to inform me when the script is running. I also thought about creating a simple menubar app that’ll show a spinning gear, but I don’t really feel like overengineering this.&lt;/p&gt;
@@ -4028,7 +4023,7 @@ SetFile -a V ~/Desktop/Syncing/$&lt;span class=&quot;token string&quot;&gt;&apos
 &lt;p&gt;Next, I go through the folders in the root of the external drive. I want to be somewhat recursive, so I do a for loop over the root folders on the drive, and start an rsync on each folder. For that to work, I need to make sure the destination folder is created, preferably with the same permissions.&lt;/p&gt;
 &lt;p&gt;If you have one root folder with a bunch of subfolders (for example a Music folder with a bunch of Artist subfolders), then it might be good for you to start your loop there so this is a more-effective script.&lt;/p&gt;
 &lt;p&gt;Inside every folder, I start an rsync thread distributed among the folders. However, I don’t want to stress my computer out with a thousand rsync threads, so before I start a new thread, I check to see how many there are and possibly limit it (for me, I arbitrarily chose a 20 thread cap). I determine this by counting how many rsync processes there are, so I execute ps, pipe it to grep to grab what I need. the grep -c flag counts them. Then, I compare it to my previously-defined cap. If it’s at the limit, then I put it in a while loop that sleeps until the thread count is back down.&lt;/p&gt;
-&lt;p&gt;If you’re familiar with command line operations, then you should read up on the rsync manual (run “man rsync” in the terminal). There’s a lot of nifty things you can do with this, for example, you can backup over SSH or SFTP. I opted for the flags -a (archive, aka carry over all the permissions and recurse any subdirectories), -v (be verbose, I want this so I can catch everything it’s doing and redirect that to my log file in &lt;code class=&quot;language-text&quot;&gt;$logging&lt;/code&gt;), and -h (output human-readable stuff, so I don’t have to count the zeros in all the file sizes).&lt;/p&gt;
+&lt;p&gt;If you’re familiar with command line operations, then you should read up on the rsync manual (run “man rsync” in the terminal). There’s a lot of nifty things you can do with this, for example, you can backup over SSH or SFTP. I opted for the flags -a (archive, aka carry over all the permissions and recurse any subdirectories), -v (be verbose, I want this so I can catch everything it’s doing and redirect that to my log file in &lt;code&gt;$logging&lt;/code&gt;), and -h (output human-readable stuff, so I don’t have to count the zeros in all the file sizes).&lt;/p&gt;
 &lt;p&gt;Lastly (as far as the script goes), I want to make sure that whenever my script exits, be it because of an error or anything else, I want my lock/status folder is removed. To accomplish this, I just trapped any kind of exit by executing a small function that removes the lock folder. I put it near the top since it needs to be defined before it could be used. Sometimes I forget that you can create functions in BASH.&lt;/p&gt;
 &lt;p&gt;This can be optimized more, but this is where I’m finished since it achieves my goal of lazily backing up my external hard drive. If you have ideas, drop them in the comments or link out to your explanation!&lt;/p&gt;
 &lt;h2&gt;Launching it when I need to.&lt;/h2&gt;
@@ -4051,13 +4046,13 @@ SetFile -a V ~/Desktop/Syncing/$&lt;span class=&quot;token string&quot;&gt;&apos
 &lt;p&gt;First, grab an icon you want. I supplied one already, but you might have a different preference. I found mine by googling, and you might find it helpful to google with “filetype:png” so you find an icon with transparency. Then go to &lt;a href=&quot;http://iconverticons.com/online/&quot;&gt;http://iconverticons.com/online/&lt;/a&gt; and convert it to Mac-compatible .icns.&lt;/p&gt;
 &lt;p&gt;Second, create a new temporary folder. We’re going to apply this icon to it so we can grab a file we need from it once it’s set. Then, right-click the folder, and drag-and-drop the .icns file to the Icon in the top left.&lt;/p&gt;
 &lt;p&gt;Third, run a command-line tool against the folder.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;DeRez -only icns path/to/tempfolder/$&amp;#39;Icon\r&amp;#39; &amp;gt; backup.rsrc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DeRez -only icns path/to/tempfolder/$&apos;Icon\r&apos; &gt; backup.rsrc&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;This will give you what you need in order to set the lock folder icon. Store this file somewhere you don’t look often (I stored mine next to the backup script in my home folder). You can delete the temporary folder now and the original image you downloaded.&lt;/p&gt;
 &lt;p&gt;Fourth, modify the backup script to apply the icon.&lt;/p&gt;
 &lt;p&gt;After the line where we make the lock folder, run a Rez command and a couple SetFile commands.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;Rez -append ~/backup.rsrc -o ~/Desktop/Syncing/$&amp;#39;Icon\r&amp;#39; # set the icon to lock folder&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;SetFile -a C ~/Desktop/Syncing # initiate the icon&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;SetFile -a V ~/Desktop/Syncing/$&amp;#39;Icon\r&amp;#39; # hide the icon file&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Rez -append ~/backup.rsrc -o ~/Desktop/Syncing/$&apos;Icon\r&apos; # set the icon to lock folder&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SetFile -a C ~/Desktop/Syncing # initiate the icon&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SetFile -a V ~/Desktop/Syncing/$&apos;Icon\r&apos; # hide the icon file&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;The first command adds the icon to the lock directory.&lt;/p&gt;
 &lt;p&gt;The second command sets the folder attributes, which allows Finder to appreciate your new icon (otherwise, it won’t recognize that cool icon you added)&lt;/p&gt;
 &lt;p&gt;The third command sets the folder to invisible. This is totally optional, but if you ever double-click the “Syncing” folder you’ll find the icon resource, and that just seems ugly to me—so let’s hide it.&lt;/p&gt;
