@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "elixir-ls": "elixir-lsp/vscode-elixir-ls",
     "gatsby": "^2.0.0",
     "gatsby-image": "^2.0.0",
     "gatsby-plugin-feed": "^2.0.0",
@@ -30,19 +31,20 @@
     "gatsby-remark-audio": "^1.0.2",
     "gatsby-remark-copy-linked-files": "^2.0.0",
     "gatsby-remark-images": "^3.0.0",
-    "gatsby-remark-prismjs": "^3.0.0",
     "gatsby-remark-responsive-iframe": "^2.0.0",
     "gatsby-remark-smartypants": "^2.0.0",
     "gatsby-remark-video": "^1.2.5",
+    "gatsby-remark-vscode": "^3.0.1",
     "gatsby-source-filesystem": "^2.0.0",
     "gatsby-transformer-remark": "^2.0.0",
     "gatsby-transformer-sharp": "^2.0.0",
     "lodash": "^4.17.10",
-    "prism-themes": "^1.4.0",
-    "prismjs": "^1.15.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "theme-monokai-phoenix": "zigagrcar/vscode-monokai-phoenix",
+    "vim": "VSCodeVim/Vim",
+    "vscode-theme-onelight": "akamud/vscode-theme-onelight"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.3",

@@ -2,9 +2,7 @@ import React from 'react'
 import Nav from './nav'
 
 import '../css/index.css'
-
-import 'prism-themes/themes/prism-ghcolors.css'
-// import 'prism-themes/themes/prism-xonokai.css'
+import 'gatsby-remark-vscode/styles.css';
 
 class Template extends React.Component {
   render() {

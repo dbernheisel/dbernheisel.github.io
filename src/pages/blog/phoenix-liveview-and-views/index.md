@@ -489,7 +489,7 @@ defmodule MyAppWeb.MyView do
   def my_helper("vanilla"), do: "whoops no this is actually live"
 end
 ```
-```html
+```eex
 <!-- lib/my_app_web/templates/my/my_live.html.leex -->
 <p>Yo! I'm rendered from a <%= my_helper("vanilla") %> view</p>
 <!-- this renders "whoops no this is actually live" instead of "vanilla" -->
@@ -518,7 +518,7 @@ defmodule MyAppWeb.MyView do
   def my_helper("vanilla"), do: "whoops no this is actually live"
 end
 ```
-```html
+```eex
 <!-- lib/my_app_web/live/my_live.html.leex -->
 <p>Yo! I'm rendered from a <%= my_helper("vanilla") %> view</p>
 <!-- this renders "whoops no this is actually live" instead of "vanilla" -->

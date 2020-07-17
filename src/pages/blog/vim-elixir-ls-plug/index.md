@@ -183,7 +183,7 @@ The `join([...], ' ')` is only a way to organize the commands in a visual way.
 It's not necessary; you can totally just concat some strings together. The end
 result of this join is:
 
-```shell-session
+```sh
 $ asdf install && mix do local.hex --force --if-missing, local.rebar --force, deps.get, compile, elixir_ls.release
 ```
 

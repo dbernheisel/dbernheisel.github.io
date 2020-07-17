@@ -46,7 +46,7 @@ form sends the entire form values.
 
 The EEX was something like this:
 
-```erb
+```eex
 <div class="container">
   <%= f = form_for(@changeset, phx_validate: :validate, phx_save: :save %>
 
@@ -97,7 +97,7 @@ with the user's detected timezone (this will later be improved to allow them to
 select a timezone and prefer a user's set timezone while registering). Something
 like this:
 
-```erb
+```eex
 <%= date_select f, :date %>
 <%= time_input f, :start_time %>
 <%= time_input f, :end_time %>
@@ -235,7 +235,7 @@ This has some benefits:
 
 The multi-step form now looks like this:
 
-```erb
+```eex
 <div class="container">
   <div class="<%= unless @progress.name == "who", do: "hidden" %>">
     <%= live_component @socket, WhoComponent,
@@ -460,7 +460,7 @@ hooks.UserTimeZone = {
 }
 ```
 
-```erb
+```eex
 <%# Timezone in the WhenComponent form %>
 <div phx-hook="UserTimeZone" data-phoenix-target="#<%= @id %>" id="user-time-zone">
   <div phx-update="ignore">
@@ -559,7 +559,7 @@ end
 Remember, we're in a LiveComponent so we want to target the changes to itself
 and not the parent LiveView. This is accomplished with `phx-target` on the form.
 
-```erb
+```eex
 <%= f = form_for @when_changeset, "#",
   phx_change: :validate,
   phx_target: "##{@id}",
@@ -693,7 +693,7 @@ defmodule MyAppWeb.EventLive.New do
 end
 ```
 
-```erb
+```eex
 <%= MyAppWeb.Components.secondary_button(t("Back"), phx_click: "prev-step") %>
 <%= MyAppWeb.Components.primary_button(t("Next"), phx_disable_with: "...", submit: true) %>
 ```

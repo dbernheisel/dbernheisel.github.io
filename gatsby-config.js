@@ -45,6 +45,24 @@ module.exports = {
         "excerpt_separator": '<!-- excerpt -->',
         plugins: [
           {
+            resolve: 'gatsby-remark-vscode',
+            options: {
+              theme: {
+                default: 'Atom One Light',
+                dark: 'Monokai Phoenix'
+              },
+              languageAliases: {
+                vim: 'vimrc'
+              },
+              extensions: [
+                'elixir-ls',
+                'vim',
+                'vscode-theme-onelight',
+                'theme-monokai-phoenix'
+              ]
+            }
+          },
+          {
             resolve: 'gatsby-remark-audio',
             options: {
               preload: 'auto',
@@ -78,10 +96,6 @@ module.exports = {
             options: {
               wrapperStyle: 'margin-bottom: 1.0725rem',
             },
-          },
-          {
-            resolve: 'gatsby-remark-prismjs',
-            options: { noInlineHighlight: true }
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',

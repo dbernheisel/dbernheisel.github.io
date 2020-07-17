@@ -210,7 +210,7 @@ One of those extensions is [pgcrypto] which supplies a function
 
 Let's create a migration to have Postgres enable the extension.
 
-```shell-session
+```sh
 $ mix ecto.gen.migration add_pgcrypto
 ```
 
