@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 17 Jul 2020 17:37:13 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[David Bernheisel's Blog RSS Feed]]></title><description><![CDATA[A blog about development]]></description><link>https://www.bernheisel.com</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 20 Jul 2020 20:34:20 GMT</lastBuildDate><item><title><![CDATA[Phoenix LiveView and Views]]></title><description><![CDATA[I’ve written a couple LiveView applications now, Elixir Regex Tester A request logger, much like Phoenix Live Dashboard’s An internal…]]></description><link>https://www.bernheisel.com/blog/phoenix-liveview-and-views/</link><guid isPermaLink="false">https://www.bernheisel.com/blog/phoenix-liveview-and-views/</guid><pubDate>Mon, 29 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;I’ve written a couple LiveView applications now,&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;https://elixir-utilities.herokuapp.com&quot;&gt;Elixir Regex Tester&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;A request logger, much like &lt;a href=&quot;https://github.com/phoenixframework/phoenix_live_dashboard&quot;&gt;Phoenix Live Dashboard&lt;/a&gt;’s&lt;/li&gt;
@@ -14,13 +14,13 @@ help you decide which strategy to use.&lt;/p&gt;
 &lt;p&gt;All of these strategies work, this is purely about opinionated code organizing,
 &lt;em&gt;but who doesn’t love reading opinions&lt;/em&gt;? Plus we’ll learn how the views are
 rendered.&lt;/p&gt;
-&lt;h2&gt;TLDR&lt;/h2&gt;
+&lt;p&gt;This is written while using Phoenix LiveView 0.13.3.&lt;/p&gt;
+&lt;h2&gt;TL;DR&lt;/h2&gt;
 &lt;p&gt;Glossary of examples:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;MyLive&lt;/code&gt; = The LiveView module&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;MyView&lt;/code&gt; = The standard Phoenix View module, not a LiveView.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;my_live.html.leex&lt;/code&gt; = The template rendered by &lt;code&gt;MyLive&lt;/code&gt; or &lt;code&gt;MyView&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;This is written in context of Phoenix LiveView 0.13.3&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;If you have a simple LiveView&lt;/strong&gt;, then you can implement &lt;code&gt;render(assigns)&lt;/code&gt;
 and inline your html with the &lt;code&gt;~L&lt;/code&gt; sigil. No &lt;code&gt;my_live.html.leex&lt;/code&gt; file needed.&lt;/p&gt;
@@ -39,10 +39,10 @@ separate from business logic in the LiveView:&lt;/p&gt;
 still work; just remember to keep the html file named with an &lt;code&gt;.html.leex&lt;/code&gt;
 extension so the LiveView rendering engine kicks in.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Remember that you can create shared Views&lt;/strong&gt;. Alternatively to above, if your
-helpers are used across multiple views and generic, you can create a plain
+&lt;p&gt;&lt;strong&gt;Remember that you can create shared Views&lt;/strong&gt;. Alternatively, if your
+helpers are used across multiple views and are generic, you can create a plain
 module that encapsulates your HTML helpers. I usually call mine &lt;code&gt;ComponentView&lt;/code&gt;
-and use it inside my any of my templates, for example:
+and use it inside any of my templates, for example:
 &lt;code&gt;Component.primary_button(&quot;My Link&quot;, to: &quot;yadayada&quot;)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you want to use a regular View, but co-locate the template to the LiveView module&lt;/strong&gt;,
 as in you don’t want to go back to the vanilla Phoenix file structure but still
@@ -119,8 +119,8 @@ correct; the real &lt;strong&gt;end of the line is the controller&lt;/strong&gt;
 the view module to evaluate the HTML and puts the result into the Plug.Conn’s
 &lt;code&gt;resp_body&lt;/code&gt;. The controller terminates the flow and the
 once-a-request-and-now-a-response &lt;code&gt;Plug.Conn&lt;/code&gt; is returned to the to the
-underlying web server, which is probably cowboy, which delivers the payload to
-the end-user through the HTTP connection.&lt;/p&gt;
+underlying web server, which delivers the payload to the end-user through the
+HTTP connection.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;default-liveview&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Default Phoenix LiveView without &lt;code&gt;render/1&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;We’re here to learn about LiveView though, so let’s see an example of a LiveView
@@ -144,8 +144,8 @@ Here’s a secret: &lt;strong&gt;a LiveView is also an ordinary controller&lt;/s
 firstly handled like an ordinary web request; one with a Plug.Conn and a full
 HTML response back to the user. The LiveView spices are garnished &lt;em&gt;after&lt;/em&gt; the
 HTML is delivered to the user and a new websocket is initiated to the server to
-manage updates to it.&lt;/p&gt;
-&lt;p&gt;Or, as said in the LiveView docs:&lt;/p&gt;
+the page updates to the page.&lt;/p&gt;
+&lt;p&gt;As said in the LiveView docs:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A LiveView begins as a regular HTTP request and HTML response,
 and then upgrades to a stateful view on client connect,
@@ -182,7 +182,8 @@ calls the &lt;code&gt;Phoenix.LiveView.Plug&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;— you&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Ah, but it is! A Phoenix Controller, even the ones you make, are indeed all just
-plugs underneath. &lt;strong&gt;All Phoenix controllers are plugs&lt;/strong&gt;.&lt;/p&gt;
+plugs underneath. &lt;a href=&quot;https://hexdocs.pm/phoenix/plug.html&quot;&gt;&lt;strong&gt;All Phoenix controllers are
+plugs&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;pluggy-controllers&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Pluggy Controllers&lt;/h2&gt;
 &lt;p&gt;When your controllers call &lt;code&gt;use MyAppWeb, :controller&lt;/code&gt;, it’s &lt;em&gt;injecting code&lt;/em&gt;
@@ -191,8 +192,6 @@ into your controller at compile-time. Let’s explore how that works.&lt;/p&gt;
 compile-time, and that resulting code is put into the module that called it.
 Knowing that, let’s follow the &lt;code&gt;use&lt;/code&gt; trail.&lt;/p&gt;
 &lt;p&gt;Starting at the top in our own code:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Warning: we’re going to look at macros now. The rules of which you thought
-Elixir was governed-by, ie, immutability, may not be in effect&lt;/strong&gt;&lt;/p&gt;
 &lt;pre class=&quot;grvsc-container atom-one-light grvsc-mm-t88nfI&quot; data-language=&quot;elixir&quot; data-index=&quot;7&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-7 grvsc-t5WxC3-i grvsc-t88nfI-3&quot;&gt;######################################&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-7 grvsc-t5WxC3-i grvsc-t88nfI-3&quot;&gt;### Inside MyAppWeb.PageController ###&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-7 grvsc-t5WxC3-i grvsc-t88nfI-3&quot;&gt;######################################&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
@@ -287,8 +286,9 @@ Elixir was governed-by, ie, immutability, may not be in effect&lt;/strong&gt;&lt
 &lt;p&gt;Wow! Wild. All this means our slim controllers actually have a lot more code in
 it than it appears, and that’s ok because it makes working in Phoenix much more
 convenient.&lt;/p&gt;
-&lt;p&gt;All plugs must implement &lt;code&gt;call/2&lt;/code&gt; which accepts a conn and returns a conn. In
-our case, we’re looking for a conn that has some rendered HTML.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://hexdocs.pm/plug/Plug.html&quot;&gt;All plugs must implement &lt;code&gt;call/2&lt;/code&gt; which accepts a conn and returns a
+conn&lt;/a&gt;. In our case, we’re looking for a conn
+that has some rendered HTML.&lt;/p&gt;
 &lt;p&gt;&lt;a name=&quot;liveview-default-2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;Back to Default Phoenix LiveView without &lt;code&gt;render/1&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;Now that we know that LiveViews are a &lt;code&gt;GET&lt;/code&gt; request using a standard
@@ -311,12 +311,12 @@ still looking for how a LiveView gets to the template.&lt;/p&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-6 grvsc-t88nfI-7&quot;&gt;|&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; view.render()  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-7 grvsc-t5WxC3-i grvsc-t88nfI-3&quot;&gt;#&amp;lt;-- here here here!&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Cool; this isn’t anything new so far. This is just confirming that Phoenix
-LiveView starts off as a regular HTTP request with a full HTML response. &lt;em&gt;how
+LiveView starts off as a regular HTTP request with a full HTML response. &lt;em&gt;How
 does it render?&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;We see that it’s calling &lt;code&gt;view.render()&lt;/code&gt; where &lt;code&gt;view&lt;/code&gt; is our own LiveView, but
 we didn’t define &lt;code&gt;render/1&lt;/code&gt; yet! Where’s it coming from?&lt;/p&gt;
 &lt;p&gt;When we called &lt;code&gt;use MyAppWeb, :live_view&lt;/code&gt; it kicked off a series of &lt;code&gt;__using__&lt;/code&gt;,
-which includes &lt;code&gt;use Phoenix.LiveView&lt;/code&gt;. In &lt;code&gt;Phoenix.LiveView&lt;/code&gt;, it’s including a
+which includes &lt;code&gt;use Phoenix.LiveView&lt;/code&gt;. Inside &lt;code&gt;Phoenix.LiveView&lt;/code&gt; it included a
 &lt;code&gt;@before_compile Phoenix.LiveView.Renderer&lt;/code&gt; hook. Let’s check that out.&lt;/p&gt;
 &lt;pre class=&quot;grvsc-container atom-one-light grvsc-mm-t88nfI&quot; data-language=&quot;elixir&quot; data-index=&quot;9&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;render? &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-6 grvsc-t88nfI-7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;.defines?(env.module, {&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-8 grvsc-t88nfI-4&quot;&gt;:render&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-9 grvsc-t88nfI-4&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;})&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;root &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-6 grvsc-t88nfI-7&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;Path&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;.dirname(env.file)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
@@ -357,6 +357,7 @@ clear how to do that&lt;/a&gt;.&lt;/p&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;    {&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-8 grvsc-t88nfI-4&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;, socket}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;@impl&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;Phoenix&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;LiveView&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-9 grvsc-t88nfI-5&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-6 grvsc-t5WxC3-i grvsc-t88nfI-1&quot;&gt;assigns&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;do&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-10 grvsc-t88nfI-6&quot;&gt;~L&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;    &amp;lt;&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-7&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;&amp;gt;Yo! I&amp;#39;m rendered from a &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-15 grvsc-t88nfI-1&quot;&gt;&amp;lt;%=&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; my_helper(&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-10 grvsc-t88nfI-6&quot;&gt;&amp;quot;vanilla&amp;quot;&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-15 grvsc-t88nfI-1&quot;&gt;%&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; view&amp;lt;/&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-7&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
@@ -386,6 +387,7 @@ its own file.&lt;/p&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;    {&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-8 grvsc-t88nfI-4&quot;&gt;:ok&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;, socket}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;@impl&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;Phoenix&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;LiveView&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-9 grvsc-t88nfI-5&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-6 grvsc-t5WxC3-i grvsc-t88nfI-1&quot;&gt;assigns&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;do&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;MyAppWeb&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-5 grvsc-t88nfI-1&quot;&gt;MyView&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;.render(&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-10 grvsc-t88nfI-6&quot;&gt;&amp;quot;my_live.html&amp;quot;&lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;, assigns)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-source&quot;&gt;&lt;span class=&quot;grvsc-t5WxC3-1 grvsc-t88nfI-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-t5WxC3-14 grvsc-t88nfI-7&quot;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
@@ -465,6 +467,8 @@ strategy is very similar to LiveViews though, and most of this applies to them
 as well.&lt;/p&gt;
 &lt;p&gt;Hope these tips help you out! If you have any more tips, tweet at me
 &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thank you &lt;a href=&quot;https://zachporter.dev/&quot;&gt;zporter&lt;/a&gt; for helping me with the post by
+proof-reading!&lt;/p&gt;
 &lt;style class=&quot;grvsc-styles&quot;&gt;
   .grvsc-container {
     overflow: auto;
@@ -925,7 +929,7 @@ changeset with the fields from the record.&lt;/li&gt;
 &lt;li&gt;When handling validation events, we’re going to throw the params into the
 changeset and assign the new changeset back.&lt;/li&gt;
 &lt;li&gt;The computed values will be updated from the changeset and/or pulled out of
-the chnageset and assigned into the socket.&lt;/li&gt;
+the changeset and assigned into the socket.&lt;/li&gt;
 &lt;li&gt;When handling the save event, we’re going to ensure the changeset is valid,
 and if so, tell the parent LiveView that we’re good to proceed. We’ll send
 the struct up to the parent LiveView. This struct will contain the computed
@@ -1295,6 +1299,14 @@ first step! (otherwise you’ll mistakenly try to save).&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;I hope this helps you out in your endeavors to tackle long and complicated
 forms. Tweet me &lt;a href=&quot;https://twitter.com/bernheisel&quot;&gt;@bernheisel&lt;/a&gt; if you have suggestions or enjoyed this post!&lt;/p&gt;
+&lt;h2&gt;Update&lt;/h2&gt;
+&lt;p&gt;You might want to persist a draft record in-between steps. This is a great idea!
+If you do this, then you can leverage LiveView’s &lt;code&gt;handle_params&lt;/code&gt; to navigate to
+the appropriate step depending on the draft’s progress.&lt;/p&gt;
+&lt;p&gt;Also, some of my code examples aren’t very good for managing existing resources.
+Keep that in mind when developing your own multi-step form. This was written for
+the context of &lt;em&gt;creating a new event&lt;/em&gt;, and not editing an existing event.
+Subscribe to my RSS feed to check for a new post that revisits this problem.&lt;/p&gt;
 &lt;style class=&quot;grvsc-styles&quot;&gt;
   .grvsc-container {
     overflow: auto;
