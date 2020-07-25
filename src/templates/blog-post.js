@@ -51,7 +51,7 @@ class BlogPostTemplate extends React.Component {
         />
 
         <article className="blog-post">
-          <h1 className="post-content text-3xl">{post.frontmatter.title}</h1>
+          <h1 className="post-content font-extrabold text-4xl">{post.frontmatter.title}</h1>
           <p className="mt-2 mb-4 text-sm frontmatter">
             <span>
               Published on {post.frontmatter.date}
@@ -69,7 +69,7 @@ class BlogPostTemplate extends React.Component {
               </span>
             )}
           </p>
-          <div className="post-content"
+          <div className="post-content dark:prose-dark prose lg:prose-xl"
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </article>

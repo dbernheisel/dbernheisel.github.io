@@ -3,6 +3,15 @@
     @apply bg-gray-900 text-gray-300;
   }
 
+  .prose strong {
+    @apply text-gray-100 !important;
+  }
+
+  h1.post-header::before,
+  h1.post-content::before {
+    @apply text-gray-700;
+  }
+
   .navbar {
     @apply bg-white bg-opacity-25;
   }
@@ -26,19 +35,19 @@
     @apply bg-gray-500 border-gray-400;
   }
 
-  .post-content a {
+  .prose a {
     @apply text-red-200;
   }
 
-  .post-content a:focus {
+  .prose a:focus {
     @apply text-red-200;
   }
 
-  .post-content a:visited {
+  .prose a:visited {
     @apply text-purple-200;
   }
 
-  .post-content a:hover {
+  .prose a:hover {
     @apply text-red-200;
   }
 
@@ -49,6 +58,7 @@
   .link:visited {
     @apply text-purple-200;
   }
+
   .link:hover {
     @apply text-red-200 border-teal-500;
   }

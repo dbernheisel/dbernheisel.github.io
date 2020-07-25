@@ -47,16 +47,23 @@ module.exports = {
           {
             resolve: 'gatsby-remark-vscode',
             options: {
+              inlineCode: {
+                marker: '•',
+                theme: {
+                  default: 'Atom One Light',
+                  dark: 'Monokai Phoenix'
+                }
+              },
               theme: {
                 default: 'Atom One Light',
                 dark: 'Monokai Phoenix'
               },
               languageAliases: {
-                vim: 'vimrc'
+                vim: 'viml'
               },
               extensions: [
                 'elixir-ls',
-                'vim',
+                'viml',
                 'vscode-theme-onelight',
                 'theme-monokai-phoenix'
               ]

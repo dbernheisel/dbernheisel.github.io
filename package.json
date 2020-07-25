@@ -16,6 +16,7 @@
     "deploy": "yarn run build && gh-pages -b master -d public"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.2.0",
     "classnames": "^2.2.6",
     "elixir-ls": "elixir-lsp/vscode-elixir-ls",
     "gatsby": "^2.0.0",
@@ -43,7 +44,7 @@
     "react-dom": "^16.4.2",
     "react-helmet": "^5.2.0",
     "theme-monokai-phoenix": "zigagrcar/vscode-monokai-phoenix",
-    "vim": "VSCodeVim/Vim",
+    "viml": "XadillaX/vscode-language-viml",
     "vscode-theme-onelight": "akamud/vscode-theme-onelight"
   },
   "devDependencies": {
@@ -57,7 +58,7 @@
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.0",
-    "tailwindcss": "^1.0.0"
+    "tailwindcss": "^1.5.1"
   },
   "homepage": "https://github.com/dbernheisel/dbernheisel.github.io",
   "keywords": [

@@ -21,7 +21,7 @@ little different from his:
 
 ## The Proof
 
-Here's [ElixirLS] in action inside vim with [nvim.coc]:
+Here's [ElixirLS] in action inside vim with [coc.nvim]:
 
 ![ElixirLS in action](./elixir-ls-in-action.gif)
 
@@ -134,7 +134,7 @@ To learn more about the vim lambda, check out `:h expr-lambda`. We're going to
 look at the `ElixirLS.compile()` function later.
 
 The coc.nvim setup is straight from their readme. I'm also adding some
-extensions that nvim.coc will install on its own after startup. In this case I
+extensions that coc.nvim will install on its own after startup. In this case I
 want [coc-elixir] and [coc-diagnostic].
 
 coc-elixir provides coc.nvim the settings to know how to work with Elixir
@@ -302,13 +302,13 @@ endfunction
 (check out `:h self`). Before we started the job, we initialized the dictionary
 to have an `output` key that had a list with one empty string `['']`. We're
 going to use this list and append all the incoming output into it. At the very
-end, `self.output` have something like `['hey', 'hi\nthere', "I'm d', 'one
+end, `self.output` have something like `vim•['hey', 'hi\nthere', "I'm d", 'one
 now']`. Since the data isn't necessarily split at newlines, we're going to
 combine the last stored output's with the first incoming element, and then add
 the rest of the incoming data to the stored output.
 
-`let self.output[-1] .= a:data[0]`. Take the last stored element and concat the
-first incoming data's element, and then assign it back to `self.output[-1]`.
+`vim•let self.output[-1] .= a:data[0]`. Take the last stored element and concat the
+first incoming data's element, and then assign it back to `vim•self.output[-1]`.
 Then add the two lists together. `extend()` will mutate the first element.
 
 Since we want to treat `stderr` and `stdout` as the same kind of output, we're
@@ -341,7 +341,7 @@ itself, ensuring it's running on the best version of Elixir for itself,
 everything's updated, downloaded, and recompiled without issue. I can also run
 `ElixirLS.compile()` at any time if I suspect I need to update ElixirLS.
 
-With nvim.coc I can also check `:CocInfo` to see if the language servers are
+With coc.nvim I can also check `:CocInfo` to see if the language servers are
 running ok.
 
 ## Use the fruits of the labor
@@ -376,7 +376,7 @@ Have any vim and Elixir tips of your own? TWEEEEEEEET at me [@bernheisel]
 [asdf]: https://asdf-vm.com
 [vim-plug]: https://github.com/junegunn/vim-plug
 [ElixirLS]: https://github.com/elixir-lsp/elixir-ls
-[nvim.coc]: https://github.com/neoclide/coc.nvim
+[coc.nvim]: https://github.com/neoclide/coc.nvim
 [coc-elixir]: https://github.com/amiralies/coc-elixir
 [coc-diagnostic]: https://github.com/iamcco/coc-diagnostic
 [mix do]: https://hexdocs.pm/mix/Mix.Tasks.Do.html

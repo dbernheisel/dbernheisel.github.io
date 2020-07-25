@@ -22,7 +22,7 @@ Let's start with some basics:
 * [ArchLinux] - My distro of choice. Shouldn't matter for this article.
 * [i3] - My window manager. Shouldn't matter for this article.
 * [Plug] - for managing neovim plugins.
-* [nvim-coc] for languageserver integration.
+* [coc.nvim] for languageserver integration.
 * [dotfiles] - My dotfiles if you want the complete picture
 
 There are three ways that I can split my workspace: (1) via my window manager
@@ -42,7 +42,7 @@ splits/buffers. Generally I adhere to this practice:
 [i3]: https://github.com/Airblader/i3
 [kitty]: https://sw.kovidgoyal.net/kitty/
 [Plug]: https://github.com/junegunn/vim-plug
-[nvim-coc]: https://github.com/neoclide/coc.nvim
+[coc.nvim]: https://github.com/neoclide/coc.nvim
 [dotfiles]: https://github.com/dbernheisel/dotfiles
 
 ## Testing
