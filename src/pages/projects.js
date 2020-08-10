@@ -43,10 +43,10 @@ class ProjectsPage extends React.Component {
           <article>
             <h2 className="tracking-wider text-2xl font-bold">Elixir Utilities</h2>
             <div className="space-x-4">
-              <OutboundLink className="link" href="https://github.com/dbernheisel/elixir-utilities-web">
+              <OutboundLink className="link" href="https://github.com/zestcreative/elixir-utilities-web">
                 GitHub
               </OutboundLink>
-              <OutboundLink className="link" href="https://elixir-utilities.herokuapp.com">
+              <OutboundLink className="link" href="https://utils.zest.dev">
                 Visit
               </OutboundLink>
             </div>

@@ -84,7 +84,7 @@ export default class Nav extends React.Component {
         <div className={navClasses}>
           <NavLink {...this.props} to='/'>Blog</NavLink>
           <NavLink {...this.props} to='/projects/'>Projects</NavLink>
-          <OutboundNavLink href="https://elixir-utilities.herokuapp.com">Utilities</OutboundNavLink>
+          <OutboundNavLink href="https://utils.zest.dev">Utilities</OutboundNavLink>
           <OutboundNavLink href="https://twitter.com/bernheisel">Twitter</OutboundNavLink>
           <div className="py-1 mt-4 lg:mt-0">
             <a href='/rss.xml'>
